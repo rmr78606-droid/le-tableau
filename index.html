@@ -5,71 +5,135 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Le Tableau — Fine Wall Art</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg: #f7f6f3;
+      --text: #111;
+      --muted: #666;
+      --line: #e6e6e6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: 'Cormorant Garamond', serif;
-      background-color: #ffffff;
-      color: #111;
-      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Smooth scroll like iPhone */
+    html {
+      scroll-behavior: smooth;
     }
 
     header {
-      padding: 80px 10%;
+      padding: 90px 10%;
       text-align: center;
     }
 
-    header h1 {
-      font-size: 64px;
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
+      font-size: 64px;
       letter-spacing: 1px;
-      margin-bottom: 20px;
+      margin: 0;
     }
 
-    header p {
+    p {
+      margin-top: 18px;
       font-size: 18px;
-      color: #555;
-      max-width: 600px;
-      margin: auto;
+      color: var(--muted);
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     section {
-      padding: 100px 10%;
-      border-top: 1px solid #eee;
+      padding: 90px 10%;
+      border-top: 1px solid var(--line);
     }
 
     section h2 {
-      font-size: 36px;
+      font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
-      margin-bottom: 20px;
+      font-size: 36px;
+      margin-bottom: 24px;
     }
 
     section p {
+      font-size: 16px;
+      color: var(--muted);
       max-width: 700px;
-      color: #444;
     }
 
     footer {
       padding: 60px 10%;
       text-align: center;
       font-size: 14px;
-      color: #888;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+
+    /* Gallery Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 60px;
+      margin-top: 40px;
+    }
+
+    .art-item img {
+      width: 100%;
+      display: block;
+      border-radius: 10px;
+      transition: transform 0.6s ease;
+    }
+
+    .art-item img:hover {
+      transform: scale(1.03);
+    }
+
+    .art-item h3 {
+      margin-top: 18px;
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    .art-item p {
+      margin-top: 8px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Smooth fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 
 <body>
-
-  <header>
+  <header class="fade-in">
     <h1>Le Tableau</h1>
-    <p>Curated wall art for refined interiors.  
-    Timeless. Minimal. Intentional.</p>
+    <p>Curated wall art for refined interiors. Timeless. Minimal. Intentional.</p>
   </header>
 
-  <section>
+  <section class="fade-in">
     <h2>About the Collection</h2>
     <p>
       Le Tableau is a curated selection of contemporary and classic wall art,
@@ -78,7 +142,7 @@
     </p>
   </section>
 
-  <section>
+  <section class="fade-in">
     <h2>Philosophy</h2>
     <p>
       We believe walls should breathe.
@@ -87,9 +151,32 @@
     </p>
   </section>
 
-  <footer>
+  <section class="fade-in">
+    <h2>The Collection</h2>
+
+    <div class="grid">
+      <div class="art-item">
+        <img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305" alt="Art 1">
+        <h3>Silent Balance</h3>
+        <p>Abstract composition in soft neutrals</p>
+      </div>
+
+      <div class="art-item">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" alt="Art 2">
+        <h3>Still Form</h3>
+        <p>Architectural minimalism</p>
+      </div>
+
+      <div class="art-item">
+        <img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9" alt="Art 3">
+        <h3>Quiet Space</h3>
+        <p>Textured modern print</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="fade-in">
     © Le Tableau — All rights reserved
   </footer>
-
 </body>
 </html>
