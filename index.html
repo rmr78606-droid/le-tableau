@@ -28,21 +28,85 @@
 
     html { scroll-behavior: smooth; }
 
-    header {
-      padding: 80px 10%;
-      text-align: center;
+    .fade {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.9s ease forwards;
+    }
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    h1 {
+    header {
+      padding: 28px 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
       font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      font-size: 58px;
-      margin: 0;
+      font-size: 28px;
       letter-spacing: 1px;
     }
 
-    p {
-      margin-top: 16px;
+    .nav {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+    .nav a:hover { opacity: 1; }
+
+    .cart-btn {
+      position: relative;
+      border: 1px solid var(--line);
+      background: transparent;
+      padding: 10px 14px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .cart-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px var(--shadow);
+    }
+    .badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #111;
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 7px;
+      border-radius: 999px;
+    }
+
+    .hero {
+      padding: 90px 10% 60px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 56px;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+    .hero p {
+      margin-top: 14px;
       font-size: 18px;
       color: var(--muted);
       max-width: 650px;
@@ -50,18 +114,18 @@
       margin-right: auto;
       line-height: 1.6;
     }
-
-    .btn {
+    .hero .btn {
+      margin-top: 24px;
       border: 1px solid var(--text);
       background: transparent;
-      padding: 12px 20px;
+      padding: 12px 22px;
       border-radius: 10px;
       font-size: 14px;
       cursor: pointer;
       transition: transform 0.2s ease, background 0.2s ease;
       font-family: 'Inter', sans-serif;
     }
-    .btn:hover {
+    .hero .btn:hover {
       transform: translateY(-2px);
       background: #fff;
     }
@@ -91,6 +155,7 @@
       box-shadow: 0 12px 30px var(--shadow);
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
 
     .card:hover {
@@ -151,43 +216,6 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
-    .cart-items {
-      display: grid;
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .cart-item {
-      display: flex;
-      gap: 16px;
-      background: var(--card);
-      border-radius: 16px;
-      padding: 14px;
-      box-shadow: 0 12px 30px var(--shadow);
-      align-items: center;
-    }
-    .cart-item img {
-      width: 100px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    .cart-item-info { flex: 1; }
-    .cart-item-title {
-      font-family: 'Cormorant Garamond', serif;
-      margin: 0;
-    }
-
-    .cart-actions { display: flex; gap: 10px; }
-
-    .cart-empty {
-      text-align: center;
-      color: var(--muted);
-      margin-top: 20px;
-    }
-
-    /* Product details */
     .product-image {
       width: 100%;
       border-radius: 16px;
@@ -239,33 +267,154 @@
       border-radius: 10px;
       border: 1px solid var(--line);
     }
+
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 0.6fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 16px;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 12px 30px var(--shadow);
+      align-items: center;
+    }
+
+    .cart-item img {
+      width: 110px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .cart-item-info { flex: 1; }
+    .cart-item-title {
+      font-family: 'Cormorant Garamond', serif;
+      margin: 0;
+    }
+
+    .cart-actions { display: flex; gap: 10px; }
+
+    .cart-empty {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 20px;
+    }
+
+    .summary {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 12px 30px var(--shadow);
+    }
+
+    .summary h3 {
+      margin-top: 0;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      color: var(--muted);
+    }
+
+    .summary-row strong { color: var(--text); }
+
+    .checkout-btn {
+      width: 100%;
+      margin-top: 16px;
+      border: 1px solid var(--text);
+      background: transparent;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .best-sellers {
+      margin-top: 40px;
+    }
+
+    .delivery-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      margin-top: 30px;
+      margin-bottom: 14px;
+    }
+
+    /* Thank you message */
+    .thankyou {
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--card);
+      border-radius: 20px;
+      box-shadow: 0 14px 40px var(--shadow);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .thankyou h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      margin: 0;
+    }
+    .thankyou p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 14px;
+    }
+    .thankyou .home-btn {
+      margin-top: 22px;
+      border: 1px solid var(--text);
+      background: transparent;
+      padding: 12px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+    }
   </style>
 </head>
 
 <body>
-  <header id="home">
-    <h1>Le Tableau</h1>
-    <p>
-      Premium wall art, curated for modern interiors.
-      Choose a category, explore the collection, and order smoothly.
-    </p>
-    <button class="btn" onclick="navigateTo('categories')">Explore Collections</button>
+  <header>
+    <div class="brand">Le Tableau</div>
+    <nav class="nav">
+      <a href="#" onclick="navigateTo('categories')">Collections</a>
+      <a href="#" onclick="navigateTo('cart')">Cart</a>
+    </nav>
+
+    <button class="cart-btn" onclick="navigateTo('cart')">
+      Cart
+      <span class="badge" id="cartBadge">0</span>
+    </button>
   </header>
 
-  <!-- Categories -->
-  <section id="categories" class="page">
+  <section class="hero">
+    <h1>Premium wall art, calm & elegant.</h1>
+    <p>
+      Choose a collection, explore the pieces, and order smoothly.
+      Everything is designed to feel like a luxury gallery.
+    </p>
+    <button class="btn" onclick="navigateTo('categories')">Explore Collections</button>
+  </section>
+
+  <section id="categories" class="page active fade">
     <h2 class="section-title">Collections</h2>
     <div class="grid" id="categoriesGrid"></div>
   </section>
 
-  <!-- Products -->
-  <section id="products" class="page">
+  <section id="products" class="page fade">
     <h2 class="section-title" id="categoryTitle"></h2>
     <div class="grid" id="productsGrid"></div>
   </section>
 
-  <!-- Product Details -->
-  <section id="productDetails" class="page">
+  <section id="productDetails" class="page fade">
     <div class="grid" style="grid-template-columns: 1fr 1fr;">
       <div>
         <img id="productImage" class="product-image" src="" alt="Product">
@@ -291,24 +440,85 @@
     </div>
   </section>
 
-  <!-- Cart -->
-  <section id="cart" class="page">
+  <section id="cart" class="page fade">
     <h2 class="section-title">Cart</h2>
-    <div class="cart-items" id="cartItems"></div>
-    <div class="cart-empty" id="cartEmpty">Your cart is empty.</div>
 
-    <div style="margin-top: 30px;">
-      <h3 style="font-family:'Cormorant Garamond', serif;">Order Details</h3>
-      <p style="color:var(--muted);">Fill the details below and submit. Our team will contact you.</p>
+    <div class="cart-layout">
+      <div>
+        <div id="cartItems"></div>
+        <div class="cart-empty" id="cartEmpty">Your cart is empty.</div>
 
-      <form id="orderForm">
-        <div style="display:grid; gap: 12px; max-width: 500px;">
-          <input id="name" class="form-input" placeholder="Your Name">
-          <input id="email" class="form-input" placeholder="Email">
-          <textarea id="message" class="form-input" placeholder="Order Notes (optional)"></textarea>
-          <button class="btn" type="submit">Submit Order</button>
+        <div class="best-sellers">
+          <h3 class="section-title" style="font-size: 26px;">Best Sellers</h3>
+          <div class="grid" id="bestSellers"></div>
         </div>
-      </form>
+      </div>
+
+      <div class="summary">
+        <h3>Order Summary</h3>
+        <div class="summary-row">
+          <span>Items</span>
+          <strong id="summaryCount">0</strong>
+        </div>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <strong id="summarySubtotal">0 EGP</strong>
+        </div>
+        <div class="summary-row">
+          <span>Delivery</span>
+          <strong>Free</strong>
+        </div>
+        <div class="summary-row">
+          <span>Total</span>
+          <strong id="summaryTotal">0 EGP</strong>
+        </div>
+
+        <button class="checkout-btn" onclick="navigateTo('checkout')">Checkout</button>
+
+        <div class="delivery-title">Delivery Details</div>
+        <p style="color: var(--muted); line-height: 1.6;">
+          Fill the details in checkout to confirm your order.  
+          You can also contact us on WhatsApp for custom requests.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="checkout" class="page fade">
+    <h2 class="section-title">Checkout</h2>
+
+    <div class="cart-layout">
+      <div>
+        <h3 style="font-family:'Cormorant Garamond', serif;">Your Order</h3>
+        <div id="checkoutItems"></div>
+      </div>
+
+      <div class="summary">
+        <h3>Payment & Delivery</h3>
+        <p style="color: var(--muted); line-height: 1.6;">
+          Fill the details and we will contact you to confirm the order.
+        </p>
+
+        <form id="checkoutForm">
+          <div style="display:grid; gap: 12px;">
+            <input id="checkoutName" class="form-input" placeholder="Your Name" required>
+            <input id="checkoutPhone" class="form-input" placeholder="Phone Number" required>
+            <input id="checkoutAddress" class="form-input" placeholder="Delivery Address" required>
+            <button class="checkout-btn" type="submit">Confirm Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="thankyou" class="page fade">
+    <div class="thankyou">
+      <h2>Thank you for your order ✨</h2>
+      <p>
+        Your order has been received successfully.  
+        We will contact you soon to confirm the details and arrange delivery.
+      </p>
+      <button class="home-btn" onclick="navigateTo('categories')">Back to Home</button>
     </div>
   </section>
 
@@ -346,7 +556,9 @@
       document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
       document.getElementById(page).classList.add("active");
       window.scrollTo({ top: 0, behavior: "smooth" });
+
       if (page === "cart") renderCart();
+      if (page === "checkout") renderCheckout();
     }
 
     function loadCategories() {
@@ -405,8 +617,9 @@
 
     function updatePrice(price) {
       selectedSize = { size: document.querySelector(".size-btn.active").dataset.size, price };
+      const original = price + 200;
       document.getElementById("productPrice").innerHTML = `
-        ${price} EGP <span>Original</span>
+        ${price} EGP <span>${original} EGP</span>
       `;
     }
 
@@ -414,7 +627,7 @@
       btn.addEventListener("click", () => {
         document.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
-        updatePrice(btn.dataset.price);
+        updatePrice(parseInt(btn.dataset.price));
       });
     });
 
@@ -425,12 +638,16 @@
         size: selectedSize.size,
         price: selectedSize.price
       });
-      alert("Added to cart");
+      updateCartBadge();
     }
 
     function buyNow() {
       addToCart();
       navigateTo("cart");
+    }
+
+    function updateCartBadge() {
+      document.getElementById("cartBadge").innerText = cart.length;
     }
 
     function renderCart() {
@@ -456,21 +673,56 @@
           `;
         });
       }
+
+      renderSummary();
+      renderBestSellers();
+    }
+
+    function renderSummary() {
+      const count = cart.length;
+      const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+      const total = subtotal;
+
+      document.getElementById("summaryCount").innerText = count;
+      document.getElementById("summarySubtotal").innerText = subtotal + " EGP";
+      document.getElementById("summaryTotal").innerText = total + " EGP";
     }
 
     function removeFromCart(idx) {
       cart.splice(idx, 1);
+      updateCartBadge();
       renderCart();
     }
 
-    document.getElementById("orderForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      alert("Order submitted. We will contact you soon.");
-      navigateTo("home");
-    });
+    function renderBestSellers() {
+      const grid = document.getElementById("bestSellers");
+      grid.innerHTML = "";
 
-    loadCategories();
-    navigateTo("categories");
-  </script>
-</body>
-</html>
+      const best = products.slice(0, 4);
+      best.forEach(item => {
+        grid.innerHTML += `
+          <div class="card" onclick="openProduct('${item.id}')">
+            <img src="${item.img}" alt="${item.name}">
+            <div class="card-body">
+              <h3 class="card-title">${item.name}</h3>
+              <p class="card-desc">${item.desc}</p>
+              <div class="card-meta">
+                <span class="small">Starting at 450</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function renderCheckout() {
+      const checkoutItems = document.getElementById("checkoutItems");
+      checkoutItems.innerHTML = "";
+
+      cart.forEach(item => {
+        checkoutItems.innerHTML += `
+          <div class="cart-item">
+            <img src="${item.img}" alt="${item.name}">
+            <div class="cart-item-info">
+              <h4 class="cart-item-title">${item.name}</h4>
+              <p class="small">Size: ${item.size}</p>
