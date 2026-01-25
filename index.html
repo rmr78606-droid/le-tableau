@@ -3,22 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Le Tableau — Fine Wall Art</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
+  <title>Le Tableau</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f7f6f3;
       --text: #111;
       --muted: #666;
       --line: #e6e6e6;
+      --shadow: rgba(0,0,0,0.08);
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
@@ -27,156 +23,386 @@
       overflow-x: hidden;
     }
 
-    /* Smooth scroll like iPhone */
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     header {
-      padding: 90px 10%;
+      padding: 80px 10%;
       text-align: center;
     }
 
     h1 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
-      font-size: 64px;
-      letter-spacing: 1px;
+      font-size: 58px;
       margin: 0;
+      letter-spacing: 1px;
     }
 
     p {
-      margin-top: 18px;
+      margin-top: 16px;
       font-size: 18px;
       color: var(--muted);
       max-width: 650px;
       margin-left: auto;
       margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .btn {
+      border: 1px solid var(--text);
+      background: transparent;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      background: #fff;
     }
 
     section {
-      padding: 90px 10%;
+      padding: 60px 10%;
       border-top: 1px solid var(--line);
     }
 
-    section h2 {
+    .section-title {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
-      font-size: 36px;
+      font-size: 34px;
       margin-bottom: 24px;
     }
 
-    section p {
-      font-size: 16px;
-      color: var(--muted);
-      max-width: 700px;
-    }
-
-    footer {
-      padding: 60px 10%;
-      text-align: center;
-      font-size: 14px;
-      color: var(--muted);
-      border-top: 1px solid var(--line);
-    }
-
-    /* Gallery Grid */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 60px;
+      gap: 40px;
       margin-top: 40px;
     }
 
-    .art-item img {
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px var(--shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px var(--shadow);
+    }
+
+    .card img {
       width: 100%;
+      height: 260px;
+      object-fit: cover;
       display: block;
-      border-radius: 10px;
-      transition: transform 0.6s ease;
     }
 
-    .art-item img:hover {
-      transform: scale(1.03);
+    .card-body {
+      padding: 18px;
     }
 
-    .art-item h3 {
-      margin-top: 18px;
+    .card-title {
       font-size: 20px;
-      font-weight: 400;
+      font-family: 'Cormorant Garamond', serif;
+      margin: 0;
     }
 
-    .art-item p {
+    .card-desc {
       margin-top: 8px;
+      color: var(--muted);
       font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .card-meta {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .small {
+      font-size: 12px;
       color: var(--muted);
     }
 
-    /* Smooth fade-in animation */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 1.2s ease forwards;
+    /* page containers */
+    .page {
+      display: none;
+    }
+    .page.active {
+      display: block;
     }
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* floating whatsapp */
+    .whatsapp {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #111;
+      color: #fff;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    /* Cart */
+    .cart-items {
+      display: grid;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 16px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 12px 30px var(--shadow);
+      align-items: center;
+    }
+    .cart-item img {
+      width: 100px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+    .cart-item-title {
+      font-family: 'Cormorant Garamond', serif;
+      margin: 0;
+    }
+
+    .cart-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
-  <header class="fade-in">
+  <header id="home">
     <h1>Le Tableau</h1>
-    <p>Curated wall art for refined interiors. Timeless. Minimal. Intentional.</p>
+    <p>
+      Premium wall art, curated for modern interiors.
+      Choose a category, explore the collection, and order smoothly.
+    </p>
+    <button class="btn" onclick="navigateTo('categories')">Explore Collections</button>
   </header>
 
-  <section class="fade-in">
-    <h2>About the Collection</h2>
-    <p>
-      Le Tableau is a curated selection of contemporary and classic wall art,
-      designed to elevate calm, modern spaces.
-      Each piece is chosen for balance, texture, and emotional presence.
-    </p>
+  <!-- Categories -->
+  <section id="categories" class="page">
+    <h2 class="section-title">Collections</h2>
+    <div class="grid" id="categoriesGrid"></div>
   </section>
 
-  <section class="fade-in">
-    <h2>Philosophy</h2>
-    <p>
-      We believe walls should breathe.
-      Art should speak quietly.
-      Luxury is found in restraint, spacing, and thoughtful curation.
-    </p>
+  <!-- Products -->
+  <section id="products" class="page">
+    <h2 class="section-title" id="categoryTitle"></h2>
+    <div class="grid" id="productsGrid"></div>
   </section>
 
-  <section class="fade-in">
-    <h2>The Collection</h2>
-
-    <div class="grid">
-      <div class="art-item">
-        <img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305" alt="Art 1">
-        <h3>Silent Balance</h3>
-        <p>Abstract composition in soft neutrals</p>
+  <!-- Product Details -->
+  <section id="productDetails" class="page">
+    <div class="grid" style="grid-template-columns: 1fr 1fr;">
+      <div>
+        <img id="productImage" src="" alt="Product" style="width:100%; border-radius:16px;">
       </div>
-
-      <div class="art-item">
-        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" alt="Art 2">
-        <h3>Still Form</h3>
-        <p>Architectural minimalism</p>
-      </div>
-
-      <div class="art-item">
-        <img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9" alt="Art 3">
-        <h3>Quiet Space</h3>
-        <p>Textured modern print</p>
+      <div>
+        <h2 id="productName" style="font-family:'Cormorant Garamond', serif;"></h2>
+        <p id="productDesc" style="color:var(--muted); line-height:1.6;"></p>
+        <div style="margin-top: 20px;">
+          <button class="btn" onclick="addToCart()">Add to Cart</button>
+          <button class="btn" onclick="buyNow()">Buy Now</button>
+          <button class="btn" onclick="navigateTo('categories')">Back to Collections</button>
+        </div>
       </div>
     </div>
   </section>
 
-  <footer class="fade-in">
-    © Le Tableau — All rights reserved
-  </footer>
+  <!-- Cart -->
+  <section id="cart" class="page">
+    <h2 class="section-title">Cart</h2>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-empty" id="cartEmpty">Your cart is empty.</div>
+
+    <div style="margin-top: 30px;">
+      <h3 style="font-family:'Cormorant Garamond', serif;">Order Details</h3>
+      <p style="color:var(--muted);">Fill the details below and submit. Our team will contact you.</p>
+
+      <form id="orderForm">
+        <div style="display:grid; gap: 12px; max-width: 500px;">
+          <input id="name" placeholder="Your Name" style="padding: 12px; border-radius: 10px; border: 1px solid var(--line);">
+          <input id="email" placeholder="Email" style="padding: 12px; border-radius: 10px; border: 1px solid var(--line);">
+          <textarea id="message" placeholder="Order Notes (optional)" style="padding: 12px; border-radius: 10px; border: 1px solid var(--line);"></textarea>
+          <button class="btn" type="submit">Submit Order</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <a class="whatsapp" href="https://wa.me/201000000000" target="_blank">WhatsApp Support</a>
+
+  <script>
+    // Data
+    const categories = [
+      { id: "classic", name: "Classic Collection", desc: "Timeless and elegant wall art.", items: 12, img: "https://images.unsplash.com/photo-1526318472351-c75fcf070305" },
+      { id: "sacred", name: "Sacred & Spiritual", desc: "Meaningful and calm spiritual art.", items: 12, img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" },
+      { id: "pop", name: "Modern Pop & Typography", desc: "Posters, film art, typography, and more.", items: 12, img: "https://images.unsplash.com/photo-1493666438817-866a91353ca9" },
+      { id: "signature", name: "Le Tableau Signature", desc: "Exclusive and premium pieces.", items: 45, img: "https://images.unsplash.com/photo-1520975911707-9a0a6a4a0b30" },
+    ];
+
+    let products = [];
+    let cart = [];
+    let currentCategory = null;
+    let currentProduct = null;
+
+    // Generate dummy products
+    function generateProducts() {
+      categories.forEach(cat => {
+        for (let i = 1; i <= cat.items; i++) {
+          products.push({
+            id: `${cat.id}-${i}`,
+            category: cat.id,
+            name: `${cat.name} #${i}`,
+            desc: "This is a placeholder description. Replace with your own later.",
+            img: cat.img
+          });
+        }
+      });
+    }
+    generateProducts();
+
+    // Navigation
+    function navigateTo(page) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(page).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Load categories
+    function loadCategories() {
+      const grid = document.getElementById("categoriesGrid");
+      grid.innerHTML = "";
+      categories.forEach(cat => {
+        grid.innerHTML += `
+          <div class="card" onclick="openCategory('${cat.id}')">
+            <img src="${cat.img}" alt="${cat.name}">
+            <div class="card-body">
+              <h3 class="card-title">${cat.name}</h3>
+              <p class="card-desc">${cat.desc}</p>
+              <div class="card-meta">
+                <span class="small">${cat.items} items</span>
+                <span class="small">Explore →</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Open category
+    function openCategory(catId) {
+      currentCategory = categories.find(c => c.id === catId);
+      document.getElementById("categoryTitle").innerText = currentCategory.name;
+      const grid = document.getElementById("productsGrid");
+      grid.innerHTML = "";
+
+      const items = products.filter(p => p.category === catId);
+      items.forEach(item => {
+        grid.innerHTML += `
+          <div class="card" onclick="openProduct('${item.id}')">
+            <img src="${item.img}" alt="${item.name}">
+            <div class="card-body">
+              <h3 class="card-title">${item.name}</h3>
+              <p class="card-desc">${item.desc}</p>
+            </div>
+          </div>
+        `;
+      });
+
+      navigateTo("products");
+    }
+
+    // Open product
+    function openProduct(productId) {
+      currentProduct = products.find(p => p.id === productId);
+      document.getElementById("productName").innerText = currentProduct.name;
+      document.getElementById("productDesc").innerText = currentProduct.desc;
+      document.getElementById("productImage").src = currentProduct.img;
+
+      navigateTo("productDetails");
+    }
+
+    // Cart
+    function addToCart() {
+      if (!currentProduct) return;
+      cart.push(currentProduct);
+      alert("Added to cart");
+    }
+
+    function buyNow() {
+      addToCart();
+      navigateTo("cart");
+    }
+
+    function renderCart() {
+      const cartItems = document.getElementById("cartItems");
+      cartItems.innerHTML = "";
+      if (cart.length === 0) {
+        document.getElementById("cartEmpty").style.display = "block";
+      } else {
+        document.getElementById("cartEmpty").style.display = "none";
+        cart.forEach((item, idx) => {
+          cartItems.innerHTML += `
+            <div class="cart-item">
+              <img src="${item.img}" alt="${item.name}">
+              <div class="cart-item-info">
+                <h4 class="cart-item-title">${item.name}</h4>
+                <p class="small">Category: ${currentCategory ? currentCategory.name : "—"}</p>
+              </div>
+              <div class="cart-actions">
+                <button class="btn" onclick="removeFromCart(${idx})">Remove</button>
+              </div>
+            </div>
+          `;
+        });
+      }
+    }
+
+    function removeFromCart(idx) {
+      cart.splice(idx, 1);
+      renderCart();
+    }
+
+    // Order submit
+    document.getElementById("orderForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Order submitted. We will contact you soon.");
+      navigateTo("home");
+    });
+
+    // Init
+    loadCategories();
+    navigateTo("categories");
+  </script>
 </body>
 </html>
