@@ -318,4 +318,159 @@
     const categories = [
       { id: "classic", name: "Classic Collection", desc: "Timeless and elegant wall art.", items: 12, img: "https://images.unsplash.com/photo-1526318472351-c75fcf070305" },
       { id: "sacred", name: "Sacred & Spiritual", desc: "Meaningful and calm spiritual art.", items: 12, img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" },
-      { id: "pop", name: "Modern Pop & Typography", desc: "Posters, film art, typography, and more.", items: 12, img:
+      { id: "pop", name: "Modern Pop & Typography", desc: "Posters, film art, typography, and more.", items: 12, img: "https://images.unsplash.com/photo-1493666438817-866a91353ca9" },
+      { id: "signature", name: "Le Tableau Signature", desc: "Exclusive and premium pieces.", items: 45, img: "https://images.unsplash.com/photo-1520975911707-9a0a6a4a0b30" },
+    ];
+
+    let products = [];
+    let cart = [];
+    let currentProduct = null;
+    let selectedSize = { size: "50x70", price: 450 };
+
+    function generateProducts() {
+      categories.forEach(cat => {
+        for (let i = 1; i <= cat.items; i++) {
+          products.push({
+            id: `${cat.id}-${i}`,
+            category: cat.id,
+            name: `${cat.name} #${i}`,
+            desc: "This is a placeholder description. Replace with your own later.",
+            img: cat.img
+          });
+        }
+      });
+    }
+    generateProducts();
+
+    function navigateTo(page) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(page).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (page === "cart") renderCart();
+    }
+
+    function loadCategories() {
+      const grid = document.getElementById("categoriesGrid");
+      grid.innerHTML = "";
+      categories.forEach(cat => {
+        grid.innerHTML += `
+          <div class="card" onclick="openCategory('${cat.id}')">
+            <img src="${cat.img}" alt="${cat.name}">
+            <div class="card-body">
+              <h3 class="card-title">${cat.name}</h3>
+              <p class="card-desc">${cat.desc}</p>
+              <div class="card-meta">
+                <span class="small">${cat.items} items</span>
+                <span class="small">Explore →</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function openCategory(catId) {
+      const category = categories.find(c => c.id === catId);
+      document.getElementById("categoryTitle").innerText = category.name;
+      const grid = document.getElementById("productsGrid");
+      grid.innerHTML = "";
+      const items = products.filter(p => p.category === catId);
+
+      items.forEach(item => {
+        grid.innerHTML += `
+          <div class="card" onclick="openProduct('${item.id}')">
+            <img src="${item.img}" alt="${item.name}">
+            <div class="card-body">
+              <h3 class="card-title">${item.name}</h3>
+              <p class="card-desc">${item.desc}</p>
+              <div class="card-meta">
+                <span class="small">Starting at 450</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      navigateTo("products");
+    }
+
+    function openProduct(productId) {
+      currentProduct = products.find(p => p.id === productId);
+      document.getElementById("productName").innerText = currentProduct.name;
+      document.getElementById("productDesc").innerText = currentProduct.desc;
+      document.getElementById("productImage").src = currentProduct.img;
+      updatePrice(450);
+      navigateTo("productDetails");
+    }
+
+    function updatePrice(price) {
+      selectedSize = { size: document.querySelector(".size-btn.active").dataset.size, price };
+      document.getElementById("productPrice").innerHTML = `
+        ${price} EGP <span>Original</span>
+      `;
+    }
+
+    document.querySelectorAll(".size-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        updatePrice(btn.dataset.price);
+      });
+    });
+
+    function addToCart() {
+      if (!currentProduct) return;
+      cart.push({
+        ...currentProduct,
+        size: selectedSize.size,
+        price: selectedSize.price
+      });
+      alert("Added to cart");
+    }
+
+    function buyNow() {
+      addToCart();
+      navigateTo("cart");
+    }
+
+    function renderCart() {
+      const cartItems = document.getElementById("cartItems");
+      cartItems.innerHTML = "";
+      if (cart.length === 0) {
+        document.getElementById("cartEmpty").style.display = "block";
+      } else {
+        document.getElementById("cartEmpty").style.display = "none";
+        cart.forEach((item, idx) => {
+          cartItems.innerHTML += `
+            <div class="cart-item">
+              <img src="${item.img}" alt="${item.name}">
+              <div class="cart-item-info">
+                <h4 class="cart-item-title">${item.name}</h4>
+                <p class="small">Size: ${item.size}</p>
+                <p class="small">Price: ${item.price} EGP</p>
+              </div>
+              <div class="cart-actions">
+                <button class="btn" onclick="removeFromCart(${idx})">Remove</button>
+              </div>
+            </div>
+          `;
+        });
+      }
+    }
+
+    function removeFromCart(idx) {
+      cart.splice(idx, 1);
+      renderCart();
+    }
+
+    document.getElementById("orderForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Order submitted. We will contact you soon.");
+      navigateTo("home");
+    });
+
+    loadCategories();
+    navigateTo("categories");
+  </script>
+</body>
+</html>
