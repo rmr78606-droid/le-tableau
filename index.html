@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Le Tableau</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -26,87 +26,21 @@
       overflow-x: hidden;
     }
 
-    html { scroll-behavior: smooth; }
-
-    .fade {
-      opacity: 0;
-      transform: translateY(10px);
-      animation: fadeUp 0.9s ease forwards;
-    }
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     header {
-      padding: 28px 10%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
-      letter-spacing: 1px;
-    }
-
-    .nav {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-    }
-
-    .nav a {
-      text-decoration: none;
-      color: var(--text);
-      font-size: 14px;
-      font-weight: 500;
-      opacity: 0.8;
-    }
-    .nav a:hover { opacity: 1; }
-
-    .cart-btn {
-      position: relative;
-      border: 1px solid var(--line);
-      background: transparent;
-      padding: 10px 14px;
-      border-radius: 14px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .cart-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px var(--shadow);
-    }
-    .badge {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      background: #111;
-      color: #fff;
-      font-size: 12px;
-      padding: 4px 7px;
-      border-radius: 999px;
-    }
-
-    .hero {
-      padding: 90px 10% 60px;
+      padding: 80px 10%;
       text-align: center;
     }
-    .hero h1 {
+
+    h1 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
-      font-size: 56px;
+      font-size: 58px;
       margin: 0;
       letter-spacing: 1px;
     }
-    .hero p {
-      margin-top: 14px;
+
+    p {
+      margin-top: 16px;
       font-size: 18px;
       color: var(--muted);
       max-width: 650px;
@@ -114,18 +48,18 @@
       margin-right: auto;
       line-height: 1.6;
     }
-    .hero .btn {
-      margin-top: 24px;
+
+    .btn {
       border: 1px solid var(--text);
       background: transparent;
-      padding: 12px 22px;
+      padding: 12px 20px;
       border-radius: 10px;
       font-size: 14px;
       cursor: pointer;
       transition: transform 0.2s ease, background 0.2s ease;
       font-family: 'Inter', sans-serif;
     }
-    .hero .btn:hover {
+    .btn:hover {
       transform: translateY(-2px);
       background: #fff;
     }
@@ -155,7 +89,6 @@
       box-shadow: 0 12px 30px var(--shadow);
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
     }
 
     .card:hover {
@@ -215,311 +148,29 @@
       text-decoration: none;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
-
-    .product-image {
-      width: 100%;
-      border-radius: 16px;
-    }
-
-    .price {
-      margin-top: 12px;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
-      letter-spacing: 0.5px;
-    }
-
-    .price span {
-      font-size: 14px;
-      color: var(--muted);
-      text-decoration: line-through;
-      margin-left: 10px;
-    }
-
-    .sizes {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .size-btn {
-      border: 1px solid var(--line);
-      background: #fff;
-      padding: 12px;
-      border-radius: 14px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .size-btn:hover {
-      transform: translateY(-2px);
-      border-color: var(--text);
-    }
-
-    .size-btn.active {
-      border-color: #111;
-      background: #f2f2f2;
-    }
-
-    .form-input {
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid var(--line);
-    }
-
-    .cart-layout {
-      display: grid;
-      grid-template-columns: 1.4fr 0.6fr;
-      gap: 40px;
-      align-items: start;
-    }
-
-    .cart-item {
-      display: flex;
-      gap: 16px;
-      background: var(--card);
-      border-radius: 16px;
-      padding: 14px;
-      box-shadow: 0 12px 30px var(--shadow);
-      align-items: center;
-    }
-
-    .cart-item img {
-      width: 110px;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 12px;
-    }
-
-    .cart-item-info { flex: 1; }
-    .cart-item-title {
-      font-family: 'Cormorant Garamond', serif;
-      margin: 0;
-    }
-
-    .cart-actions { display: flex; gap: 10px; }
-
-    .cart-empty {
-      text-align: center;
-      color: var(--muted);
-      margin-top: 20px;
-    }
-
-    .summary {
-      background: var(--card);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 12px 30px var(--shadow);
-    }
-
-    .summary h3 {
-      margin-top: 0;
-      font-family: 'Cormorant Garamond', serif;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-      color: var(--muted);
-    }
-
-    .summary-row strong { color: var(--text); }
-
-    .checkout-btn {
-      width: 100%;
-      margin-top: 16px;
-      border: 1px solid var(--text);
-      background: transparent;
-      padding: 12px 16px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .best-sellers {
-      margin-top: 40px;
-    }
-
-    .delivery-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
-      margin-top: 30px;
-      margin-bottom: 14px;
-    }
-
-    /* Thank you message */
-    .thankyou {
-      text-align: center;
-      padding: 40px 20px;
-      background: var(--card);
-      border-radius: 20px;
-      box-shadow: 0 14px 40px var(--shadow);
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .thankyou h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 36px;
-      margin: 0;
-    }
-    .thankyou p {
-      color: var(--muted);
-      line-height: 1.6;
-      margin-top: 14px;
-    }
-    .thankyou .home-btn {
-      margin-top: 22px;
-      border: 1px solid var(--text);
-      background: transparent;
-      padding: 12px 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 14px;
-    }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="brand">Le Tableau</div>
-    <nav class="nav">
-      <a href="#" onclick="navigateTo('categories')">Collections</a>
-      <a href="#" onclick="navigateTo('cart')">Cart</a>
-    </nav>
-
-    <button class="cart-btn" onclick="navigateTo('cart')">
-      Cart
-      <span class="badge" id="cartBadge">0</span>
-    </button>
-  </header>
-
-  <section class="hero">
-    <h1>Premium wall art, calm & elegant.</h1>
+  <header id="home">
+    <h1>Le Tableau</h1>
     <p>
-      Choose a collection, explore the pieces, and order smoothly.
-      Everything is designed to feel like a luxury gallery.
+      Premium wall art, curated for modern interiors.
+      Choose a category, explore the collection, and order smoothly.
     </p>
     <button class="btn" onclick="navigateTo('categories')">Explore Collections</button>
-  </section>
+  </header>
 
-  <section id="categories" class="page active fade">
+  <!-- Categories -->
+  <section id="categories" class="page active">
     <h2 class="section-title">Collections</h2>
     <div class="grid" id="categoriesGrid"></div>
   </section>
 
-  <section id="products" class="page fade">
+  <!-- Products -->
+  <section id="products" class="page">
     <h2 class="section-title" id="categoryTitle"></h2>
     <div class="grid" id="productsGrid"></div>
-  </section>
-
-  <section id="productDetails" class="page fade">
-    <div class="grid" style="grid-template-columns: 1fr 1fr;">
-      <div>
-        <img id="productImage" class="product-image" src="" alt="Product">
-      </div>
-      <div>
-        <h2 id="productName" style="font-family:'Cormorant Garamond', serif;"></h2>
-        <p id="productDesc" style="color:var(--muted); line-height:1.6;"></p>
-
-        <div class="price" id="productPrice"></div>
-
-        <div class="sizes">
-          <button class="size-btn active" data-size="50x70" data-price="450">50 × 70 cm</button>
-          <button class="size-btn" data-size="70x100" data-price="999">70 × 100 cm</button>
-          <button class="size-btn" data-size="Set of 3" data-price="999">Set of 3 (40×60 each)</button>
-        </div>
-
-        <div style="margin-top: 20px;">
-          <button class="btn" onclick="addToCart()">Add to Cart</button>
-          <button class="btn" onclick="buyNow()">Buy Now</button>
-          <button class="btn" onclick="navigateTo('categories')">Back to Collections</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="cart" class="page fade">
-    <h2 class="section-title">Cart</h2>
-
-    <div class="cart-layout">
-      <div>
-        <div id="cartItems"></div>
-        <div class="cart-empty" id="cartEmpty">Your cart is empty.</div>
-
-        <div class="best-sellers">
-          <h3 class="section-title" style="font-size: 26px;">Best Sellers</h3>
-          <div class="grid" id="bestSellers"></div>
-        </div>
-      </div>
-
-      <div class="summary">
-        <h3>Order Summary</h3>
-        <div class="summary-row">
-          <span>Items</span>
-          <strong id="summaryCount">0</strong>
-        </div>
-        <div class="summary-row">
-          <span>Subtotal</span>
-          <strong id="summarySubtotal">0 EGP</strong>
-        </div>
-        <div class="summary-row">
-          <span>Delivery</span>
-          <strong>Free</strong>
-        </div>
-        <div class="summary-row">
-          <span>Total</span>
-          <strong id="summaryTotal">0 EGP</strong>
-        </div>
-
-        <button class="checkout-btn" onclick="navigateTo('checkout')">Checkout</button>
-
-        <div class="delivery-title">Delivery Details</div>
-        <p style="color: var(--muted); line-height: 1.6;">
-          Fill the details in checkout to confirm your order.  
-          You can also contact us on WhatsApp for custom requests.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section id="checkout" class="page fade">
-    <h2 class="section-title">Checkout</h2>
-
-    <div class="cart-layout">
-      <div>
-        <h3 style="font-family:'Cormorant Garamond', serif;">Your Order</h3>
-        <div id="checkoutItems"></div>
-      </div>
-
-      <div class="summary">
-        <h3>Payment & Delivery</h3>
-        <p style="color: var(--muted); line-height: 1.6;">
-          Fill the details and we will contact you to confirm the order.
-        </p>
-
-        <form id="checkoutForm">
-          <div style="display:grid; gap: 12px;">
-            <input id="checkoutName" class="form-input" placeholder="Your Name" required>
-            <input id="checkoutPhone" class="form-input" placeholder="Phone Number" required>
-            <input id="checkoutAddress" class="form-input" placeholder="Delivery Address" required>
-            <button class="checkout-btn" type="submit">Confirm Order</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <section id="thankyou" class="page fade">
-    <div class="thankyou">
-      <h2>Thank you for your order ✨</h2>
-      <p>
-        Your order has been received successfully.  
-        We will contact you soon to confirm the details and arrange delivery.
-      </p>
-      <button class="home-btn" onclick="navigateTo('categories')">Back to Home</button>
-    </div>
   </section>
 
   <a class="whatsapp" href="https://wa.me/201000000000" target="_blank">WhatsApp Support</a>
@@ -531,35 +182,6 @@
       { id: "pop", name: "Modern Pop & Typography", desc: "Posters, film art, typography, and more.", items: 12, img: "https://images.unsplash.com/photo-1493666438817-866a91353ca9" },
       { id: "signature", name: "Le Tableau Signature", desc: "Exclusive and premium pieces.", items: 45, img: "https://images.unsplash.com/photo-1520975911707-9a0a6a4a0b30" },
     ];
-
-    let products = [];
-    let cart = [];
-    let currentProduct = null;
-    let selectedSize = { size: "50x70", price: 450 };
-
-    function generateProducts() {
-      categories.forEach(cat => {
-        for (let i = 1; i <= cat.items; i++) {
-          products.push({
-            id: `${cat.id}-${i}`,
-            category: cat.id,
-            name: `${cat.name} #${i}`,
-            desc: "This is a placeholder description. Replace with your own later.",
-            img: cat.img
-          });
-        }
-      });
-    }
-    generateProducts();
-
-    function navigateTo(page) {
-      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-      document.getElementById(page).classList.add("active");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-
-      if (page === "cart") renderCart();
-      if (page === "checkout") renderCheckout();
-    }
 
     function loadCategories() {
       const grid = document.getElementById("categoriesGrid");
@@ -581,148 +203,37 @@
       });
     }
 
+    function navigateTo(page) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(page).classList.add("active");
+    }
+
     function openCategory(catId) {
       const category = categories.find(c => c.id === catId);
       document.getElementById("categoryTitle").innerText = category.name;
+
       const grid = document.getElementById("productsGrid");
       grid.innerHTML = "";
-      const items = products.filter(p => p.category === catId);
 
-      items.forEach(item => {
+      for (let i = 1; i <= category.items; i++) {
         grid.innerHTML += `
-          <div class="card" onclick="openProduct('${item.id}')">
-            <img src="${item.img}" alt="${item.name}">
+          <div class="card">
+            <img src="${category.img}" alt="${category.name}">
             <div class="card-body">
-              <h3 class="card-title">${item.name}</h3>
-              <p class="card-desc">${item.desc}</p>
+              <h3 class="card-title">${category.name} #${i}</h3>
+              <p class="card-desc">Placeholder description. Replace later.</p>
               <div class="card-meta">
-                <span class="small">Starting at 450</span>
+                <span class="small">Starting at 450 EGP</span>
               </div>
             </div>
           </div>
         `;
-      });
+      }
 
       navigateTo("products");
     }
 
-    function openProduct(productId) {
-      currentProduct = products.find(p => p.id === productId);
-      document.getElementById("productName").innerText = currentProduct.name;
-      document.getElementById("productDesc").innerText = currentProduct.desc;
-      document.getElementById("productImage").src = currentProduct.img;
-      updatePrice(450);
-      navigateTo("productDetails");
-    }
-
-    function updatePrice(price) {
-      selectedSize = { size: document.querySelector(".size-btn.active").dataset.size, price };
-      const original = price + 200;
-      document.getElementById("productPrice").innerHTML = `
-        ${price} EGP <span>${original} EGP</span>
-      `;
-    }
-
-    document.querySelectorAll(".size-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        updatePrice(parseInt(btn.dataset.price));
-      });
-    });
-
-    function addToCart() {
-      if (!currentProduct) return;
-      cart.push({
-        ...currentProduct,
-        size: selectedSize.size,
-        price: selectedSize.price
-      });
-      updateCartBadge();
-    }
-
-    function buyNow() {
-      addToCart();
-      navigateTo("cart");
-    }
-
-    function updateCartBadge() {
-      document.getElementById("cartBadge").innerText = cart.length;
-    }
-
-    function renderCart() {
-      const cartItems = document.getElementById("cartItems");
-      cartItems.innerHTML = "";
-      if (cart.length === 0) {
-        document.getElementById("cartEmpty").style.display = "block";
-      } else {
-        document.getElementById("cartEmpty").style.display = "none";
-        cart.forEach((item, idx) => {
-          cartItems.innerHTML += `
-            <div class="cart-item">
-              <img src="${item.img}" alt="${item.name}">
-              <div class="cart-item-info">
-                <h4 class="cart-item-title">${item.name}</h4>
-                <p class="small">Size: ${item.size}</p>
-                <p class="small">Price: ${item.price} EGP</p>
-              </div>
-              <div class="cart-actions">
-                <button class="btn" onclick="removeFromCart(${idx})">Remove</button>
-              </div>
-            </div>
-          `;
-        });
-      }
-
-      renderSummary();
-      renderBestSellers();
-    }
-
-    function renderSummary() {
-      const count = cart.length;
-      const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
-      const total = subtotal;
-
-      document.getElementById("summaryCount").innerText = count;
-      document.getElementById("summarySubtotal").innerText = subtotal + " EGP";
-      document.getElementById("summaryTotal").innerText = total + " EGP";
-    }
-
-    function removeFromCart(idx) {
-      cart.splice(idx, 1);
-      updateCartBadge();
-      renderCart();
-    }
-
-    function renderBestSellers() {
-      const grid = document.getElementById("bestSellers");
-      grid.innerHTML = "";
-
-      const best = products.slice(0, 4);
-      best.forEach(item => {
-        grid.innerHTML += `
-          <div class="card" onclick="openProduct('${item.id}')">
-            <img src="${item.img}" alt="${item.name}">
-            <div class="card-body">
-              <h3 class="card-title">${item.name}</h3>
-              <p class="card-desc">${item.desc}</p>
-              <div class="card-meta">
-                <span class="small">Starting at 450</span>
-              </div>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    function renderCheckout() {
-      const checkoutItems = document.getElementById("checkoutItems");
-      checkoutItems.innerHTML = "";
-
-      cart.forEach(item => {
-        checkoutItems.innerHTML += `
-          <div class="cart-item">
-            <img src="${item.img}" alt="${item.name}">
-            <div class="cart-item-info">
-              <h4 class="cart-item-title">${item.name}</h4>
-              <p class="small">Size: ${item.size}</p>
+    loadCategories();
+  </script>
+</body>
+</html>
