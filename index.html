@@ -67,25 +67,30 @@ nav a{
   content:"";
   position:absolute;
   inset:-20%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.35), transparent 60%);
+  background: radial-gradient(circle at center, rgba(255,255,255,0.25), transparent 60%);
   filter: blur(20px);
   animation: burn 6s ease-in-out infinite;
   opacity:0.8;
 }
 
 @keyframes burn{
-  0%{ transform:translate(-20px, -20px) scale(1); opacity:0.4; }
-  50%{ transform:translate(20px, 20px) scale(1.12); opacity:0.9; }
-  100%{ transform:translate(-20px, -20px) scale(1); opacity:0.4; }
-}
-@keyframes burn {
   0%{
+    transform:translate(-20px, -20px) scale(1);
+    opacity:0.35;
     filter: brightness(0.9) contrast(1.05);
   }
-  100%{
+  50%{
+    transform:translate(20px, 20px) scale(1.12);
+    opacity:0.9;
     filter: brightness(1.1) contrast(1.2);
   }
+  100%{
+    transform:translate(-20px, -20px) scale(1);
+    opacity:0.35;
+    filter: brightness(0.9) contrast(1.05);
+  }
 }
+
 .hero-content{
   color:#fff;
   animation:heroFade 1.6s ease forwards;
@@ -414,11 +419,11 @@ cats.forEach(cat=>{
 
     // show products animation
     const cards = document.querySelectorAll('.card');
-    cards.forEach(c=>{
-      if(c.getBoundingClientRect().top < window.innerHeight-80){
-        c.classList.add('show');
-      }
+    cards.forEach((c, i)=>{
+      setTimeout(()=> c.classList.add('show'), i * 80);
     });
+
+    window.scrollTo(0,0); // ترجع للـ top
   });
 });
 
@@ -426,6 +431,7 @@ cats.forEach(cat=>{
 document.getElementById('backBtn').addEventListener('click', ()=>{
   collectionPage.style.display = "none";
   mainPage.style.display = "block";
+  window.scrollTo(0,0); // ترجع للـ top
 });
 </script>
 
