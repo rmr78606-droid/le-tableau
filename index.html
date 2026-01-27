@@ -58,6 +58,16 @@ nav a{
   align-items:center;
   justify-content:center;
   text-align:center;
+  animation: burn 8s ease-in-out infinite alternate;
+}
+
+@keyframes burn {
+  0%{
+    filter: brightness(0.9) contrast(1.05);
+  }
+  100%{
+    filter: brightness(1.1) contrast(1.2);
+  }
 }
 .hero-content{
   color:#fff;
