@@ -67,30 +67,17 @@ nav a{
   content:"";
   position:absolute;
   inset:-20%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.25), transparent 60%);
+  background: radial-gradient(circle at center, rgba(255,255,255,0.35), transparent 60%);
   filter: blur(20px);
   animation: burn 6s ease-in-out infinite;
   opacity:0.8;
 }
 
 @keyframes burn{
-  0%{
-    transform:translate(-20px, -20px) scale(1);
-    opacity:0.35;
-    filter: brightness(0.9) contrast(1.05);
-  }
-  50%{
-    transform:translate(20px, 20px) scale(1.12);
-    opacity:0.9;
-    filter: brightness(1.1) contrast(1.2);
-  }
-  100%{
-    transform:translate(-20px, -20px) scale(1);
-    opacity:0.35;
-    filter: brightness(0.9) contrast(1.05);
-  }
+  0%{ transform:translate(-20px, -20px) scale(1); opacity:0.4; }
+  50%{ transform:translate(20px, 20px) scale(1.12); opacity:0.9; }
+  100%{ transform:translate(-20px, -20px) scale(1); opacity:0.4; }
 }
-
 .hero-content{
   color:#fff;
   animation:heroFade 1.6s ease forwards;
@@ -156,6 +143,16 @@ h2{
 .cat:hover{
   transform:translateY(-12px);
   box-shadow:0 30px 60px rgba(0,0,0,.12);
+}
+
+/* Islamic background */
+.cat.islamic {
+  background:
+    linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
+    url("islamic.jpg");
+  background-size:cover;
+  background-position:center;
+  color:#fff;
 }
 
 /* ABOUT */
@@ -315,7 +312,7 @@ footer{
   <h2>Our Collections</h2>
   <div class="categories">
     <div class="cat" data-cat="Classic">Classic</div>
-    <div class="cat" data-cat="Spiritual">Spiritual</div>
+    <div class="cat islamic" data-cat="Islamic">Islamic</div>
     <div class="cat" data-cat="Quotes & Posters">Quotes & Posters</div>
     <div class="cat" data-cat="Le Tableau Signature">Le Tableau Signature</div>
   </div>
@@ -419,11 +416,11 @@ cats.forEach(cat=>{
 
     // show products animation
     const cards = document.querySelectorAll('.card');
-    cards.forEach((c, i)=>{
-      setTimeout(()=> c.classList.add('show'), i * 80);
+    cards.forEach(c=>{
+      if(c.getBoundingClientRect().top < window.innerHeight-80){
+        c.classList.add('show');
+      }
     });
-
-    window.scrollTo(0,0); // ترجع للـ top
   });
 });
 
@@ -431,7 +428,6 @@ cats.forEach(cat=>{
 document.getElementById('backBtn').addEventListener('click', ()=>{
   collectionPage.style.display = "none";
   mainPage.style.display = "block";
-  window.scrollTo(0,0); // ترجع للـ top
 });
 </script>
 
