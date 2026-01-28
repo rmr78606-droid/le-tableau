@@ -62,7 +62,6 @@ nav a{
   overflow:hidden;
 }
 
-/* Overlay burn animation */
 .hero::before{
   content:"";
   position:absolute;
@@ -146,30 +145,10 @@ h2{
   box-shadow:0 30px 60px rgba(0,0,0,.12);
 }
 
-.cat.modern{
-  background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("modern.jpg");
-  background-size:cover;
-  background-position:center;
-  color:#fff;
-}
-.cat.islamic{
-  background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("islamic.jpg");
-  background-size:cover;
-  background-position:center;
-  color:#fff;
-}
-.cat.games{
-  background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("games.jpg");
-  background-size:cover;
-  background-position:center;
-  color:#fff;
-}
-.cat.quotes{
-  background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("post.jpg");
-  background-size:cover;
-  background-position:center;
-  color:#fff;
-}
+.cat.modern{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("modern.jpg");background-size:cover;color:#fff;}
+.cat.islamic{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("islamic.jpg");background-size:cover;color:#fff;}
+.cat.games{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("games.jpg");background-size:cover;color:#fff;}
+.cat.quotes{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("post.jpg");background-size:cover;color:#fff;}
 
 /* ABOUT */
 .about{
@@ -191,10 +170,6 @@ h2{
   padding:28px;
   border-radius:20px;
   margin-bottom:22px;
-  transition:.3s;
-}
-.faq-item:hover{
-  background:#f0f0f0;
 }
 
 /* FOOTER */
@@ -204,26 +179,13 @@ footer{
   color:#777;
 }
 
-@keyframes heroFade{
-  from{opacity:0;transform:scale(1.03);}
-  to{opacity:1;transform:scale(1);}
-}
-
 /* COLLECTION PAGE */
 .collection-page{
   display:none;
   background:#f5f5f7;
 }
 .collection-header{
-  padding:80px 60px 40px;
-  animation:fadeUp 1s ease;
-}
-.collection-header h1{
-  font-size:42px;
-}
-.collection-header p{
-  color:#666;
-  margin-top:10px;
+  padding:100px 60px 40px;
 }
 .grid{
   padding:40px 60px 100px;
@@ -256,28 +218,56 @@ footer{
 .card-content{
   padding:18px;
 }
-.card-content h4{
-  font-size:16px;
-  margin-bottom:6px;
+.price{font-size:15px;}
+.old{color:#999;text-decoration:line-through;margin-left:6px;}
+
+/* PRODUCT PAGE – NEW LAYOUT */
+.product-wrap{
+  max-width:720px;
+  margin:0 auto;
+  padding:40px 60px 120px;
 }
-.price{
-  font-size:15px;
+.product-image{
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,.15);
+  margin-bottom:40px;
 }
-.old{
-  color:#999;
-  text-decoration:line-through;
-  margin-left:6px;
+.product-image img{
+  width:100%;
+  display:block;
+}
+.product-info h2{
+  text-align:left;
+  font-size:34px;
+  margin-bottom:15px;
+}
+.product-info p{
+  color:#555;
+  line-height:1.8;
+  margin-bottom:25px;
+}
+.sizes{
+  display:flex;
+  gap:12px;
+  margin:20px 0 35px;
+}
+.size{
+  padding:10px 18px;
+  border:1px solid #ddd;
+  border-radius:999px;
+  cursor:pointer;
+  font-size:14px;
+}
+.size:hover{
+  background:#111;
+  color:#fff;
+  border-color:#111;
 }
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* BACK BUTTON */
 .back-btn{
   display:inline-block;
-  margin:20px 60px 0;
+  margin:90px 60px 0;
   padding:12px 28px;
   background:#fff;
   border-radius:999px;
@@ -286,25 +276,10 @@ footer{
   font-weight:600;
 }
 
-/* PAGE TRANSITION */
-.page-hide{animation:pageOut .45s ease forwards;}
-.page-show{animation:pageIn .55s ease forwards;}
-
-@keyframes pageOut{
-  from{opacity:1;transform:translateY(0)}
-  to{opacity:0;transform:translateY(-20px)}
-}
-@keyframes pageIn{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* MOBILE */
 @media(max-width:768px){
   nav{padding:18px 20px;}
-  section{padding:80px 20px;}
+  section,.grid,.collection-header,.product-wrap{padding-left:20px;padding-right:20px;}
   .hero h1{font-size:42px;}
-  nav,.collection-header,.grid{padding-left:20px;padding-right:20px}
 }
 </style>
 </head>
@@ -343,8 +318,7 @@ footer{
 <section id="about">
   <h2>About Le Tableau</h2>
   <div class="about">
-    Le Tableau creates curated wall art pieces designed to elevate
-    modern spaces with calm, elegance, and personality.
+    Le Tableau creates curated wall art pieces designed to elevate modern spaces.
   </div>
 </section>
 
@@ -357,7 +331,7 @@ footer{
   </div>
 </section>
 
-<footer>© 2026 Le Tableau — Crafted with elegance</footer>
+<footer>© 2026 Le Tableau</footer>
 </div>
 
 <!-- COLLECTION PAGE -->
@@ -371,19 +345,10 @@ footer{
 </div>
 
 <div class="grid" id="productGrid">
-  <!-- 12 cards -->
   <div class="card"><img src="https://picsum.photos/600/600?1"><div class="card-content"><h4>Artwork I</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/600?2"><div class="card-content"><h4>Artwork II</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/600?3"><div class="card-content"><h4>Artwork III</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/600?4"><div class="card-content"><h4>Artwork IV</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?5"><div class="card-content"><h4>Artwork V</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?6"><div class="card-content"><h4>Artwork VI</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?7"><div class="card-content"><h4>Artwork VII</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?8"><div class="card-content"><h4>Artwork VIII</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?9"><div class="card-content"><h4>Artwork IX</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?10"><div class="card-content"><h4>Artwork X</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?11"><div class="card-content"><h4>Artwork XI</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?12"><div class="card-content"><h4>Artwork XII</h4><div class="price">450 <span class="old">650</span></div></div></div>
 </div>
 </div>
 
@@ -392,27 +357,26 @@ footer{
 <nav><div class="logo">Le Tableau</div></nav>
 <a class="back-btn" id="backToCollection">← Back to Collection</a>
 
-<div class="collection-header">
-  <h1 id="productTitle">Artwork</h1>
-  <p>Premium wall art crafted with elegance</p>
-</div>
-
-<div style="padding:40px 60px 120px;display:grid;grid-template-columns:1fr 1fr;gap:60px">
-  <div style="border-radius:28px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.15)">
-    <img id="productImage" src="" style="width:100%;height:100%;object-fit:cover">
+<div class="product-wrap">
+  <div class="product-image">
+    <img id="productImage" src="">
   </div>
 
-  <div>
-    <h2 style="text-align:left">Timeless Art Piece</h2>
-    <p style="color:#555;line-height:1.7;margin:20px 0">
-      Museum-quality print designed to elevate refined interiors.
-    </p>
-    <div style="font-size:22px;margin-bottom:25px">
+  <div class="product-info">
+    <h2 id="productTitle">Artwork</h2>
+    <p>Museum-quality wall art crafted to bring calm elegance to refined interiors.</p>
+
+    <div style="font-size:22px;margin-bottom:10px">
       <strong>450 EGP</strong>
       <span class="old">650 EGP</span>
     </div>
-    <p><strong>Sizes:</strong> 30×40 • 40×60 • 60×90</p>
-    <br>
+
+    <div class="sizes">
+      <div class="size">30×40</div>
+      <div class="size">40×60</div>
+      <div class="size">60×90</div>
+    </div>
+
     <a href="#" class="btn" style="background:#111;color:#fff">Add to Cart</a>
   </div>
 </div>
@@ -440,13 +404,10 @@ const cards=document.querySelectorAll('.card');
 cats.forEach(cat=>{
   cat.addEventListener('click',()=>{
     collectionTitle.innerText=cat.dataset.cat+" Collection";
-    mainPage.classList.add('page-hide');
-    setTimeout(()=>{
-      mainPage.style.display="none";
-      collectionPage.style.display="block";
-      window.scrollTo(0,0);
-      cards.forEach((c,i)=>{setTimeout(()=>c.classList.add('show'),i*80)});
-    },450);
+    mainPage.style.display="none";
+    collectionPage.style.display="block";
+    window.scrollTo(0,0);
+    cards.forEach((c,i)=>setTimeout(()=>c.classList.add('show'),i*80));
   });
 });
 
@@ -463,12 +424,10 @@ cards.forEach(card=>{
 backBtn.onclick=()=>{
   collectionPage.style.display="none";
   mainPage.style.display="block";
-  window.scrollTo(0,0);
 };
 backToCollection.onclick=()=>{
   productPage.style.display="none";
   collectionPage.style.display="block";
-  window.scrollTo(0,0);
 };
 </script>
 
