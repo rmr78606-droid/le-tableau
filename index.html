@@ -1,170 +1,422 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Categories</title>
+<meta charset="UTF-8">
+<title>Le Tableau</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+}
+body{
+  background:#fff;
+  color:#111;
+}
 
-    body {
-      margin: 0;
-      background: #f2f2f2;
-    }
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:22px 60px;
+  position:fixed;
+  width:100%;
+  top:0;
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(14px);
+  z-index:10;
+}
+.logo{
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:0.5px;
+}
+nav ul{
+  display:flex;
+  list-style:none;
+  gap:32px;
+}
+nav a{
+  text-decoration:none;
+  color:#111;
+  font-weight:500;
+}
 
-    /* ================== MAIN PAGE ================== */
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      padding: 40px;
-    }
+/* HERO */
+.hero{
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),
+    url("hero.jpg");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
 
-    .category {
-      position: relative;
-      height: 220px;
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: pointer;
-      background-size: cover;
-      background-position: center;
-      filter: grayscale(100%);
-      transition: all 0.6s ease;
-    }
+/* Overlay burn animation */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.35), transparent 60%);
+  filter: blur(20px);
+  animation: burn 6s ease-in-out infinite;
+  opacity:0.8;
+}
 
-    .category::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      transition: 0.6s ease;
-    }
+@keyframes burn{
+  0%{ transform:translate(-20px, -20px) scale(1); opacity:0.4; }
+  50%{ transform:translate(20px, 20px) scale(1.12); opacity:0.9; }
+  100%{ transform:translate(-20px, -20px) scale(1); opacity:0.4; }
+}
+.hero-content{
+  color:#fff;
+  animation:heroFade 1.6s ease forwards;
+}
+.hero h1{
+  font-size:64px;
+  margin-bottom:18px;
+  font-weight:600;
+}
+.hero p{
+  font-size:18px;
+  opacity:.85;
+  margin-bottom:35px;
+}
+.btn{
+  padding:14px 40px;
+  border-radius:30px;
+  background:#fff;
+  color:#111;
+  text-decoration:none;
+  font-weight:500;
+  transition:.35s ease;
+}
+.btn:hover{
+  transform:translateY(-3px);
+  background:#f0f0f0;
+}
 
-    .category h2 {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      color: white;
-      font-size: 24px;
-      z-index: 2;
-      transition: 0.6s ease;
-    }
+/* SECTIONS */
+section{
+  padding:100px 60px;
+}
+h2{
+  text-align:center;
+  font-size:40px;
+  margin-bottom:55px;
+}
 
-    .category:hover {
-      filter: grayscale(0%);
-      transform: scale(1.03);
-    }
+/* COLLECTIONS */
+.categories{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:35px;
+}
+.cat{
+  height:260px;
+  border-radius:24px;
+  background:#fafafa;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:22px;
+  font-weight:500;
+  transition:.5s ease;
+  opacity:0;
+  transform:translateY(50px);
+  cursor:pointer;
+}
+.cat.show{
+  opacity:1;
+  transform:translateY(0);
+}
+.cat:hover{
+  transform:translateY(-12px);
+  box-shadow:0 30px 60px rgba(0,0,0,.12);
+}
 
-    .category:hover::before {
-      background: rgba(0,0,0,0.15);
-    }
+/* Modern background */
+.cat.modern{
+  background:
+    linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
+    url("modern.jpg");
+  background-size:cover;
+  background-position:center;
+  color:#fff;
+}
 
-    /* ================== CONTENT PAGE ================== */
-    .content {
-      display: none;
-      padding: 40px;
-      animation: fadeUp 0.6s ease;
-    }
+/* Islamic background */
+.cat.islamic{
+  background:
+    linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
+    url("islamic.jpg");
+  background-size:cover;
+  background-position:center;
+  color:#fff;
+}
 
-    .back {
-      margin-bottom: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      color: #333;
-    }
+/* Games background */
+.cat.games{
+  background:
+    linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
+    url("games.jpg");
+  background-size:cover;
+  background-position:center;
+  color:#fff;
+}
 
-    .items {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
+/* ABOUT */
+.about{
+  max-width:820px;
+  margin:auto;
+  text-align:center;
+  font-size:18px;
+  color:#444;
+  line-height:1.8;
+}
 
-    .item {
-      height: 180px;
-      background: #ddd;
-      border-radius: 14px;
-      animation: pop 0.6s ease;
-    }
+/* FAQ */
+.faq{
+  max-width:820px;
+  margin:auto;
+}
+.faq-item{
+  background:#fafafa;
+  padding:28px;
+  border-radius:20px;
+  margin-bottom:22px;
+  transition:.3s;
+}
+.faq-item:hover{
+  background:#f0f0f0;
+}
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:45px;
+  color:#777;
+}
 
-    @keyframes pop {
-      from { opacity: 0; transform: scale(0.9); }
-      to   { opacity: 1; transform: scale(1); }
-    }
+/* ANIMATIONS */
+@keyframes heroFade{
+  from{opacity:0;transform:scale(1.03);}
+  to{opacity:1;transform:scale(1);}
+}
 
-    @media (max-width: 900px) {
-      .categories, .items {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
+/* COLLECTION PAGE */
+.collection-page{
+  display:none;
+  background:#f5f5f7;
+}
+.collection-header{
+  padding:80px 60px 40px;
+  animation:fadeUp 1s ease;
+}
+.collection-header h1{
+  font-size:42px;
+}
+.collection-header p{
+  color:#666;
+  margin-top:10px;
+}
+.grid{
+  padding:40px 60px 100px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+.card{
+  background:#fff;
+  border-radius:22px;
+  overflow:hidden;
+  transition:.4s ease;
+  opacity:0;
+  transform:translateY(30px);
+}
+.card.show{
+  opacity:1;
+  transform:translateY(0);
+}
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 30px 60px rgba(0,0,0,.12);
+}
+.card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+.card-content{
+  padding:18px;
+}
+.card-content h4{
+  font-size:16px;
+  margin-bottom:6px;
+}
+.price{
+  font-size:15px;
+}
+.old{
+  color:#999;
+  text-decoration:line-through;
+  margin-left:6px;
+}
+
+/* fade animation */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* BACK BUTTON */
+.back-btn{
+  display:inline-block;
+  margin:20px 60px 0;
+  padding:12px 28px;
+  background:#fff;
+  border-radius:999px;
+  border:1px solid #ddd;
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:18px 20px;}
+  section{padding:80px 20px;}
+  .hero h1{font-size:42px;}
+  nav,.collection-header,.grid{padding-left:20px;padding-right:20px}
+}
+</style>
 </head>
 
 <body>
 
-<!-- ================== MAIN CATEGORIES ================== -->
-<div class="categories" id="mainPage">
+<!-- MAIN PAGE -->
+<div id="main-page">
+<nav>
+  <div class="logo">Le Tableau</div>
+  <ul>
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+</nav>
 
-  <div class="category" style="background-image:url('islamic.jpg')" onclick="openCategory()">
-    <h2>Islamic</h2>
+<div class="hero">
+  <div class="hero-content">
+    <h1>Art That Speaks</h1>
+    <p>Timeless wall art for refined interiors</p>
+    <a href="#collections" class="btn">Explore Collections</a>
   </div>
-
-  <div class="category" style="background-image:url('modern.jpg')" onclick="openCategory()">
-    <h2>Modern</h2>
-  </div>
-
-  <div class="category" style="background-image:url('games.jpg')" onclick="openCategory()">
-    <h2>Games & Other</h2>
-  </div>
-
-  <div class="category" style="background:#bbb" onclick="openCategory()">
-    <h2>Classic</h2>
-  </div>
-
 </div>
 
-<!-- ================== CONTENT PAGE ================== -->
-<div class="content" id="contentPage">
-  <div class="back" onclick="goBack()">← Back</div>
+<section id="collections">
+  <h2>Our Collections</h2>
+  <div class="categories">
+    <div class="cat modern" data-cat="Modern">Modern</div>
+    <div class="cat islamic" data-cat="Islamic">Islamic</div>
+    <div class="cat games" data-cat="Games & Other">Games & Other</div>
+    <div class="cat" data-cat="Quotes & Posters">Quotes & Posters</div>
+  </div>
+</section>
 
-  <div class="items">
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
+<section id="about">
+  <h2>About Le Tableau</h2>
+  <div class="about">
+    Le Tableau creates curated wall art pieces designed to elevate
+    modern spaces with calm, elegance, and personality.
+  </div>
+</section>
+
+<section id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <h4>What materials are used?</h4>
+      <p>Premium paper with museum-quality inks.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Delivery time?</h4>
+      <p>3–5 business days across Egypt.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Frames included?</h4>
+      <p>Frames are optional and customizable.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Le Tableau — Crafted with elegance
+</footer>
+</div>
+
+<!-- COLLECTION PAGE -->
+<div id="collection-page" class="collection-page">
+  <nav><div class="logo">Le Tableau</div></nav>
+  <a class="back-btn" id="backBtn">← Back to Home</a>
+
+  <div class="collection-header">
+    <h1 id="collectionTitle">Collection</h1>
+    <p>Timeless pieces curated for elegant interiors</p>
+  </div>
+
+  <div class="grid" id="productGrid">
+    <div class="card"><img src="https://picsum.photos/600/600?1"><div class="card-content"><h4>Artwork I</h4><div class="price">450 EGP <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/600?2"><div class="card-content"><h4>Artwork II</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/600?3"><div class="card-content"><h4>Artwork III</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/600?4"><div class="card-content"><h4>Artwork IV</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/600?5"><div class="card-content"><h4>Artwork V</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/600?6"><div class="card-content"><h4>Artwork VI</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/600?7"><div class="card-content"><h4>Artwork VII</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/600?8"><div class="card-content"><h4>Artwork VIII</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/600?9"><div class="card-content"><h4>Artwork IX</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/600?10"><div class="card-content"><h4>Artwork X</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/600?11"><div class="card-content"><h4>Artwork XI</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/600?12"><div class="card-content"><h4>Artwork XII</h4><div class="price">450 <span class="old">650</span></div></div></div>
   </div>
 </div>
 
 <script>
-  function openCategory() {
-    document.getElementById("mainPage").style.display = "none";
-    document.getElementById("contentPage").style.display = "block";
-    history.pushState({}, "");
-  }
+const items=document.querySelectorAll('.cat');
+window.addEventListener('scroll',()=>{
+  items.forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight - 120){
+      el.classList.add('show');
+    }
+  });
+});
 
-  function goBack() {
-    document.getElementById("contentPage").style.display = "none";
-    document.getElementById("mainPage").style.display = "grid";
-  }
+const cats=document.querySelectorAll('.cat');
+const mainPage=document.getElementById('main-page');
+const collectionPage=document.getElementById('collection-page');
+const collectionTitle=document.getElementById('collectionTitle');
 
-  window.onpopstate = function () {
-    goBack();
-  };
+cats.forEach(cat=>{
+  cat.addEventListener('click',()=>{
+    collectionTitle.innerText=cat.getAttribute('data-cat')+" Collection";
+    mainPage.style.display="none";
+    collectionPage.style.display="block";
+    document.querySelectorAll('.card').forEach(c=>c.classList.add('show'));
+  });
+});
+
+document.getElementById('backBtn').addEventListener('click',()=>{
+  collectionPage.style.display="none";
+  mainPage.style.display="block";
+});
 </script>
 
 </body>
