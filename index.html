@@ -145,41 +145,33 @@ h2{
   box-shadow:0 30px 60px rgba(0,0,0,.12);
 }
 
-/* Modern background */
+/* Modern */
 .cat.modern{
-  background:
-    linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
-    url("modern.jpg");
+  background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("modern.jpg");
   background-size:cover;
   background-position:center;
   color:#fff;
 }
 
-/* Islamic background */
+/* Islamic */
 .cat.islamic{
-  background:
-    linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
-    url("islamic.jpg");
+  background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("islamic.jpg");
   background-size:cover;
   background-position:center;
   color:#fff;
 }
 
-/* Games background */
+/* Games */
 .cat.games{
-  background:
-    linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
-    url("games.jpg");
+  background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("games.jpg");
   background-size:cover;
   background-position:center;
   color:#fff;
 }
 
-/* Quotes & Posters background */
-.cat.quotes{
-  background:
-    linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
-    url("post.jpg");
+/* Quotes */
+.cat.posters{
+  background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("post.jpg");
   background-size:cover;
   background-position:center;
   color:#fff;
@@ -205,10 +197,6 @@ h2{
   padding:28px;
   border-radius:20px;
   margin-bottom:22px;
-  transition:.3s;
-}
-.faq-item:hover{
-  background:#f0f0f0;
 }
 
 /* FOOTER */
@@ -218,7 +206,7 @@ footer{
   color:#777;
 }
 
-/* ANIMATIONS */
+/* HERO FADE */
 @keyframes heroFade{
   from{opacity:0;transform:scale(1.03);}
   to{opacity:1;transform:scale(1);}
@@ -226,26 +214,28 @@ footer{
 
 /* COLLECTION PAGE */
 .collection-page{
-  display:none;
   background:#f5f5f7;
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transform:translateY(30px);
+  pointer-events:none;
 }
+
 .collection-header{
   padding:80px 60px 40px;
   animation:fadeUp 1s ease;
 }
-.collection-header h1{
-  font-size:42px;
-}
-.collection-header p{
-  color:#666;
-  margin-top:10px;
-}
+.collection-header h1{font-size:42px;}
+.collection-header p{color:#666;margin-top:10px;}
+
 .grid{
   padding:40px 60px 100px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:30px;
 }
+
 .card{
   background:#fff;
   border-radius:22px;
@@ -267,29 +257,16 @@ footer{
   height:220px;
   object-fit:cover;
 }
-.card-content{
-  padding:18px;
-}
-.card-content h4{
-  font-size:16px;
-  margin-bottom:6px;
-}
-.price{
-  font-size:15px;
-}
-.old{
-  color:#999;
-  text-decoration:line-through;
-  margin-left:6px;
-}
+.card-content{padding:18px;}
+.price{font-size:15px;}
+.old{color:#999;text-decoration:line-through;margin-left:6px;}
 
-/* fade animation */
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(20px)}
   to{opacity:1;transform:translateY(0)}
 }
 
-/* BACK BUTTON */
+/* BACK */
 .back-btn{
   display:inline-block;
   margin:20px 60px 0;
@@ -301,20 +278,34 @@ footer{
   font-weight:600;
 }
 
+/* PAGE TRANSITION */
+#main-page,#collection-page{
+  transition:opacity .6s ease, transform .6s ease;
+}
+.page-hidden{
+  opacity:0;
+  transform:translateY(30px);
+  pointer-events:none;
+}
+.page-visible{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
 /* MOBILE */
 @media(max-width:768px){
   nav{padding:18px 20px;}
   section{padding:80px 20px;}
   .hero h1{font-size:42px;}
-  nav,.collection-header,.grid{padding-left:20px;padding-right:20px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- MAIN PAGE -->
-<div id="main-page">
+<div id="main-page" class="page-visible">
+
 <nav>
   <div class="logo">Le Tableau</div>
   <ul>
@@ -338,7 +329,7 @@ footer{
     <div class="cat modern" data-cat="Modern">Modern</div>
     <div class="cat islamic" data-cat="Islamic">Islamic</div>
     <div class="cat games" data-cat="Games & Other">Games & Other</div>
-    <div class="cat quotes" data-cat="Quotes & Posters">Quotes & Posters</div>
+    <div class="cat posters" data-cat="Quotes & Posters">Quotes & Posters</div>
   </div>
 </section>
 
@@ -353,50 +344,28 @@ footer{
 <section id="faq">
   <h2>Frequently Asked Questions</h2>
   <div class="faq">
-    <div class="faq-item">
-      <h4>What materials are used?</h4>
-      <p>Premium paper with museum-quality inks.</p>
-    </div>
-    <div class="faq-item">
-      <h4>Delivery time?</h4>
-      <p>3–5 business days across Egypt.</p>
-    </div>
-    <div class="faq-item">
-      <h4>Frames included?</h4>
-      <p>Frames are optional and customizable.</p>
-    </div>
+    <div class="faq-item"><h4>What materials are used?</h4><p>Premium paper with museum-quality inks.</p></div>
+    <div class="faq-item"><h4>Delivery time?</h4><p>3–5 business days across Egypt.</p></div>
+    <div class="faq-item"><h4>Frames included?</h4><p>Frames are optional.</p></div>
   </div>
 </section>
 
-<footer>
-  © 2026 Le Tableau — Crafted with elegance
-</footer>
+<footer>© 2026 Le Tableau</footer>
 </div>
 
-<!-- COLLECTION PAGE -->
-<div id="collection-page" class="collection-page">
-  <nav><div class="logo">Le Tableau</div></nav>
-  <a class="back-btn" id="backBtn">← Back to Home</a>
+<div id="collection-page" class="collection-page page-hidden">
+<nav><div class="logo">Le Tableau</div></nav>
+<a class="back-btn" id="backBtn">← Back</a>
 
-  <div class="collection-header">
-    <h1 id="collectionTitle">Collection</h1>
-    <p>Timeless pieces curated for elegant interiors</p>
-  </div>
+<div class="collection-header">
+  <h1 id="collectionTitle">Collection</h1>
+  <p>Timeless pieces curated for elegant interiors</p>
+</div>
 
-  <div class="grid" id="productGrid">
-    <div class="card"><img src="https://picsum.photos/600/600?1"><div class="card-content"><h4>Artwork I</h4><div class="price">450 EGP <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/600?2"><div class="card-content"><h4>Artwork II</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/600?3"><div class="card-content"><h4>Artwork III</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/600?4"><div class="card-content"><h4>Artwork IV</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/600?5"><div class="card-content"><h4>Artwork V</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/600?6"><div class="card-content"><h4>Artwork VI</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/600?7"><div class="card-content"><h4>Artwork VII</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/600?8"><div class="card-content"><h4>Artwork VIII</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/600?9"><div class="card-content"><h4>Artwork IX</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/600?10"><div class="card-content"><h4>Artwork X</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/600?11"><div class="card-content"><h4>Artwork XI</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/600?12"><div class="card-content"><h4>Artwork XII</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  </div>
+<div class="grid">
+  <div class="card"><img src="https://picsum.photos/600/600?1"><div class="card-content"><h4>Artwork I</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/600?2"><div class="card-content"><h4>Artwork II</h4><div class="price">450 <span class="old">650</span></div></div></div>
+</div>
 </div>
 
 <script>
@@ -412,21 +381,23 @@ window.addEventListener('scroll',()=>{
 const cats=document.querySelectorAll('.cat');
 const mainPage=document.getElementById('main-page');
 const collectionPage=document.getElementById('collection-page');
-const collectionTitle=document.getElementById('collectionTitle');
+const title=document.getElementById('collectionTitle');
 
 cats.forEach(cat=>{
-  cat.addEventListener('click',()=>{
-    collectionTitle.innerText=cat.getAttribute('data-cat')+" Collection";
-    mainPage.style.display="none";
-    collectionPage.style.display="block";
-    document.querySelectorAll('.card').forEach(c=>c.classList.add('show'));
-  });
+  cat.onclick=()=>{
+    title.innerText=cat.dataset.cat+" Collection";
+    mainPage.classList.replace('page-visible','page-hidden');
+    collectionPage.classList.replace('page-hidden','page-visible');
+    document.querySelectorAll('.card').forEach((c,i)=>{
+      setTimeout(()=>c.classList.add('show'),i*100);
+    });
+  }
 });
 
-document.getElementById('backBtn').addEventListener('click',()=>{
-  collectionPage.style.display="none";
-  mainPage.style.display="block";
-});
+backBtn.onclick=()=>{
+  collectionPage.classList.replace('page-visible','page-hidden');
+  mainPage.classList.replace('page-hidden','page-visible');
+}
 </script>
 
 </body>
