@@ -295,6 +295,19 @@ footer{
   transform:scale(0.985);
   box-shadow:0 10px 25px rgba(0,0,0,.08) inset;
 }
+  .faq-item::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.04);
+  opacity:0;
+  transition:.35s;
+  border-radius:20px;
+}
+
+.faq-item:active::after{
+  opacity:1;
+}
 </style>
 </head>
 
