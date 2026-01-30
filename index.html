@@ -404,17 +404,18 @@ footer{
     <p>Museum-quality wall art crafted to bring calm elegance to refined interiors.</p>
 
     <div style="font-size:22px;margin-bottom:10px">
-      <strong>450 EGP</strong>
-      <span class="old">650 EGP</span>
+      <strong>250 EGP</strong>
+      <span class="old">350 EGP</span>
     </div>
+<div class="sizes">
+  <div class="size">30×40</div>
+  <div class="size">40×60</div>
+  <div class="size">60×90</div>
+</div>
 
-    <div class="sizes">
-      <div class="size">30×40</div>
-      <div class="size">40×60</div>
-      <div class="size">60×90</div>
-    </div>
-
-    <a href="#" class="btn" style="background:#111;color:#fff">Add to Cart</a>
+<!-- حط الزرار هنا -->
+<button id="sizeGuideBtn" class="btn" style="background:#111;color:#fff;margin-top:15px">Size Guide</button>
+    
   </div>
 </div>
 </div>
@@ -476,7 +477,32 @@ backToCollection.onclick=()=>{
   productPage.style.display="none";
   collectionPage.style.display="block";
 };
-</script>
+  const sizeGuideBtn = document.getElementById('sizeGuideBtn');
+const sizeGuideModal = document.getElementById('sizeGuideModal');
+const closeSizeGuide = document.getElementById('closeSizeGuide');
 
+sizeGuideBtn.addEventListener('click', () => {
+  sizeGuideModal.style.display = 'flex';
+});
+
+closeSizeGuide.addEventListener('click', () => {
+  sizeGuideModal.style.display = 'none';
+});
+
+// كمان ممكن نغلقه لما المستخدم يضغط بره الصندوق
+sizeGuideModal.addEventListener('click', (e) => {
+  if(e.target === sizeGuideModal){
+    sizeGuideModal.style.display = 'none';
+  }
+});
+</script>
+<!-- SIZE GUIDE MODAL -->
+<div id="sizeGuideModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;z-index:999;">
+  <div style="background:#fff;padding:30px 40px;border-radius:20px;max-width:500px;width:90%;position:relative;text-align:center;">
+    <h2>Le Tableau Size Guide</h2>
+    <p>Small: 30×40 cm<br>Medium: 40×60 cm<br>Large: 60×90 cm</p>
+    <button id="closeSizeGuide" style="margin-top:20px;padding:10px 25px;border-radius:20px;border:none;background:#111;color:#fff;cursor:pointer">Close</button>
+  </div>
+</div>
 </body>
 </html>
