@@ -477,6 +477,22 @@ footer{
 </div>
 
 <script>
+  ;
+/* HERO ANIMATION TRIGGER */
+window.addEventListener("load",()=>{
+  const hero=document.querySelector(".hero-content");
+  if(hero) hero.classList.add("show");
+});
+
+/* CATEGORY ANIMATION */
+const items=document.querySelectorAll('.cat');
+window.addEventListener('scroll',()=>{
+  items.forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight - 120){
+      el.classList.add('show');
+    }
+  });
+});
   const modal = document.getElementById("sizeGuideModal");
 const btn = document.getElementById("sizeGuideBtn");
 const frame = document.getElementById("artFrame");
@@ -493,22 +509,7 @@ document.querySelectorAll(".size-options button").forEach(b=>{
   b.onclick = ()=>{
     frame.className = "art-frame " + b.dataset.size;
   };
-});
-/* HERO ANIMATION TRIGGER */
-window.addEventListener("load",()=>{
-  const hero=document.querySelector(".hero-content");
-  if(hero) hero.classList.add("show");
-});
-
-/* CATEGORY ANIMATION */
-const items=document.querySelectorAll('.cat');
-window.addEventListener('scroll',()=>{
-  items.forEach(el=>{
-    if(el.getBoundingClientRect().top < window.innerHeight - 120){
-      el.classList.add('show');
-    }
-  });
-});
+})
 
 /* PAGE NAVIGATION */
 const cats=document.querySelectorAll('.cat');
