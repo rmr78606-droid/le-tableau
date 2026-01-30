@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <title>Le Tableau</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 body{
   background:#fff;
@@ -26,17 +27,17 @@ nav{
   position:fixed;
   width:100%;
   top:0;
-  background:rgba(255,255,255,0.85);
+  background:rgba(255,255,255,0.9);
   backdrop-filter:blur(14px);
   z-index:100;
-  transition: 0.3s;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 .logo{
-  font-size:22px;
-  font-weight:700;
-  letter-spacing:0.5px;
+  font-family: 'Cinzel', serif; /* Font for Logo */
+  font-size:24px;
+  font-weight:600;
+  letter-spacing:1px;
 }
-/* Navigation Right Side (Links + Cart) */
 .nav-right{
   display: flex;
   align-items: center;
@@ -51,9 +52,12 @@ nav a{
   text-decoration:none;
   color:#111;
   font-weight:500;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* CART ICON STYLES */
+/* CART ICON */
 .cart-wrap{
   position: relative;
   cursor: pointer;
@@ -68,9 +72,9 @@ nav a{
   position: absolute;
   top: -8px;
   right: -8px;
-  background: #d32f2f; /* Red Alert Color */
+  background: #000;
   color: white;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: bold;
   height: 18px;
   width: 18px;
@@ -78,23 +82,18 @@ nav a{
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  opacity: 0; /* Hidden initially */
+  opacity: 0;
   transform: scale(0.5);
-  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: 0.3s;
 }
-.cart-badge.visible{
-  opacity: 1;
-  transform: scale(1);
-}
-.cart-badge.pop{
-  transform: scale(1.4);
-}
+.cart-badge.visible{ opacity: 1; transform: scale(1); }
+.cart-badge.pop{ transform: scale(1.4); }
 
 /* HERO */
 .hero{
   min-height:100vh;
   background:
-    linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),
+    linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),
     url("hero.jpg");
   background-size:cover;
   background-position:center;
@@ -105,60 +104,48 @@ nav a{
   position:relative;
   overflow:hidden;
 }
-
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:-20%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.35), transparent 60%);
-  filter: blur(20px);
-  animation: burn 6s ease-in-out infinite;
-  opacity:0.8;
-}
-
-@keyframes burn{
-  0%{ transform:translate(-20px, -20px) scale(1); opacity:0.4; }
-  50%{ transform:translate(20px, 20px) scale(1.12); opacity:0.9; }
-  100%{ transform:translate(-20px, -20px) scale(1); opacity:0.4; }
-}
-
 .hero-content{
   color:#fff;
   opacity:0;
   transform:translateY(40px);
   transition:1.4s ease;
   z-index: 2;
+  max-width: 600px;
 }
 .hero-content.show{
   opacity:1;
   transform:translateY(0);
 }
-
 .hero h1{
-  font-size:64px;
-  margin-bottom:18px;
-  font-weight:600;
+  font-family: 'Cinzel', serif;
+  font-size:58px;
+  margin-bottom:20px;
+  font-weight:400;
 }
 .hero p{
-  font-size:18px;
-  opacity:.85;
-  margin-bottom:35px;
+  font-size:16px;
+  opacity:.9;
+  margin-bottom:40px;
+  line-height: 1.6;
 }
 .btn{
-  padding:14px 40px;
-  border-radius:30px;
+  padding:16px 45px;
+  border-radius:0; /* More classic look */
   background:#fff;
   color:#111;
   text-decoration:none;
-  font-weight:500;
-  transition:.35s ease;
-  display: inline-block;
+  font-weight:600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition:.3s ease;
+  border: 1px solid #fff;
   cursor: pointer;
-  border: none;
+  display: inline-block;
 }
 .btn:hover{
-  transform:translateY(-3px);
-  background:#f0f0f0;
+  background:transparent;
+  color:#fff;
 }
 
 /* SECTIONS */
@@ -167,183 +154,191 @@ section{
 }
 h2{
   text-align:center;
-  font-size:40px;
-  margin-bottom:55px;
+  font-family: 'Cinzel', serif;
+  font-size:36px;
+  margin-bottom:60px;
+  font-weight: 400;
 }
 
 /* COLLECTIONS */
 .categories{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:35px;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
 }
 .cat{
-  height:260px;
-  border-radius:24px;
+  height:300px;
   background:#fafafa;
   display:flex;
   justify-content:center;
   align-items:center;
-  font-size:22px;
-  font-weight:500;
+  font-size:24px;
+  font-family: 'Cinzel', serif;
   transition:.5s ease;
-  opacity:0;
-  transform:translateY(50px);
   cursor:pointer;
   position: relative;
   overflow: hidden;
 }
-.cat.show{
-  opacity:1;
-  transform:translateY(0);
+.cat::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  transition: 0.5s;
 }
-.cat:hover{
-  transform:translateY(-12px);
-  box-shadow:0 30px 60px rgba(0,0,0,.12);
-}
+.cat:hover::before { background: rgba(0,0,0,0.5); }
+.cat:hover{ transform:translateY(-5px); }
+.cat span { position: relative; z-index: 2; color: #fff; letter-spacing: 1px; }
 
-/* BACKGROUNDS */
-.cat.modern{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("modern.jpg");background-size:cover;color:#fff;}
-.cat.islamic{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("islamic.jpg");background-size:cover;color:#fff;}
-.cat.games{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("games.jpg");background-size:cover;color:#fff;}
-.cat.quotes{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("post.jpg");background-size:cover;color:#fff;}
+.cat.modern{background:url("modern.jpg");background-size:cover;}
+.cat.islamic{background:url("islamic.jpg");background-size:cover;}
+.cat.games{background:url("games.jpg");background-size:cover;}
+.cat.quotes{background:url("post.jpg");background-size:cover;}
 
 /* ABOUT */
 .about{
-  max-width:820px;
+  max-width:800px;
   margin:auto;
   text-align:center;
   font-size:18px;
-  color:#444;
-  line-height:1.8;
+  color:#555;
+  line-height:1.9;
 }
 
 /* FAQ */
 .faq{
-  max-width:820px;
+  max-width:800px;
   margin:auto;
 }
 .faq-item{
-  background:#fafafa;
-  padding:28px;
-  border-radius:20px;
-  margin-bottom:22px;
-  position:relative;
-  overflow:hidden;
+  border-bottom: 1px solid #eee;
+  padding:25px 0;
   cursor:pointer;
-  transition:.3s ease;
 }
-.faq-item::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.06);
-  opacity:0;
-  transition:.25s ease;
-  border-radius:20px;
-}
-.faq-item:hover::after{
-  opacity:1;
-}
-.faq-item:hover{
-  transform:scale(.985);
-}
+.faq-item h4 { font-weight: 500; font-size: 18px; margin-bottom: 8px; }
+.faq-item p { color: #666; font-size: 15px; line-height: 1.6; }
 
-/* FOOTER */
+/* MEGA FOOTER (NEW & PREMIUM) */
 footer{
-  text-align:center;
-  padding:45px;
-  color:#777;
+  background: #111;
+  color: #fff;
+  padding: 80px 60px 30px;
+  font-size: 14px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 60px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 60px;
+}
+.footer-col h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.footer-col p { color: #999; line-height: 1.8; margin-bottom: 20px; }
+.footer-links a {
+  display: block;
+  color: #999;
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: 0.3s;
+}
+.footer-links a:hover { color: #fff; transform: translateX(5px); }
+.copyright {
+  text-align: center;
+  color: #555;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* COLLECTION PAGE */
 .collection-page{
   display:none;
-  background:#f5f5f7;
+  background:#fff;
   min-height: 100vh;
 }
 .collection-header{
-  padding:100px 60px 40px;
+  padding:140px 60px 40px;
+  text-align: center;
 }
+.collection-header h1 { font-family: 'Cinzel', serif; font-size: 42px; margin-bottom: 10px; font-weight: 400;}
+.collection-header p { color: #666; font-style: italic; }
+
 .grid{
-  padding:40px 60px 100px;
+  padding:0 60px 100px;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:30px;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:40px;
 }
 .card{
   background:#fff;
-  border-radius:22px;
-  overflow:hidden;
-  transition:.4s ease;
-  opacity:0;
-  transform:translateY(30px);
   cursor:pointer;
-}
-.card.show{
-  opacity:1;
-  transform:translateY(0);
-}
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 30px 60px rgba(0,0,0,.12);
 }
 .card img{
   width:100%;
-  height:220px;
+  aspect-ratio: 3/4; /* Consistent Ratio */
   object-fit:cover;
+  margin-bottom: 15px;
+  transition: 0.4s;
 }
-.card-content{
-  padding:18px;
-}
-.price{font-size:15px;}
-.old{color:#999;text-decoration:line-through;margin-left:6px;}
+.card:hover img { opacity: 0.8; }
+.card-content h4{ font-weight: 500; font-size: 16px; margin-bottom: 5px; }
+.price{font-size:14px; color: #555;}
+.old{color:#999;text-decoration:line-through;margin-left:6px; font-size: 12px;}
 
 /* PRODUCT PAGE */
 .product-wrap{
-  max-width:900px;
+  max-width:1100px;
   margin:0 auto;
-  padding:40px 60px 120px;
+  padding:140px 40px 60px;
   display: flex;
-  gap: 50px;
+  gap: 60px;
   align-items: flex-start;
 }
 .product-image{
-  flex: 1;
-  border-radius:28px;
-  overflow:hidden;
-  box-shadow:0 40px 80px rgba(0,0,0,.15);
+  flex: 1.2;
 }
 .product-image img{
   width:100%;
   display:block;
+  box-shadow: 0 0 0 1px #eee; /* Subtle border */
 }
 .product-info{
   flex: 1;
+  padding-top: 10px;
 }
 .product-info h2{
   text-align:left;
-  font-size:34px;
-  margin-bottom:15px;
+  font-family: 'Cinzel', serif;
+  font-size:32px;
+  margin-bottom:10px;
+  font-weight: 400;
 }
-.product-info p{
-  color:#555;
-  line-height:1.8;
+.short-desc {
+  color:#666;
+  line-height:1.6;
   margin-bottom:25px;
+  font-size: 15px;
 }
 .sizes{
   display:flex;
-  gap:12px;
+  gap:10px;
   margin:20px 0 15px;
-  flex-wrap: wrap;
 }
 .size{
-  padding:10px 18px;
+  padding:12px 20px;
   border:1px solid #ddd;
-  border-radius:999px;
   cursor:pointer;
-  font-size:14px;
+  font-size:13px;
   transition: 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 .size:hover, .size.active{
   background:#111;
@@ -351,195 +346,162 @@ footer{
   border-color:#111;
 }
 
-/* SIZE GUIDE BTN */
-.size-guide-btn {
-  background: transparent;
-  border: 1px dashed #999;
-  border-radius: 8px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 14px;
+/* NEW: PRODUCT DETAILS SECTION */
+.details-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  border-top: 1px solid #eee;
+}
+.details-title {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  margin-bottom: 40px;
+}
+.details-desc {
+  text-align: center;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 50px;
+  font-size: 16px;
+}
+/* Features Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  text-align: center;
+  margin-bottom: 60px;
+}
+.feature-box {
+  padding: 20px;
+  background: #fdfdfd;
+  border: 1px solid #f0f0f0;
+}
+.feature-icon { font-size: 24px; margin-bottom: 15px; display: block; }
+.feature-box h4 { font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.feature-box p { font-size: 13px; color: #777; line-height: 1.5; }
+
+/* MARKETING QUOTE */
+.marketing-quote {
+  text-align: center;
+  background: #f9f9f9;
+  padding: 60px 20px;
+  margin-bottom: 80px;
+}
+.marketing-quote h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
   color: #333;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+.marketing-quote p {
+  color: #777;
+  font-style: italic;
+}
+
+/* RECOMMENDATIONS */
+.recommendations {
+  max-width: 1200px;
+  margin: 0 auto 100px;
+  padding: 0 40px;
+}
+.recommendations h3 {
+  font-family: 'Cinzel', serif;
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+/* BUTTONS */
+.size-guide-btn {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 13px;
+  color: #555;
   margin-bottom: 30px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: inline-block;
+}
+.add-btn {
+  background: #111;
+  color: #fff;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
   transition: 0.3s;
 }
-.size-guide-btn:hover {
-  border-color: #000;
-  background: #f9f9f9;
-}
+.add-btn:hover { opacity: 0.9; }
 
 .back-btn{
   display:inline-block;
-  margin:90px 60px 0;
-  padding:12px 28px;
-  background:#fff;
-  border-radius:999px;
-  border:1px solid #ddd;
+  margin:0;
+  color: #777;
   text-decoration:none;
-  font-weight:600;
+  font-size: 13px;
   cursor: pointer;
 }
 
-/* =========================================
-   SIZE GUIDE MODAL
-   ========================================= */
+/* MODAL & TOAST STYLES (Kept same as before) */
 .modal-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
-  z-index: 2000;
-  display: none; 
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(8px);
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7); z-index: 2000; display: none; 
+  justify-content: center; align-items: center; backdrop-filter: blur(8px);
 }
 .modal-content {
-  background: #fff;
-  width: 95%;
-  max-width: 900px;
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-  animation: popIn 0.3s ease;
-  display: flex;
-  flex-direction: column;
+  background: #fff; width: 95%; max-width: 900px; border-radius: 4px;
+  overflow: hidden; animation: popIn 0.3s ease; display: flex; flex-direction: column;
 }
-@keyframes popIn {
-  from {transform: scale(0.95); opacity: 0;}
-  to {transform: scale(1); opacity: 1;}
-}
-.modal-header {
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #eee;
-}
-.close-modal {
-  font-size: 28px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  line-height: 1;
-}
-.room-container {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%;
-  background: url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=1200&auto=format&fit=crop') no-repeat center center;
-  background-size: cover;
-  overflow: hidden;
-}
-.room-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.05);
-}
-.frame-preview {
-  position: absolute;
-  background: #fff;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  border: 4px solid #222;
-  width: 0; 
-  aspect-ratio: 3/4; 
-}
-.frame-preview.s30x40 { width: 8.5%; aspect-ratio: 3/4; }
-.frame-preview.s40x60 { width: 11.4%; aspect-ratio: 2/3; }
-.frame-preview.s60x90 { width: 17.1%; aspect-ratio: 2/3; }
+@keyframes popIn { from {transform: scale(0.95); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+.modal-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
+.close-modal { font-size: 28px; cursor: pointer; background: none; border: none; }
+.room-container { position: relative; width: 100%; padding-bottom: 56.25%; background: url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=1200&auto=format&fit=crop') no-repeat center center; background-size: cover; }
+.frame-preview { position: absolute; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.4); top: 35%; left: 50%; transform: translate(-50%, -50%); border: 4px solid #222; width: 0; aspect-ratio: 3/4; transition: 0.5s; }
+.frame-preview.s30x40 { width: 8.5%; } .frame-preview.s40x60 { width: 11.4%; aspect-ratio: 2/3; } .frame-preview.s60x90 { width: 17.1%; aspect-ratio: 2/3; }
+.modal-controls { padding: 20px; text-align: center; background: #fff; }
+.modal-btn { padding: 10px 24px; margin: 0 5px; border: 1px solid #e0e0e0; background: #fff; cursor: pointer; }
+.modal-btn.active { background: #111; color: #fff; border-color: #111; }
 
-.modal-controls {
-  padding: 20px;
-  text-align: center;
-  background: #fff;
-}
-.modal-btn {
-  padding: 10px 24px;
-  margin: 0 5px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background: #fff;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.2s;
-}
-.modal-btn:hover { background: #f5f5f5; }
-.modal-btn.active {
-  background: #111;
-  color: #fff;
-  border-color: #111;
-}
-
-/* =========================================
-   TOAST NOTIFICATION
-   ========================================= */
-#toast {
-  visibility: hidden;
-  min-width: 250px;
-  background-color: #111;
-  color: #fff;
-  text-align: center;
-  border-radius: 50px;
-  padding: 16px;
-  position: fixed;
-  z-index: 3000;
-  left: 50%;
-  bottom: 30px;
-  transform: translateX(-50%) translateY(50px);
-  font-size: 15px;
-  font-weight: 500;
-  opacity: 0;
-  transition: all 0.5s;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-#toast.show {
-  visibility: visible;
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+#toast { visibility: hidden; min-width: 250px; background-color: #111; color: #fff; text-align: center; border-radius: 4px; padding: 16px; position: fixed; z-index: 3000; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(50px); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; opacity: 0; transition: all 0.5s; }
+#toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media(max-width:768px){
   nav{padding:18px 20px;}
-  /* Hide links on mobile, keep cart */
   nav ul { display: none; } 
-  section,.grid,.collection-header,.product-wrap{padding-left:20px;padding-right:20px;}
-  .product-wrap{flex-direction: column; padding-top: 20px;}
+  section,.grid,.collection-header,.product-wrap,.recommendations,.footer-grid{padding-left:20px;padding-right:20px;}
+  .product-wrap{flex-direction: column; padding-top: 100px;}
   .product-image{width: 100%; margin-bottom: 30px;}
   .hero h1{font-size:42px;}
-  
-  .frame-preview.s30x40 { width: 14%; }
-  .frame-preview.s40x60 { width: 18%; }
-  .frame-preview.s60x90 { width: 26%; }
+  .footer-grid{ grid-template-columns: 1fr; gap: 30px; padding-bottom: 30px;}
+  .copyright{ flex-direction: column; gap: 10px; }
+  .frame-preview.s30x40 { width: 14%; } .frame-preview.s40x60 { width: 18%; } .frame-preview.s60x90 { width: 26%; }
 }
 </style>
 </head>
 
 <body>
 
-<div id="toast">Added to cart successfully!</div>
+<div id="toast">Added to cart successfully</div>
 
 <div id="main-page">
 <nav>
   <div class="logo">Le Tableau</div>
-  
   <div class="nav-right">
     <ul>
       <li><a href="#collections">Collections</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
-
     <div class="cart-wrap">
-      <div class="cart-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-      </div>
+      <div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
       <span class="cart-badge" id="cartBadge">0</span>
     </div>
   </div>
@@ -548,7 +510,7 @@ footer{
 <div class="hero">
   <div class="hero-content">
     <h1>Art That Speaks</h1>
-    <p>Timeless wall art for refined interiors</p>
+    <p>Discover a curated selection of timeless wall art designed to bring calm elegance and character to your refined interiors.</p>
     <a href="#collections" class="btn">Explore Collections</a>
   </div>
 </div>
@@ -556,30 +518,66 @@ footer{
 <section id="collections">
   <h2>Our Collections</h2>
   <div class="categories">
-    <div class="cat modern" data-cat="Modern">Modern</div>
-    <div class="cat islamic" data-cat="Islamic">Islamic</div>
-    <div class="cat games" data-cat="Games & Other">Games & Other</div>
-    <div class="cat quotes" data-cat="Quotes & Posters">Quotes & Posters</div>
+    <div class="cat modern" data-cat="Modern"><span>Modern</span></div>
+    <div class="cat islamic" data-cat="Islamic"><span>Islamic</span></div>
+    <div class="cat games" data-cat="Games & Other"><span>Games & Other</span></div>
+    <div class="cat quotes" data-cat="Quotes & Posters"><span>Quotes & Posters</span></div>
   </div>
 </section>
 
 <section id="about">
-  <h2>About Le Tableau</h2>
+  <h2>The Philosophy</h2>
   <div class="about">
-    Le Tableau creates curated wall art pieces designed to elevate modern spaces.
+    At Le Tableau, we believe walls are the silent storytellers of a home. We don't just sell frames; we curate emotions. Every piece is crafted with meticulous attention to detail, ensuring that your space reflects your unique journey and taste.
   </div>
 </section>
 
 <section id="faq">
   <h2>Frequently Asked Questions</h2>
   <div class="faq">
-    <div class="faq-item"><h4>What materials are used?</h4><p>Premium paper with museum-quality inks.</p></div>
-    <div class="faq-item"><h4>Delivery time?</h4><p>3–5 business days across Egypt.</p></div>
-    <div class="faq-item"><h4>Frames included?</h4><p>Frames are optional and customizable.</p></div>
+    <div class="faq-item"><h4>What materials are used?</h4><p>We use premium 250gsm archival paper and solid wood frames with crystal-clear glass protection.</p></div>
+    <div class="faq-item"><h4>Delivery time?</h4><p>We deliver within 3–5 business days anywhere in Egypt, ensuring your art arrives safe and sound.</p></div>
+    <div class="faq-item"><h4>Warranty?</h4><p>All our frames come with a 1-year warranty against manufacturing defects.</p></div>
   </div>
 </section>
 
-<footer>© 2026 Le Tableau</footer>
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3>Le Tableau</h3>
+      <p>Elevating interiors with timeless art since 2026. Designed in Alexandria, cherished worldwide.</p>
+      <div style="display:flex; gap:15px; color:#fff;">
+        <span>Instagram</span>
+        <span>Facebook</span>
+        <span>Pinterest</span>
+      </div>
+    </div>
+    <div class="footer-col footer-links">
+      <h3>Shop</h3>
+      <a href="#">Modern Art</a>
+      <a href="#">Islamic Calligraphy</a>
+      <a href="#">Gaming Setup</a>
+      <a href="#">Minimalist</a>
+    </div>
+    <div class="footer-col footer-links">
+      <h3>Support</h3>
+      <a href="#">Track Order</a>
+      <a href="#">Shipping Policy</a>
+      <a href="#">Returns & Exchange</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h3>Newsletter</h3>
+      <p>Subscribe for exclusive drops.</p>
+      <input type="email" placeholder="Your email" style="width:100%; padding:10px; border:none; margin-bottom:10px;">
+      <button style="width:100%; padding:10px; background:#333; color:#fff; border:none; cursor:pointer;">Subscribe</button>
+    </div>
+  </div>
+  <div class="copyright">
+    <div>© 2026 Le Tableau. All rights reserved.</div>
+    <div>Privacy Policy &nbsp;|&nbsp; Terms of Service</div>
+  </div>
+</footer>
 </div>
 
 <div id="collection-page" class="collection-page">
@@ -590,26 +588,27 @@ footer{
   </div>
 </nav>
 
-<a class="back-btn" id="backBtn">← Back to Home</a>
-
 <div class="collection-header">
+  <a class="back-btn" id="backBtn" style="display:block; margin-bottom:20px;">← Back to Home</a>
   <h1 id="collectionTitle">Collection</h1>
-  <p>Timeless pieces curated for elegant interiors</p>
+  <p>Hand-picked pieces for the discerning collector</p>
 </div>
 <div class="grid" id="productGrid">
-  <div class="card"><img src="https://picsum.photos/600/600?1"><div class="card-content"><h4>Artwork I</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?2"><div class="card-content"><h4>Artwork II</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?3"><div class="card-content"><h4>Artwork III</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?4"><div class="card-content"><h4>Artwork IV</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?5"><div class="card-content"><h4>Artwork V</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?6"><div class="card-content"><h4>Artwork VI</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?7"><div class="card-content"><h4>Artwork VII</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?8"><div class="card-content"><h4>Artwork VIII</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?9"><div class="card-content"><h4>Artwork IX</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?10"><div class="card-content"><h4>Artwork X</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?11"><div class="card-content"><h4>Artwork XI</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?12"><div class="card-content"><h4>Artwork XII</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?1"><div class="card-content"><h4>Abstract Lines</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?2"><div class="card-content"><h4>Desert Vibes</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?3"><div class="card-content"><h4>Geometry I</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?4"><div class="card-content"><h4>Geometry II</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?5"><div class="card-content"><h4>Ocean Blue</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?6"><div class="card-content"><h4>Golden Touch</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?7"><div class="card-content"><h4>Mountain Mist</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?8"><div class="card-content"><h4>Urban Night</h4><div class="price">450 <span class="old">650</span></div></div></div>
 </div>
+
+<footer>
+  <div class="copyright">
+    <div>© 2026 Le Tableau. All rights reserved.</div>
+  </div>
+</footer>
 </div>
 
 <div id="product-page" class="collection-page" style="display:none;">
@@ -620,36 +619,112 @@ footer{
   </div>
 </nav>
 
-<a class="back-btn" id="backToCollection">← Back to Collection</a>
-
 <div class="product-wrap">
   <div class="product-image">
     <img id="productImage" src="">
   </div>
 
   <div class="product-info">
-    <h2 id="productTitle">Artwork</h2>
-    <p>Museum-quality wall art crafted to bring calm elegance to refined interiors.</p>
-
-    <div style="font-size:22px;margin-bottom:10px">
+    <a class="back-btn" id="backToCollection" style="margin-bottom:20px; display:block;">← Back to Collection</a>
+    <h2 id="productTitle">Artwork Name</h2>
+    <div style="font-size:24px; margin-bottom:20px; color:#111;">
       <strong>450 EGP</strong>
       <span class="old">650 EGP</span>
     </div>
 
-    <label style="font-weight:600; font-size:14px; margin-top:10px; display:block;">Select Size:</label>
+    <p class="short-desc">This premium artwork is printed on museum-grade paper, ensuring depth and clarity that lasts a lifetime. Perfect for adding a sophisticated touch to your living room or office.</p>
+
+    <label style="font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:1px; margin-top:10px; display:block;">Select Size</label>
     <div class="sizes">
-      <div class="size active" data-s="30x40">30×40</div>
-      <div class="size" data-s="40x60">40×60</div>
-      <div class="size" data-s="60x90">60×90</div>
+      <div class="size active" data-s="30x40">30×40 cm</div>
+      <div class="size" data-s="40x60">40×60 cm</div>
+      <div class="size" data-s="60x90">60×90 cm</div>
     </div>
 
-    <button class="size-guide-btn" id="openSizeGuide">
-      <span style="font-size:18px;">📏</span> Visual Size Guide
-    </button>
+    <button id="openSizeGuide" class="size-guide-btn">📏 View Size Guide (In Room)</button>
 
-    <button id="addToCartBtn" class="btn" style="background:#111;color:#fff;width:100%;text-align:center;">Add to Cart</button>
+    <button id="addToCartBtn" class="add-btn">Add to Cart</button>
   </div>
 </div>
+
+<div class="details-section">
+  <h3 class="details-title">The Craftsmanship</h3>
+  <p class="details-desc">
+    We don't just sell frames; we deliver an experience. Our Wooden Frame is crafted from 100% natural, sustainably sourced wood, providing a timeless, elegant addition to your decor. The frame’s crystal-clear glass front offers lasting protection, while the sturdy engineered back ensures stability. Each piece is printed using eco-solvent inks on premium archival paper, delivering vibrant colors and sharp details that refuse to fade.
+  </p>
+
+  <div class="features-grid">
+    <div class="feature-box">
+      <span class="feature-icon">🪵</span>
+      <h4>Solid Wood</h4>
+      <p>Premium natural wood for a classic, eco-friendly finish.</p>
+    </div>
+    <div class="feature-box">
+      <span class="feature-icon">💎</span>
+      <h4>Crystal Glass</h4>
+      <p>Durable glass front for clarity and artwork protection.</p>
+    </div>
+    <div class="feature-box">
+      <span class="feature-icon">🎨</span>
+      <h4>Vibrant Ink</h4>
+      <p>Eco-solvent inks ensure deep, rich colors that last.</p>
+    </div>
+    <div class="feature-box">
+      <span class="feature-icon">🔨</span>
+      <h4>Ready to Hang</h4>
+      <p>Arrives with pre-installed hardware for effortless display.</p>
+    </div>
+    <div class="feature-box">
+      <span class="feature-icon">🛡️</span>
+      <h4>1 Year Warranty</h4>
+      <p>We stand by our quality with a full year of coverage.</p>
+    </div>
+  </div>
+</div>
+
+<div class="marketing-quote">
+  <h3>"Timeless Wall Frames Made for Your Home"</h3>
+  <p>Feel the connection between design and emotion with frames crafted to elevate every corner.</p>
+</div>
+
+<div class="recommendations">
+  <h3>Curated For You</h3>
+  <div class="grid" style="padding:0; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+    <div class="card"><img src="https://picsum.photos/600/800?10"><div class="card-content"><h4>Midnight Calm</h4><div class="price">450</div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/800?11"><div class="card-content"><h4>Golden Horizon</h4><div class="price">450</div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/800?12"><div class="card-content"><h4>Marble Flow</h4><div class="price">450</div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/800?13"><div class="card-content"><h4>Abstract form</h4><div class="price">450</div></div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3>Le Tableau</h3>
+      <p>Art that speaks. Designed for the modern connoisseur.</p>
+    </div>
+    <div class="footer-col footer-links">
+      <h3>Help</h3>
+      <a href="#">Shipping</a>
+      <a href="#">Returns</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="footer-col footer-links">
+      <h3>Social</h3>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TikTok</a>
+    </div>
+    <div class="footer-col">
+      <h3>Stay Updated</h3>
+      <p>Join our list for exclusive offers.</p>
+      <input type="email" placeholder="Email Address" style="background:#222; border:none; padding:10px; color:#fff; width:100%;">
+    </div>
+  </div>
+  <div class="copyright">
+    <div>© 2026 Le Tableau. All rights reserved.</div>
+  </div>
+</footer>
 </div>
 
 <div class="modal-overlay" id="sizeModal">
@@ -660,12 +735,10 @@ footer{
     </div>
     
     <div class="room-container">
-      <div class="room-overlay"></div>
       <div class="frame-preview s30x40" id="framePreview"></div>
     </div>
 
     <div class="modal-controls">
-      <p style="margin-bottom:10px;color:#666;">Tap to change size</p>
       <button class="modal-btn active" onclick="updateFrame('s30x40', this)">30×40</button>
       <button class="modal-btn" onclick="updateFrame('s40x60', this)">40×60</button>
       <button class="modal-btn" onclick="updateFrame('s60x90', this)">60×90</button>
@@ -674,32 +747,17 @@ footer{
 </div>
 
 <script>
-/* HERO ANIMATION */
-window.addEventListener("load",()=>{
-  const hero=document.querySelector(".hero-content");
-  if(hero) hero.classList.add("show");
-});
+/* HERO */
+window.addEventListener("load",()=>{ const hero=document.querySelector(".hero-content"); if(hero) hero.classList.add("show"); });
 
-/* CATEGORY ANIMATION */
-const items=document.querySelectorAll('.cat');
-window.addEventListener('scroll',()=>{
-  items.forEach(el=>{
-    if(el.getBoundingClientRect().top < window.innerHeight - 120){
-      el.classList.add('show');
-    }
-  });
-});
-
-/* NAVIGATION LOGIC */
+/* NAV */
 const mainPage=document.getElementById('main-page');
 const collectionPage=document.getElementById('collection-page');
 const productPage=document.getElementById('product-page');
-
 const cats=document.querySelectorAll('.cat');
 const cards=document.querySelectorAll('.card');
 const backBtn=document.getElementById('backBtn');
 const backToCollection=document.getElementById('backToCollection');
-
 const collectionTitle=document.getElementById('collectionTitle');
 const productTitle=document.getElementById('productTitle');
 const productImage=document.getElementById('productImage');
@@ -709,37 +767,30 @@ cats.forEach(cat=>{
     collectionTitle.innerText=cat.dataset.cat+" Collection";
     mainPage.style.display="none";
     collectionPage.style.display="block";
-    productPage.style.display="none";
     window.scrollTo(0,0);
-    const gridCards = document.querySelectorAll('.grid .card');
-    gridCards.forEach((c,i)=> {
-      c.classList.remove('show');
-      setTimeout(()=>c.classList.add('show'),i*50);
-    });
   });
 });
 
-cards.forEach(card=>{
-  card.addEventListener('click',()=>{
-    productTitle.innerText=card.querySelector('h4').innerText;
-    productImage.src=card.querySelector('img').src;
+/* Click Logic for ALL cards (including recommendations) */
+// We use delegation or re-query because recommendations are static but logic is same
+document.body.addEventListener('click', function(e){
+  // Check if clicked element is inside a card
+  const card = e.target.closest('.card');
+  if(card){
+    productTitle.innerText = card.querySelector('h4').innerText;
+    productImage.src = card.querySelector('img').src;
     document.querySelectorAll('.size').forEach(s => s.classList.remove('active'));
     document.querySelector('.size').classList.add('active'); 
+    
+    mainPage.style.display="none";
     collectionPage.style.display="none";
     productPage.style.display="block";
     window.scrollTo(0,0);
-  });
+  }
 });
 
-backBtn.onclick=()=>{
-  collectionPage.style.display="none";
-  productPage.style.display="none";
-  mainPage.style.display="block";
-};
-backToCollection.onclick=()=>{
-  productPage.style.display="none";
-  collectionPage.style.display="block";
-};
+backBtn.onclick=()=>{ collectionPage.style.display="none"; mainPage.style.display="block"; };
+backToCollection.onclick=()=>{ productPage.style.display="none"; collectionPage.style.display="block"; };
 
 /* SIZE SELECTION */
 const sizeBtns = document.querySelectorAll('.size');
@@ -750,27 +801,14 @@ sizeBtns.forEach(btn => {
   });
 });
 
-/* MODAL LOGIC */
+/* MODAL */
 const modal = document.getElementById('sizeModal');
 const openBtn = document.getElementById('openSizeGuide');
 const closeBtn = document.getElementById('closeModal');
 const framePreview = document.getElementById('framePreview');
-
-openBtn.addEventListener('click', () => {
-  modal.style.display = 'flex';
-  updateFrame('s30x40', document.querySelector('.modal-btn'));
-});
-
-closeBtn.addEventListener('click', () => {
-  modal.style.display = 'none';
-});
-
-window.addEventListener('click', (e) => {
-  if (e.target == modal) {
-    modal.style.display = 'none';
-  }
-});
-
+if(openBtn) openBtn.addEventListener('click', () => { modal.style.display = 'flex'; updateFrame('s30x40', document.querySelector('.modal-btn')); });
+if(closeBtn) closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+window.addEventListener('click', (e) => { if (e.target == modal) modal.style.display = 'none'; });
 window.updateFrame = function(sizeClass, btnElement) {
   framePreview.className = 'frame-preview ' + sizeClass;
   const modalBtns = document.querySelectorAll('.modal-btn');
@@ -778,44 +816,24 @@ window.updateFrame = function(sizeClass, btnElement) {
   if(btnElement) btnElement.classList.add('active');
 }
 
-/* =========================================
-   CART LOGIC (NEW)
-   ========================================= */
+/* CART */
 let cartCount = 0;
 const addToCartBtn = document.getElementById('addToCartBtn');
 const toast = document.getElementById('toast');
-
-// We have multiple cart badges (one per page/nav), so we select all
 const badges = document.querySelectorAll('.cart-badge');
 
-addToCartBtn.addEventListener('click', function(e) {
-  e.preventDefault();
-  
-  // 1. Increment Count
+if(addToCartBtn) addToCartBtn.addEventListener('click', function(e) {
   cartCount++;
-  
-  // 2. Update Badges
   badges.forEach(badge => {
     badge.innerText = cartCount;
-    badge.classList.add('visible'); // Make sure it's visible
-    
-    // Reset animation
+    badge.classList.add('visible');
     badge.classList.remove('pop');
-    void badge.offsetWidth; // Trigger reflow to restart animation
+    void badge.offsetWidth; 
     badge.classList.add('pop');
   });
-
-  // 3. Show Toast Notification
-  showToast();
-});
-
-function showToast() {
   toast.className = "show";
-  // Hide after 3 seconds
-  setTimeout(function(){ 
-    toast.className = toast.className.replace("show", ""); 
-  }, 3000);
-}
+  setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+});
 </script>
 
 </body>
