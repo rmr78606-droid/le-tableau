@@ -29,11 +29,18 @@ nav{
   background:rgba(255,255,255,0.85);
   backdrop-filter:blur(14px);
   z-index:100;
+  transition: 0.3s;
 }
 .logo{
   font-size:22px;
   font-weight:700;
   letter-spacing:0.5px;
+}
+/* Navigation Right Side (Links + Cart) */
+.nav-right{
+  display: flex;
+  align-items: center;
+  gap: 32px;
 }
 nav ul{
   display:flex;
@@ -44,6 +51,43 @@ nav a{
   text-decoration:none;
   color:#111;
   font-weight:500;
+}
+
+/* CART ICON STYLES */
+.cart-wrap{
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.cart-icon svg{
+  width: 24px;
+  height: 24px;
+}
+.cart-badge{
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #d32f2f; /* Red Alert Color */
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  height: 18px;
+  width: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  opacity: 0; /* Hidden initially */
+  transform: scale(0.5);
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.cart-badge.visible{
+  opacity: 1;
+  transform: scale(1);
+}
+.cart-badge.pop{
+  transform: scale(1.4);
 }
 
 /* HERO */
@@ -110,6 +154,7 @@ nav a{
   transition:.35s ease;
   display: inline-block;
   cursor: pointer;
+  border: none;
 }
 .btn:hover{
   transform:translateY(-3px);
@@ -157,7 +202,7 @@ h2{
   box-shadow:0 30px 60px rgba(0,0,0,.12);
 }
 
-/* ORIGINAL BACKGROUNDS RESTORED */
+/* BACKGROUNDS */
 .cat.modern{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("modern.jpg");background-size:cover;color:#fff;}
 .cat.islamic{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("islamic.jpg");background-size:cover;color:#fff;}
 .cat.games{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("games.jpg");background-size:cover;color:#fff;}
@@ -173,7 +218,7 @@ h2{
   line-height:1.8;
 }
 
-/* FAQ RESTORED */
+/* FAQ */
 .faq{
   max-width:820px;
   margin:auto;
@@ -306,7 +351,7 @@ footer{
   border-color:#111;
 }
 
-/* NEW: SIZE GUIDE BUTTON */
+/* SIZE GUIDE BTN */
 .size-guide-btn {
   background: transparent;
   border: 1px dashed #999;
@@ -339,7 +384,7 @@ footer{
 }
 
 /* =========================================
-   SIZE GUIDE MODAL (ACCURATE SCALE)
+   SIZE GUIDE MODAL
    ========================================= */
 .modal-overlay {
   position: fixed;
@@ -384,8 +429,7 @@ footer{
 .room-container {
   position: relative;
   width: 100%;
-  /* We use a fixed aspect ratio for the room image */
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%;
   background: url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=1200&auto=format&fit=crop') no-repeat center center;
   background-size: cover;
   overflow: hidden;
@@ -393,34 +437,20 @@ footer{
 .room-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.05); /* Slight darken for contrast */
+  background: rgba(0,0,0,0.05);
 }
-
-/* THE FRAME VISUALIZER */
 .frame-preview {
   position: absolute;
   background: #fff;
   box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-  top: 35%; /* Wall position above sofa */
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   border: 4px solid #222;
-  
-  /* Using aspect-ratio property for accuracy */
-  width: 0; /* Set by JS/CSS classes */
+  width: 0; 
   aspect-ratio: 3/4; 
 }
-
-/* CALCULATION LOGIC:
-  Based on the specific background image:
-  - The visible room width is approx 3.5 meters (350cm).
-  - 30cm frame = 30/350 = 8.5% width
-  - 40cm frame = 40/350 = 11.4% width
-  - 60cm frame = 60/350 = 17.1% width
-  - 90cm frame = 90/350 = 25.7% width
-*/
-
 .frame-preview.s30x40 { width: 8.5%; aspect-ratio: 3/4; }
 .frame-preview.s40x60 { width: 11.4%; aspect-ratio: 2/3; }
 .frame-preview.s60x90 { width: 17.1%; aspect-ratio: 2/3; }
@@ -447,14 +477,43 @@ footer{
   border-color: #111;
 }
 
+/* =========================================
+   TOAST NOTIFICATION
+   ========================================= */
+#toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  border-radius: 50px;
+  padding: 16px;
+  position: fixed;
+  z-index: 3000;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%) translateY(50px);
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+#toast.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 @media(max-width:768px){
   nav{padding:18px 20px;}
+  /* Hide links on mobile, keep cart */
+  nav ul { display: none; } 
   section,.grid,.collection-header,.product-wrap{padding-left:20px;padding-right:20px;}
   .product-wrap{flex-direction: column; padding-top: 20px;}
   .product-image{width: 100%; margin-bottom: 30px;}
   .hero h1{font-size:42px;}
   
-  /* Adjust calculation for mobile view if image crops differently */
   .frame-preview.s30x40 { width: 14%; }
   .frame-preview.s40x60 { width: 18%; }
   .frame-preview.s60x90 { width: 26%; }
@@ -464,14 +523,26 @@ footer{
 
 <body>
 
+<div id="toast">Added to cart successfully!</div>
+
 <div id="main-page">
 <nav>
   <div class="logo">Le Tableau</div>
-  <ul>
-    <li><a href="#collections">Collections</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#faq">FAQ</a></li>
-  </ul>
+  
+  <div class="nav-right">
+    <ul>
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <div class="cart-wrap">
+      <div class="cart-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      </div>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+  </div>
 </nav>
 
 <div class="hero">
@@ -512,7 +583,13 @@ footer{
 </div>
 
 <div id="collection-page" class="collection-page">
-<nav><div class="logo">Le Tableau</div></nav>
+<nav>
+  <div class="logo">Le Tableau</div>
+  <div class="nav-right">
+    <div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div>
+  </div>
+</nav>
+
 <a class="back-btn" id="backBtn">← Back to Home</a>
 
 <div class="collection-header">
@@ -524,12 +601,10 @@ footer{
   <div class="card"><img src="https://picsum.photos/600/600?2"><div class="card-content"><h4>Artwork II</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/600?3"><div class="card-content"><h4>Artwork III</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/600?4"><div class="card-content"><h4>Artwork IV</h4><div class="price">450 <span class="old">650</span></div></div></div>
-
   <div class="card"><img src="https://picsum.photos/600/600?5"><div class="card-content"><h4>Artwork V</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/600?6"><div class="card-content"><h4>Artwork VI</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/600?7"><div class="card-content"><h4>Artwork VII</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/600?8"><div class="card-content"><h4>Artwork VIII</h4><div class="price">450 <span class="old">650</span></div></div></div>
-
   <div class="card"><img src="https://picsum.photos/600/600?9"><div class="card-content"><h4>Artwork IX</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/600?10"><div class="card-content"><h4>Artwork X</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/600?11"><div class="card-content"><h4>Artwork XI</h4><div class="price">450 <span class="old">650</span></div></div></div>
@@ -538,7 +613,13 @@ footer{
 </div>
 
 <div id="product-page" class="collection-page" style="display:none;">
-<nav><div class="logo">Le Tableau</div></nav>
+<nav>
+  <div class="logo">Le Tableau</div>
+  <div class="nav-right">
+    <div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div>
+  </div>
+</nav>
+
 <a class="back-btn" id="backToCollection">← Back to Collection</a>
 
 <div class="product-wrap">
@@ -566,7 +647,7 @@ footer{
       <span style="font-size:18px;">📏</span> Visual Size Guide
     </button>
 
-    <a href="#" class="btn" style="background:#111;color:#fff;width:100%;text-align:center;">Add to Cart</a>
+    <button id="addToCartBtn" class="btn" style="background:#111;color:#fff;width:100%;text-align:center;">Add to Cart</button>
   </div>
 </div>
 </div>
@@ -642,11 +723,8 @@ cards.forEach(card=>{
   card.addEventListener('click',()=>{
     productTitle.innerText=card.querySelector('h4').innerText;
     productImage.src=card.querySelector('img').src;
-    
-    // Reset product page state
     document.querySelectorAll('.size').forEach(s => s.classList.remove('active'));
     document.querySelector('.size').classList.add('active'); 
-    
     collectionPage.style.display="none";
     productPage.style.display="block";
     window.scrollTo(0,0);
@@ -663,7 +741,7 @@ backToCollection.onclick=()=>{
   collectionPage.style.display="block";
 };
 
-/* SIZE SELECTION ON PAGE */
+/* SIZE SELECTION */
 const sizeBtns = document.querySelectorAll('.size');
 sizeBtns.forEach(btn => {
   btn.addEventListener('click', function(){
@@ -680,7 +758,6 @@ const framePreview = document.getElementById('framePreview');
 
 openBtn.addEventListener('click', () => {
   modal.style.display = 'flex';
-  // Default to 30x40 when opening
   updateFrame('s30x40', document.querySelector('.modal-btn'));
 });
 
@@ -694,15 +771,50 @@ window.addEventListener('click', (e) => {
   }
 });
 
-/* FRAME RESIZING LOGIC */
 window.updateFrame = function(sizeClass, btnElement) {
-  // Update Frame Class
   framePreview.className = 'frame-preview ' + sizeClass;
-  
-  // Update Active Button
   const modalBtns = document.querySelectorAll('.modal-btn');
   modalBtns.forEach(b => b.classList.remove('active'));
   if(btnElement) btnElement.classList.add('active');
+}
+
+/* =========================================
+   CART LOGIC (NEW)
+   ========================================= */
+let cartCount = 0;
+const addToCartBtn = document.getElementById('addToCartBtn');
+const toast = document.getElementById('toast');
+
+// We have multiple cart badges (one per page/nav), so we select all
+const badges = document.querySelectorAll('.cart-badge');
+
+addToCartBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  
+  // 1. Increment Count
+  cartCount++;
+  
+  // 2. Update Badges
+  badges.forEach(badge => {
+    badge.innerText = cartCount;
+    badge.classList.add('visible'); // Make sure it's visible
+    
+    // Reset animation
+    badge.classList.remove('pop');
+    void badge.offsetWidth; // Trigger reflow to restart animation
+    badge.classList.add('pop');
+  });
+
+  // 3. Show Toast Notification
+  showToast();
+});
+
+function showToast() {
+  toast.className = "show";
+  // Hide after 3 seconds
+  setTimeout(function(){ 
+    toast.className = toast.className.replace("show", ""); 
+  }, 3000);
 }
 </script>
 
