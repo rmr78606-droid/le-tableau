@@ -569,6 +569,17 @@ sizeGuideModal.addEventListener('click', (e) => {
     sizeGuideModal.style.display = 'none';
   }
 });
+  const cats = document.querySelectorAll(".cat");
+const mainPage = document.getElementById("main-page");
+const collectionPage = document.getElementById("collection-page");
+
+cats.forEach(cat=>{
+  cat.addEventListener("click", ()=>{
+    mainPage.style.display = "none";
+    collectionPage.style.display = "block";
+    window.scrollTo(0,0);
+  });
+});
 </script>
 <!-- SIZE GUIDE MODAL -->
 <div id="sizeGuideModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;z-index:999;">
