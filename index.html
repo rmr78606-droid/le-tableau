@@ -418,7 +418,9 @@ footer{
   </div>
 </div>
 </div>
-
+<div id="openSizeGuide" style="margin-bottom:25px;font-size:14px;text-decoration:underline;cursor:pointer;">
+  Size Guide
+</div>
 <script>
 /* HERO ANIMATION TRIGGER */
 window.addEventListener("load",()=>{
@@ -476,7 +478,42 @@ backToCollection.onclick=()=>{
   productPage.style.display="none";
   collectionPage.style.display="block";
 };
-</script>
+  const sizeGuideBtn = document.getElementById("openSizeGuide");
+const sizeGuideOverlay = document.getElementById("sizeGuideOverlay");
+const closeSizeGuide = document.getElementById("closeSizeGuide");
 
+if(sizeGuideBtn){
+  sizeGuideBtn.onclick = ()=> {
+    sizeGuideOverlay.style.display="flex";
+  };
+}
+
+if(closeSizeGuide){
+  closeSizeGuide.onclick = ()=> {
+    sizeGuideOverlay.style.display="none";
+  };
+}
+</script>
+<!-- SIZE GUIDE MODAL -->
+<div id="sizeGuideOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:26px;max-width:900px;width:90%;padding:40px;position:relative;">
+    
+    <span id="closeSizeGuide" style="position:absolute;top:20px;right:25px;font-size:26px;cursor:pointer;">×</span>
+    
+    <h2 style="margin-bottom:25px;">Size Guide</h2>
+    
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;">
+      
+      <img src="https://i.imgur.com/8QfZQZx.png" style="width:100%;border-radius:18px;">
+      
+      <div style="font-size:16px;line-height:1.7;color:#444;">
+        <p><strong>30×40 cm</strong> – Ideal for small spaces & desks</p>
+        <p><strong>40×60 cm</strong> – Perfect above consoles & side tables</p>
+        <p><strong>60×90 cm</strong> – Statement piece above sofas & beds</p>
+      </div>
+      
+    </div>
+  </div>
+</div>
 </body>
 </html>
