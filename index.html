@@ -361,6 +361,54 @@ footer{
 <footer>© 2026 Le Tableau</footer>
 </div>
 
+<!-- COLLECTION PAGE -->
+<div id="collection-page" class="collection-page">
+<nav><div class="logo">Le Tableau</div></nav>
+<a class="back-btn" id="backBtn">← Back to Home</a>
+
+<div class="collection-header">
+  <h1 id="collectionTitle">Collection</h1>
+  <p>Timeless pieces curated for elegant interiors</p>
+</div>
+
+<div class="grid" id="productGrid">
+  <div class="card"><img src="https://picsum.photos/600/600?1"><div class="card-content"><h4>Artwork I</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/600?2"><div class="card-content"><h4>Artwork II</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/600?3"><div class="card-content"><h4>Artwork III</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/600?4"><div class="card-content"><h4>Artwork IV</h4><div class="price">450 <span class="old">650</span></div></div></div>
+</div>
+</div>
+
+<!-- PRODUCT PAGE -->
+<div id="product-page" class="collection-page">
+<nav><div class="logo">Le Tableau</div></nav>
+<a class="back-btn" id="backToCollection">← Back to Collection</a>
+
+<div class="product-wrap">
+  <div class="product-image">
+    <img id="productImage" src="">
+  </div>
+
+  <div class="product-info">
+    <h2 id="productTitle">Artwork</h2>
+    <p>Museum-quality wall art crafted to bring calm elegance to refined interiors.</p>
+
+    <div style="font-size:22px;margin-bottom:10px">
+      <strong>450 EGP</strong>
+      <span class="old">650 EGP</span>
+    </div>
+
+    <div class="sizes">
+      <div class="size">30×40</div>
+      <div class="size">40×60</div>
+      <div class="size">60×90</div>
+    </div>
+
+    <a href="#" class="btn" style="background:#111;color:#fff">Add to Cart</a>
+  </div>
+</div>
+</div>
+
 <script>
 /* HERO ANIMATION TRIGGER */
 window.addEventListener("load",()=>{
@@ -377,6 +425,47 @@ window.addEventListener('scroll',()=>{
     }
   });
 });
+
+/* PAGE NAVIGATION */
+const cats=document.querySelectorAll('.cat');
+const mainPage=document.getElementById('main-page');
+const collectionPage=document.getElementById('collection-page');
+const productPage=document.getElementById('product-page');
+const collectionTitle=document.getElementById('collectionTitle');
+const productTitle=document.getElementById('productTitle');
+const productImage=document.getElementById('productImage');
+const cards=document.querySelectorAll('.card');
+const backBtn=document.getElementById('backBtn');
+const backToCollection=document.getElementById('backToCollection');
+
+cats.forEach(cat=>{
+  cat.addEventListener('click',()=>{
+    collectionTitle.innerText=cat.dataset.cat+" Collection";
+    mainPage.style.display="none";
+    collectionPage.style.display="block";
+    window.scrollTo(0,0);
+    cards.forEach((c,i)=>setTimeout(()=>c.classList.add('show'),i*80));
+  });
+});
+
+cards.forEach(card=>{
+  card.addEventListener('click',()=>{
+    productTitle.innerText=card.querySelector('h4').innerText;
+    productImage.src=card.querySelector('img').src;
+    collectionPage.style.display="none";
+    productPage.style.display="block";
+    window.scrollTo(0,0);
+  });
+});
+
+backBtn.onclick=()=>{
+  collectionPage.style.display="none";
+  mainPage.style.display="block";
+};
+backToCollection.onclick=()=>{
+  productPage.style.display="none";
+  collectionPage.style.display="block";
+};
 </script>
 
 </body>
