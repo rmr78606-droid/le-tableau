@@ -308,6 +308,62 @@ footer{
   section,.grid,.collection-header,.product-wrap{padding-left:20px;padding-right:20px;}
   .hero h1{font-size:42px;}
 }
+  /* SIZE GUIDE MODAL */
+.size-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.size-box{
+  background:#fff;
+  border-radius:24px;
+  padding:35px;
+  width:520px;
+  text-align:center;
+}
+
+.preview-area{
+  position:relative;
+  height:320px;
+  margin:30px 0;
+}
+
+.human{
+  height:100%;
+  opacity:.9;
+}
+
+.art-frame{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  background:#ddd;
+  border:3px solid #111;
+}
+
+/* Size simulation */
+.art-frame.small{
+  width:90px;
+  height:120px;
+  top:60px;
+}
+
+.art-frame.medium{
+  width:130px;
+  height:180px;
+  top:40px;
+}
+
+.art-frame.large{
+  width:170px;
+  height:240px;
+  top:20px;
+}
 </style>
 </head>
 
@@ -421,6 +477,23 @@ footer{
 </div>
 
 <script>
+  const modal = document.getElementById("sizeGuideModal");
+const btn = document.getElementById("sizeGuideBtn");
+const frame = document.getElementById("artFrame");
+
+btn.onclick = () => {
+  modal.style.display = "flex";
+};
+
+document.querySelector(".close").onclick = () => {
+  modal.style.display = "none";
+};
+
+document.querySelectorAll(".size-options button").forEach(b=>{
+  b.onclick = ()=>{
+    frame.className = "art-frame " + b.dataset.size;
+  };
+});
 /* HERO ANIMATION TRIGGER */
 window.addEventListener("load",()=>{
   const hero=document.querySelector(".hero-content");
@@ -503,6 +576,29 @@ sizeGuideModal.addEventListener('click', (e) => {
     <p>Small: 30×40 cm<br>Medium: 40×60 cm<br>Large: 60×90 cm</p>
     <button id="closeSizeGuide" style="margin-top:20px;padding:10px 25px;border-radius:20px;border:none;background:#111;color:#fff;cursor:pointer">Close</button>
   </div>
+</div>
+  <div id="sizeGuideModal" class="size-modal">
+
+  <div class="size-box">
+
+    <h2>Find Your Perfect Size</h2>
+
+    <div class="preview-area">
+      <img src="human.png" class="human">
+
+      <div class="art-frame small" id="artFrame"></div>
+    </div>
+
+    <div class="size-options">
+      <button data-size="small">30 × 40</button>
+      <button data-size="medium">40 × 60</button>
+      <button data-size="large">60 × 90</button>
+    </div>
+
+    <button class="close">Close</button>
+
+  </div>
+
 </div>
 </body>
 </html>
