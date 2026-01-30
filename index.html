@@ -11,11 +11,12 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 body{
   background:#fff;
   color:#111;
+  overflow-x: hidden; /* Prevent horizontal scroll when drawer is closed */
 }
 
 /* NAV */
@@ -27,13 +28,13 @@ nav{
   position:fixed;
   width:100%;
   top:0;
-  background:rgba(255,255,255,0.9);
+  background:rgba(255,255,255,0.95);
   backdrop-filter:blur(14px);
   z-index:100;
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 .logo{
-  font-family: 'Cinzel', serif; /* Font for Logo */
+  font-family: 'Cinzel', serif;
   font-size:24px;
   font-weight:600;
   letter-spacing:1px;
@@ -67,11 +68,12 @@ nav a{
 .cart-icon svg{
   width: 24px;
   height: 24px;
+  stroke: #111;
 }
 .cart-badge{
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: -6px;
+  right: -6px;
   background: #000;
   color: white;
   font-size: 10px;
@@ -102,7 +104,6 @@ nav a{
   justify-content:center;
   text-align:center;
   position:relative;
-  overflow:hidden;
 }
 .hero-content{
   color:#fff;
@@ -112,25 +113,11 @@ nav a{
   z-index: 2;
   max-width: 600px;
 }
-.hero-content.show{
-  opacity:1;
-  transform:translateY(0);
-}
-.hero h1{
-  font-family: 'Cinzel', serif;
-  font-size:58px;
-  margin-bottom:20px;
-  font-weight:400;
-}
-.hero p{
-  font-size:16px;
-  opacity:.9;
-  margin-bottom:40px;
-  line-height: 1.6;
-}
+.hero-content.show{ opacity:1; transform:translateY(0); }
+.hero h1{ font-family: 'Cinzel', serif; font-size:58px; margin-bottom:20px; font-weight:400; }
+.hero p{ font-size:16px; opacity:.9; margin-bottom:40px; line-height: 1.6; }
 .btn{
   padding:16px 45px;
-  border-radius:0; /* More classic look */
   background:#fff;
   color:#111;
   text-decoration:none;
@@ -143,29 +130,14 @@ nav a{
   cursor: pointer;
   display: inline-block;
 }
-.btn:hover{
-  background:transparent;
-  color:#fff;
-}
+.btn:hover{ background:transparent; color:#fff; }
 
 /* SECTIONS */
-section{
-  padding:100px 60px;
-}
-h2{
-  text-align:center;
-  font-family: 'Cinzel', serif;
-  font-size:36px;
-  margin-bottom:60px;
-  font-weight: 400;
-}
+section{ padding:100px 60px; }
+h2{ text-align:center; font-family: 'Cinzel', serif; font-size:36px; margin-bottom:60px; font-weight: 400; }
 
 /* COLLECTIONS */
-.categories{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:30px;
-}
+.categories{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px; }
 .cat{
   height:300px;
   background:#fafafa;
@@ -179,308 +151,138 @@ h2{
   position: relative;
   overflow: hidden;
 }
-.cat::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.3);
-  transition: 0.5s;
-}
+.cat::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.3); transition: 0.5s; }
 .cat:hover::before { background: rgba(0,0,0,0.5); }
 .cat:hover{ transform:translateY(-5px); }
 .cat span { position: relative; z-index: 2; color: #fff; letter-spacing: 1px; }
 
+/* Placeholder backgrounds */
 .cat.modern{background:url("modern.jpg");background-size:cover;}
 .cat.islamic{background:url("islamic.jpg");background-size:cover;}
 .cat.games{background:url("games.jpg");background-size:cover;}
 .cat.quotes{background:url("post.jpg");background-size:cover;}
 
-/* ABOUT */
-.about{
-  max-width:800px;
-  margin:auto;
-  text-align:center;
-  font-size:18px;
-  color:#555;
-  line-height:1.9;
-}
-
-/* FAQ */
-.faq{
-  max-width:800px;
-  margin:auto;
-}
-.faq-item{
-  border-bottom: 1px solid #eee;
-  padding:25px 0;
-  cursor:pointer;
-}
-.faq-item h4 { font-weight: 500; font-size: 18px; margin-bottom: 8px; }
-.faq-item p { color: #666; font-size: 15px; line-height: 1.6; }
-
-/* MEGA FOOTER (NEW & PREMIUM) */
-footer{
-  background: #111;
-  color: #fff;
-  padding: 80px 60px 30px;
-  font-size: 14px;
-}
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 60px;
-  border-bottom: 1px solid #333;
-  padding-bottom: 60px;
-}
-.footer-col h3 {
-  font-family: 'Cinzel', serif;
-  font-size: 20px;
-  margin-bottom: 20px;
-  color: #fff;
-}
-.footer-col p { color: #999; line-height: 1.8; margin-bottom: 20px; }
-.footer-links a {
-  display: block;
-  color: #999;
-  text-decoration: none;
-  margin-bottom: 12px;
-  transition: 0.3s;
-}
-.footer-links a:hover { color: #fff; transform: translateX(5px); }
-.copyright {
-  text-align: center;
-  color: #555;
-  font-size: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+/* ABOUT & FAQ */
+.about, .faq{ max-width:800px; margin:auto; text-align:center; color:#555; line-height:1.9; }
+.faq-item{ border-bottom: 1px solid #eee; padding:25px 0; cursor:pointer; text-align: left; }
+.faq-item h4 { font-weight: 500; font-size: 18px; margin-bottom: 8px; color:#111; }
+.faq-item p { color: #666; font-size: 15px; }
 
 /* COLLECTION PAGE */
-.collection-page{
-  display:none;
-  background:#fff;
-  min-height: 100vh;
-}
-.collection-header{
-  padding:140px 60px 40px;
-  text-align: center;
-}
+.collection-page{ display:none; background:#fff; min-height: 100vh; }
+.collection-header{ padding:140px 60px 40px; text-align: center; }
 .collection-header h1 { font-family: 'Cinzel', serif; font-size: 42px; margin-bottom: 10px; font-weight: 400;}
-.collection-header p { color: #666; font-style: italic; }
-
-.grid{
-  padding:0 60px 100px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:40px;
-}
-.card{
-  background:#fff;
-  cursor:pointer;
-}
-.card img{
-  width:100%;
-  aspect-ratio: 3/4; /* Consistent Ratio */
-  object-fit:cover;
-  margin-bottom: 15px;
-  transition: 0.4s;
-}
+.grid{ padding:0 60px 100px; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:40px; }
+.card{ background:#fff; cursor:pointer; }
+.card img{ width:100%; aspect-ratio: 3/4; object-fit:cover; margin-bottom: 15px; transition: 0.4s; }
 .card:hover img { opacity: 0.8; }
 .card-content h4{ font-weight: 500; font-size: 16px; margin-bottom: 5px; }
 .price{font-size:14px; color: #555;}
 .old{color:#999;text-decoration:line-through;margin-left:6px; font-size: 12px;}
 
 /* PRODUCT PAGE */
-.product-wrap{
-  max-width:1100px;
-  margin:0 auto;
-  padding:140px 40px 60px;
-  display: flex;
-  gap: 60px;
-  align-items: flex-start;
-}
-.product-image{
-  flex: 1.2;
-}
-.product-image img{
-  width:100%;
-  display:block;
-  box-shadow: 0 0 0 1px #eee; /* Subtle border */
-}
-.product-info{
-  flex: 1;
-  padding-top: 10px;
-}
-.product-info h2{
-  text-align:left;
-  font-family: 'Cinzel', serif;
-  font-size:32px;
-  margin-bottom:10px;
-  font-weight: 400;
-}
-.short-desc {
-  color:#666;
-  line-height:1.6;
-  margin-bottom:25px;
-  font-size: 15px;
-}
-.sizes{
-  display:flex;
-  gap:10px;
-  margin:20px 0 15px;
-}
-.size{
-  padding:12px 20px;
-  border:1px solid #ddd;
-  cursor:pointer;
-  font-size:13px;
-  transition: 0.2s;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.size:hover, .size.active{
-  background:#111;
-  color:#fff;
-  border-color:#111;
-}
+.product-wrap{ max-width:1100px; margin:0 auto; padding:140px 40px 60px; display: flex; gap: 60px; align-items: flex-start; }
+.product-image{ flex: 1.2; }
+.product-image img{ width:100%; display:block; box-shadow: 0 0 0 1px #eee; }
+.product-info{ flex: 1; padding-top: 10px; }
+.product-info h2{ text-align:left; font-family: 'Cinzel', serif; font-size:32px; margin-bottom:10px; font-weight: 400; }
+.sizes{ display:flex; gap:10px; margin:20px 0 15px; }
+.size{ padding:12px 20px; border:1px solid #ddd; cursor:pointer; font-size:13px; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+.size:hover, .size.active{ background:#111; color:#fff; border-color:#111; }
 
-/* NEW: PRODUCT DETAILS SECTION */
-.details-section {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 60px 40px;
-  border-top: 1px solid #eee;
-}
-.details-title {
-  text-align: center;
-  font-family: 'Cinzel', serif;
-  font-size: 28px;
-  margin-bottom: 40px;
-}
-.details-desc {
-  text-align: center;
-  color: #555;
-  line-height: 1.8;
-  margin-bottom: 50px;
-  font-size: 16px;
-}
-/* Features Grid */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  text-align: center;
-  margin-bottom: 60px;
-}
-.feature-box {
-  padding: 20px;
-  background: #fdfdfd;
-  border: 1px solid #f0f0f0;
-}
-.feature-icon { font-size: 24px; margin-bottom: 15px; display: block; }
-.feature-box h4 { font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-.feature-box p { font-size: 13px; color: #777; line-height: 1.5; }
-
-/* MARKETING QUOTE */
-.marketing-quote {
-  text-align: center;
-  background: #f9f9f9;
-  padding: 60px 20px;
-  margin-bottom: 80px;
-}
-.marketing-quote h3 {
-  font-family: 'Cinzel', serif;
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 10px;
-  font-weight: 400;
-}
-.marketing-quote p {
-  color: #777;
-  font-style: italic;
-}
-
-/* RECOMMENDATIONS */
-.recommendations {
-  max-width: 1200px;
-  margin: 0 auto 100px;
-  padding: 0 40px;
-}
-.recommendations h3 {
-  font-family: 'Cinzel', serif;
-  text-align: center;
-  font-size: 26px;
-  margin-bottom: 40px;
-  font-weight: 400;
-}
-
-/* BUTTONS */
-.size-guide-btn {
-  background: none;
-  border: none;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 13px;
-  color: #555;
-  margin-bottom: 30px;
-  display: inline-block;
-}
-.add-btn {
-  background: #111;
-  color: #fff;
-  width: 100%;
-  padding: 16px;
-  border: none;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+.add-btn { background: #111; color: #fff; width: 100%; padding: 16px; border: none; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: 0.3s; }
 .add-btn:hover { opacity: 0.9; }
 
-.back-btn{
-  display:inline-block;
-  margin:0;
-  color: #777;
-  text-decoration:none;
-  font-size: 13px;
-  cursor: pointer;
-}
+/* DETAILS SECTION */
+.details-section { max-width: 900px; margin: 0 auto; padding: 60px 40px; border-top: 1px solid #eee; }
+.details-title { text-align: center; font-family: 'Cinzel', serif; font-size: 28px; margin-bottom: 40px; }
+.details-desc { text-align: center; color: #555; line-height: 1.8; margin-bottom: 50px; font-size: 16px; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; margin-bottom: 60px; }
+.feature-box { padding: 20px; background: #fdfdfd; border: 1px solid #f0f0f0; }
+.feature-icon { font-size: 24px; margin-bottom: 15px; display: block; }
+.feature-box h4 { font-size: 14px; margin-bottom: 8px; text-transform: uppercase; }
+.feature-box p { font-size: 13px; color: #777; line-height: 1.5; }
 
-/* MODAL & TOAST STYLES (Kept same as before) */
-.modal-overlay {
+/* FOOTER */
+footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 14px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; border-bottom: 1px solid #333; padding-bottom: 60px; }
+.footer-col h3 { font-family: 'Cinzel', serif; font-size: 20px; margin-bottom: 20px; color: #fff; }
+.footer-links a { display: block; color: #999; text-decoration: none; margin-bottom: 12px; transition: 0.3s; }
+.footer-links a:hover { color: #fff; }
+.copyright { text-align: center; color: #555; font-size: 12px; display: flex; justify-content: space-between; }
+
+/* =========================================
+   CART DRAWER STYLES (NEW)
+   ========================================= */
+.cart-overlay-bg {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7); z-index: 2000; display: none; 
-  justify-content: center; align-items: center; backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.5); z-index: 1000;
+  opacity: 0; visibility: hidden; transition: 0.4s;
+  backdrop-filter: blur(2px);
 }
-.modal-content {
-  background: #fff; width: 95%; max-width: 900px; border-radius: 4px;
-  overflow: hidden; animation: popIn 0.3s ease; display: flex; flex-direction: column;
-}
-@keyframes popIn { from {transform: scale(0.95); opacity: 0;} to {transform: scale(1); opacity: 1;} }
-.modal-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
-.close-modal { font-size: 28px; cursor: pointer; background: none; border: none; }
-.room-container { position: relative; width: 100%; padding-bottom: 56.25%; background: url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=1200&auto=format&fit=crop') no-repeat center center; background-size: cover; }
-.frame-preview { position: absolute; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.4); top: 35%; left: 50%; transform: translate(-50%, -50%); border: 4px solid #222; width: 0; aspect-ratio: 3/4; transition: 0.5s; }
-.frame-preview.s30x40 { width: 8.5%; } .frame-preview.s40x60 { width: 11.4%; aspect-ratio: 2/3; } .frame-preview.s60x90 { width: 17.1%; aspect-ratio: 2/3; }
-.modal-controls { padding: 20px; text-align: center; background: #fff; }
-.modal-btn { padding: 10px 24px; margin: 0 5px; border: 1px solid #e0e0e0; background: #fff; cursor: pointer; }
-.modal-btn.active { background: #111; color: #fff; border-color: #111; }
+.cart-overlay-bg.open { opacity: 1; visibility: visible; }
 
-#toast { visibility: hidden; min-width: 250px; background-color: #111; color: #fff; text-align: center; border-radius: 4px; padding: 16px; position: fixed; z-index: 3000; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(50px); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; opacity: 0; transition: all 0.5s; }
+.cart-drawer {
+  position: fixed; top: 0; right: -400px;
+  width: 400px; height: 100%;
+  background: #fff;
+  z-index: 1001;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+  transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex; flex-direction: column;
+}
+.cart-drawer.open { right: 0; }
+
+.cart-header-draw {
+  padding: 25px;
+  border-bottom: 1px solid #eee;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.cart-header-draw h3 { font-family: 'Cinzel', serif; font-size: 20px; }
+.close-cart { font-size: 24px; cursor: pointer; transition:0.3s; }
+.close-cart:hover { color: #c00; }
+
+.cart-items-container {
+  flex: 1; overflow-y: auto; padding: 25px;
+}
+.empty-cart-msg { text-align: center; color: #999; margin-top: 50px; }
+
+/* Single Cart Item */
+.cart-item { display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f9f9f9; }
+.cart-item img { width: 70px; height: 90px; object-fit: cover; border-radius: 4px; }
+.cart-item-info { flex: 1; }
+.cart-item-title { font-weight: 600; font-size: 14px; margin-bottom: 5px; }
+.cart-item-meta { font-size: 12px; color: #777; margin-bottom: 5px; }
+.cart-item-price { font-weight: 600; font-size: 14px; }
+.remove-item { color: #c00; font-size: 11px; cursor: pointer; text-decoration: underline; margin-top: 5px; display: inline-block; }
+
+.cart-footer-draw {
+  padding: 25px; border-top: 1px solid #eee; background: #fafafa;
+}
+.cart-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+.checkout-btn { width: 100%; padding: 16px; background: #111; color: #fff; border: none; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+
+/* MODAL & TOAST */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; display: none; justify-content: center; align-items: center; }
+.modal-content { background: #fff; width: 95%; max-width: 900px; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
+.modal-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
+.room-container { position: relative; width: 100%; padding-bottom: 56.25%; background: url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=1200&auto=format&fit=crop') no-repeat center center; background-size: cover; }
+.frame-preview { position: absolute; background: #fff; border: 4px solid #222; width: 0; aspect-ratio: 3/4; top: 35%; left: 50%; transform: translate(-50%, -50%); transition: 0.5s; }
+.frame-preview.s30x40 { width: 8.5%; } .frame-preview.s40x60 { width: 11.4%; aspect-ratio: 2/3; } .frame-preview.s60x90 { width: 17.1%; aspect-ratio: 2/3; }
+.modal-controls { padding: 20px; text-align: center; }
+.modal-btn { padding: 10px 24px; margin: 0 5px; border: 1px solid #e0e0e0; background: #fff; cursor: pointer; }
+.modal-btn.active { background: #111; color: #fff; }
+
+#toast { visibility: hidden; min-width: 250px; background-color: #111; color: #fff; text-align: center; border-radius: 4px; padding: 16px; position: fixed; z-index: 3000; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(50px); opacity: 0; transition: all 0.5s; }
 #toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media(max-width:768px){
-  nav{padding:18px 20px;}
-  nav ul { display: none; } 
-  section,.grid,.collection-header,.product-wrap,.recommendations,.footer-grid{padding-left:20px;padding-right:20px;}
+  nav{padding:18px 20px;} nav ul { display: none; }
+  .cart-drawer { width: 100%; right: -100%; }
+  .cart-drawer.open { right: 0; }
+  section,.grid,.collection-header,.product-wrap,.footer-grid{padding-left:20px;padding-right:20px;}
   .product-wrap{flex-direction: column; padding-top: 100px;}
-  .product-image{width: 100%; margin-bottom: 30px;}
-  .hero h1{font-size:42px;}
-  .footer-grid{ grid-template-columns: 1fr; gap: 30px; padding-bottom: 30px;}
+  .footer-grid{ grid-template-columns: 1fr; gap: 30px; }
   .copyright{ flex-direction: column; gap: 10px; }
   .frame-preview.s30x40 { width: 14%; } .frame-preview.s40x60 { width: 18%; } .frame-preview.s60x90 { width: 26%; }
 }
@@ -489,18 +291,32 @@ footer{
 
 <body>
 
-<div id="toast">Added to cart successfully</div>
+<div id="toast">Added to cart</div>
+
+<div class="cart-overlay-bg" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header-draw">
+    <h3>Shopping Cart</h3>
+    <span class="close-cart" id="closeCart">×</span>
+  </div>
+  <div class="cart-items-container" id="cartItemsContainer">
+    <div class="empty-cart-msg">Your cart is empty.</div>
+  </div>
+  <div class="cart-footer-draw">
+    <div class="cart-total">
+      <span>Subtotal</span>
+      <span id="cartSubtotal">0 EGP</span>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+  </div>
+</div>
 
 <div id="main-page">
 <nav>
   <div class="logo">Le Tableau</div>
   <div class="nav-right">
-    <ul>
-      <li><a href="#collections">Collections</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#faq">FAQ</a></li>
-    </ul>
-    <div class="cart-wrap">
+    <ul><li><a href="#collections">Collections</a></li><li><a href="#about">About</a></li></ul>
+    <div class="cart-wrap" id="navCartIcon">
       <div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
       <span class="cart-badge" id="cartBadge">0</span>
     </div>
@@ -510,7 +326,7 @@ footer{
 <div class="hero">
   <div class="hero-content">
     <h1>Art That Speaks</h1>
-    <p>Discover a curated selection of timeless wall art designed to bring calm elegance and character to your refined interiors.</p>
+    <p>Discover a curated selection of timeless wall art designed to bring calm elegance to your refined interiors.</p>
     <a href="#collections" class="btn">Explore Collections</a>
   </div>
 </div>
@@ -528,16 +344,15 @@ footer{
 <section id="about">
   <h2>The Philosophy</h2>
   <div class="about">
-    At Le Tableau, we believe walls are the silent storytellers of a home. We don't just sell frames; we curate emotions. Every piece is crafted with meticulous attention to detail, ensuring that your space reflects your unique journey and taste.
+    At Le Tableau, we believe walls are the silent storytellers of a home. We don't just sell frames; we curate emotions. Every piece is crafted with meticulous attention to detail.
   </div>
 </section>
 
 <section id="faq">
   <h2>Frequently Asked Questions</h2>
   <div class="faq">
-    <div class="faq-item"><h4>What materials are used?</h4><p>We use premium 250gsm archival paper and solid wood frames with crystal-clear glass protection.</p></div>
-    <div class="faq-item"><h4>Delivery time?</h4><p>We deliver within 3–5 business days anywhere in Egypt, ensuring your art arrives safe and sound.</p></div>
-    <div class="faq-item"><h4>Warranty?</h4><p>All our frames come with a 1-year warranty against manufacturing defects.</p></div>
+    <div class="faq-item"><h4>Materials?</h4><p>Premium 250gsm archival paper and solid wood frames.</p></div>
+    <div class="faq-item"><h4>Delivery?</h4><p>3–5 business days anywhere in Egypt.</p></div>
   </div>
 </section>
 
@@ -545,38 +360,20 @@ footer{
   <div class="footer-grid">
     <div class="footer-col">
       <h3>Le Tableau</h3>
-      <p>Elevating interiors with timeless art since 2026. Designed in Alexandria, cherished worldwide.</p>
-      <div style="display:flex; gap:15px; color:#fff;">
-        <span>Instagram</span>
-        <span>Facebook</span>
-        <span>Pinterest</span>
-      </div>
+      <p>Elevating interiors since 2026.</p>
     </div>
     <div class="footer-col footer-links">
-      <h3>Shop</h3>
-      <a href="#">Modern Art</a>
-      <a href="#">Islamic Calligraphy</a>
-      <a href="#">Gaming Setup</a>
-      <a href="#">Minimalist</a>
+      <h3>Shop</h3> <a href="#">Modern</a> <a href="#">Islamic</a>
     </div>
     <div class="footer-col footer-links">
-      <h3>Support</h3>
-      <a href="#">Track Order</a>
-      <a href="#">Shipping Policy</a>
-      <a href="#">Returns & Exchange</a>
-      <a href="#">Contact Us</a>
+      <h3>Support</h3> <a href="#">Contact</a> <a href="#">Shipping</a>
     </div>
     <div class="footer-col">
       <h3>Newsletter</h3>
-      <p>Subscribe for exclusive drops.</p>
-      <input type="email" placeholder="Your email" style="width:100%; padding:10px; border:none; margin-bottom:10px;">
-      <button style="width:100%; padding:10px; background:#333; color:#fff; border:none; cursor:pointer;">Subscribe</button>
+      <input type="email" placeholder="Email" style="width:100%; padding:10px; border:none; margin-bottom:10px;">
     </div>
   </div>
-  <div class="copyright">
-    <div>© 2026 Le Tableau. All rights reserved.</div>
-    <div>Privacy Policy &nbsp;|&nbsp; Terms of Service</div>
-  </div>
+  <div class="copyright"><div>© 2026 Le Tableau.</div></div>
 </footer>
 </div>
 
@@ -584,14 +381,13 @@ footer{
 <nav>
   <div class="logo">Le Tableau</div>
   <div class="nav-right">
-    <div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div>
+    <div class="cart-wrap" id="colCartIcon"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div>
   </div>
 </nav>
 
 <div class="collection-header">
   <a class="back-btn" id="backBtn" style="display:block; margin-bottom:20px;">← Back to Home</a>
   <h1 id="collectionTitle">Collection</h1>
-  <p>Hand-picked pieces for the discerning collector</p>
 </div>
 <div class="grid" id="productGrid">
   <div class="card"><img src="https://picsum.photos/600/800?1"><div class="card-content"><h4>Abstract Lines</h4><div class="price">450 <span class="old">650</span></div></div></div>
@@ -600,22 +396,14 @@ footer{
   <div class="card"><img src="https://picsum.photos/600/800?4"><div class="card-content"><h4>Geometry II</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/800?5"><div class="card-content"><h4>Ocean Blue</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><img src="https://picsum.photos/600/800?6"><div class="card-content"><h4>Golden Touch</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/800?7"><div class="card-content"><h4>Mountain Mist</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/800?8"><div class="card-content"><h4>Urban Night</h4><div class="price">450 <span class="old">650</span></div></div></div>
 </div>
-
-<footer>
-  <div class="copyright">
-    <div>© 2026 Le Tableau. All rights reserved.</div>
-  </div>
-</footer>
 </div>
 
 <div id="product-page" class="collection-page" style="display:none;">
 <nav>
   <div class="logo">Le Tableau</div>
   <div class="nav-right">
-    <div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div>
+    <div class="cart-wrap" id="prodCartIcon"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div>
   </div>
 </nav>
 
@@ -623,139 +411,63 @@ footer{
   <div class="product-image">
     <img id="productImage" src="">
   </div>
-
   <div class="product-info">
     <a class="back-btn" id="backToCollection" style="margin-bottom:20px; display:block;">← Back to Collection</a>
     <h2 id="productTitle">Artwork Name</h2>
     <div style="font-size:24px; margin-bottom:20px; color:#111;">
-      <strong>450 EGP</strong>
-      <span class="old">650 EGP</span>
+      <strong>450 EGP</strong> <span class="old">650 EGP</span>
     </div>
-
-    <p class="short-desc">This premium artwork is printed on museum-grade paper, ensuring depth and clarity that lasts a lifetime. Perfect for adding a sophisticated touch to your living room or office.</p>
-
     <label style="font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:1px; margin-top:10px; display:block;">Select Size</label>
     <div class="sizes">
       <div class="size active" data-s="30x40">30×40 cm</div>
       <div class="size" data-s="40x60">40×60 cm</div>
       <div class="size" data-s="60x90">60×90 cm</div>
     </div>
-
-    <button id="openSizeGuide" class="size-guide-btn">📏 View Size Guide (In Room)</button>
-
+    <button id="openSizeGuide" class="size-guide-btn">📏 View Size Guide</button>
     <button id="addToCartBtn" class="add-btn">Add to Cart</button>
   </div>
 </div>
 
 <div class="details-section">
   <h3 class="details-title">The Craftsmanship</h3>
-  <p class="details-desc">
-    We don't just sell frames; we deliver an experience. Our Wooden Frame is crafted from 100% natural, sustainably sourced wood, providing a timeless, elegant addition to your decor. The frame’s crystal-clear glass front offers lasting protection, while the sturdy engineered back ensures stability. Each piece is printed using eco-solvent inks on premium archival paper, delivering vibrant colors and sharp details that refuse to fade.
-  </p>
-
   <div class="features-grid">
-    <div class="feature-box">
-      <span class="feature-icon">🪵</span>
-      <h4>Solid Wood</h4>
-      <p>Premium natural wood for a classic, eco-friendly finish.</p>
-    </div>
-    <div class="feature-box">
-      <span class="feature-icon">💎</span>
-      <h4>Crystal Glass</h4>
-      <p>Durable glass front for clarity and artwork protection.</p>
-    </div>
-    <div class="feature-box">
-      <span class="feature-icon">🎨</span>
-      <h4>Vibrant Ink</h4>
-      <p>Eco-solvent inks ensure deep, rich colors that last.</p>
-    </div>
-    <div class="feature-box">
-      <span class="feature-icon">🔨</span>
-      <h4>Ready to Hang</h4>
-      <p>Arrives with pre-installed hardware for effortless display.</p>
-    </div>
-    <div class="feature-box">
-      <span class="feature-icon">🛡️</span>
-      <h4>1 Year Warranty</h4>
-      <p>We stand by our quality with a full year of coverage.</p>
-    </div>
+    <div class="feature-box"><span class="feature-icon">🪵</span><h4>Solid Wood</h4></div>
+    <div class="feature-box"><span class="feature-icon">💎</span><h4>Crystal Glass</h4></div>
+    <div class="feature-box"><span class="feature-icon">🛡️</span><h4>1 Year Warranty</h4></div>
   </div>
 </div>
 
-<div class="marketing-quote">
-  <h3>"Timeless Wall Frames Made for Your Home"</h3>
-  <p>Feel the connection between design and emotion with frames crafted to elevate every corner.</p>
-</div>
-
-<div class="recommendations">
-  <h3>Curated For You</h3>
+<div class="recommendations" style="margin-bottom: 80px;">
+  <h3 style="text-align:center;font-family:'Cinzel',serif;margin-bottom:30px;">Curated For You</h3>
   <div class="grid" style="padding:0; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
     <div class="card"><img src="https://picsum.photos/600/800?10"><div class="card-content"><h4>Midnight Calm</h4><div class="price">450</div></div></div>
     <div class="card"><img src="https://picsum.photos/600/800?11"><div class="card-content"><h4>Golden Horizon</h4><div class="price">450</div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/800?12"><div class="card-content"><h4>Marble Flow</h4><div class="price">450</div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/800?13"><div class="card-content"><h4>Abstract form</h4><div class="price">450</div></div></div>
   </div>
 </div>
-
-<footer>
-  <div class="footer-grid">
-    <div class="footer-col">
-      <h3>Le Tableau</h3>
-      <p>Art that speaks. Designed for the modern connoisseur.</p>
-    </div>
-    <div class="footer-col footer-links">
-      <h3>Help</h3>
-      <a href="#">Shipping</a>
-      <a href="#">Returns</a>
-      <a href="#">FAQ</a>
-    </div>
-    <div class="footer-col footer-links">
-      <h3>Social</h3>
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-      <a href="#">TikTok</a>
-    </div>
-    <div class="footer-col">
-      <h3>Stay Updated</h3>
-      <p>Join our list for exclusive offers.</p>
-      <input type="email" placeholder="Email Address" style="background:#222; border:none; padding:10px; color:#fff; width:100%;">
-    </div>
-  </div>
-  <div class="copyright">
-    <div>© 2026 Le Tableau. All rights reserved.</div>
-  </div>
-</footer>
 </div>
 
 <div class="modal-overlay" id="sizeModal">
   <div class="modal-content">
-    <div class="modal-header">
-      <h3>Size Visualizer</h3>
-      <button class="close-modal" id="closeModal">×</button>
-    </div>
-    
-    <div class="room-container">
-      <div class="frame-preview s30x40" id="framePreview"></div>
-    </div>
-
-    <div class="modal-controls">
-      <button class="modal-btn active" onclick="updateFrame('s30x40', this)">30×40</button>
-      <button class="modal-btn" onclick="updateFrame('s40x60', this)">40×60</button>
-      <button class="modal-btn" onclick="updateFrame('s60x90', this)">60×90</button>
-    </div>
+    <div class="modal-header"><h3>Size Visualizer</h3><button class="close-modal" id="closeModal">×</button></div>
+    <div class="room-container"><div class="frame-preview s30x40" id="framePreview"></div></div>
+    <div class="modal-controls"><button class="modal-btn active" onclick="updateFrame('s30x40', this)">30×40</button><button class="modal-btn" onclick="updateFrame('s40x60', this)">40×60</button><button class="modal-btn" onclick="updateFrame('s60x90', this)">60×90</button></div>
   </div>
 </div>
 
 <script>
-/* HERO */
+/* =========================================
+   GLOBAL STATE
+   ========================================= */
+let cart = []; // Array to store cart objects
+
+/* 1. HERO ANIMATION */
 window.addEventListener("load",()=>{ const hero=document.querySelector(".hero-content"); if(hero) hero.classList.add("show"); });
 
-/* NAV */
+/* 2. NAVIGATION */
 const mainPage=document.getElementById('main-page');
 const collectionPage=document.getElementById('collection-page');
 const productPage=document.getElementById('product-page');
 const cats=document.querySelectorAll('.cat');
-const cards=document.querySelectorAll('.card');
 const backBtn=document.getElementById('backBtn');
 const backToCollection=document.getElementById('backToCollection');
 const collectionTitle=document.getElementById('collectionTitle');
@@ -771,14 +483,13 @@ cats.forEach(cat=>{
   });
 });
 
-/* Click Logic for ALL cards (including recommendations) */
-// We use delegation or re-query because recommendations are static but logic is same
+/* CARD CLICK (DELEGATION) */
 document.body.addEventListener('click', function(e){
-  // Check if clicked element is inside a card
   const card = e.target.closest('.card');
   if(card){
     productTitle.innerText = card.querySelector('h4').innerText;
     productImage.src = card.querySelector('img').src;
+    // Reset sizes
     document.querySelectorAll('.size').forEach(s => s.classList.remove('active'));
     document.querySelector('.size').classList.add('active'); 
     
@@ -792,7 +503,7 @@ document.body.addEventListener('click', function(e){
 backBtn.onclick=()=>{ collectionPage.style.display="none"; mainPage.style.display="block"; };
 backToCollection.onclick=()=>{ productPage.style.display="none"; collectionPage.style.display="block"; };
 
-/* SIZE SELECTION */
+/* 3. SIZE SELECTION */
 const sizeBtns = document.querySelectorAll('.size');
 sizeBtns.forEach(btn => {
   btn.addEventListener('click', function(){
@@ -801,7 +512,7 @@ sizeBtns.forEach(btn => {
   });
 });
 
-/* MODAL */
+/* 4. MODAL LOGIC */
 const modal = document.getElementById('sizeModal');
 const openBtn = document.getElementById('openSizeGuide');
 const closeBtn = document.getElementById('closeModal');
@@ -816,24 +527,109 @@ window.updateFrame = function(sizeClass, btnElement) {
   if(btnElement) btnElement.classList.add('active');
 }
 
-/* CART */
-let cartCount = 0;
-const addToCartBtn = document.getElementById('addToCartBtn');
-const toast = document.getElementById('toast');
+/* =========================================
+   5. CART DRAWER & LOGIC (REAL DATA)
+   ========================================= */
+const cartDrawer = document.getElementById('cartDrawer');
+const cartOverlay = document.getElementById('cartOverlay');
+const closeCartBtn = document.getElementById('closeCart');
+const cartItemsContainer = document.getElementById('cartItemsContainer');
+const cartSubtotalEl = document.getElementById('cartSubtotal');
 const badges = document.querySelectorAll('.cart-badge');
 
-if(addToCartBtn) addToCartBtn.addEventListener('click', function(e) {
-  cartCount++;
+// Open Cart Function
+function openCart() {
+  cartDrawer.classList.add('open');
+  cartOverlay.classList.add('open');
+}
+// Close Cart Function
+function closeCart() {
+  cartDrawer.classList.remove('open');
+  cartOverlay.classList.remove('open');
+}
+
+// Bind Open Event to All Cart Icons
+document.querySelectorAll('.cart-wrap').forEach(icon => {
+  icon.addEventListener('click', openCart);
+});
+// Bind Close Events
+closeCartBtn.addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+
+// ADD TO CART FUNCTION
+const addToCartBtn = document.getElementById('addToCartBtn');
+if(addToCartBtn) {
+  addToCartBtn.addEventListener('click', function() {
+    // 1. Get Data from Page
+    const title = productTitle.innerText;
+    const img = productImage.src;
+    const size = document.querySelector('.size.active').innerText;
+    const price = 450; // Hardcoded for demo, normally parsed
+
+    // 2. Create Object & Push to Array
+    const item = { title, img, size, price, id: Date.now() };
+    cart.push(item);
+
+    // 3. Update UI
+    updateCartBadge();
+    renderCartItems();
+    
+    // 4. Show Toast
+    const toast = document.getElementById('toast');
+    toast.className = "show";
+    setTimeout(()=>{ toast.className = toast.className.replace("show", ""); }, 3000);
+    
+    // Optional: Open cart immediately
+    // openCart(); 
+  });
+}
+
+function updateCartBadge() {
   badges.forEach(badge => {
-    badge.innerText = cartCount;
+    badge.innerText = cart.length;
     badge.classList.add('visible');
     badge.classList.remove('pop');
     void badge.offsetWidth; 
     badge.classList.add('pop');
   });
-  toast.className = "show";
-  setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
-});
+}
+
+function renderCartItems() {
+  cartItemsContainer.innerHTML = "";
+  let total = 0;
+
+  if(cart.length === 0) {
+    cartItemsContainer.innerHTML = '<div class="empty-cart-msg">Your cart is empty.</div>';
+    cartSubtotalEl.innerText = "0 EGP";
+    return;
+  }
+
+  cart.forEach((item, index) => {
+    total += item.price;
+    const itemEl = document.createElement('div');
+    itemEl.classList.add('cart-item');
+    itemEl.innerHTML = `
+      <img src="${item.img}" alt="Art">
+      <div class="cart-item-info">
+        <div class="cart-item-title">${item.title}</div>
+        <div class="cart-item-meta">Size: ${item.size}</div>
+        <div class="cart-item-price">${item.price} EGP</div>
+        <span class="remove-item" onclick="removeCartItem(${index})">Remove</span>
+      </div>
+    `;
+    cartItemsContainer.appendChild(itemEl);
+  });
+
+  cartSubtotalEl.innerText = total + " EGP";
+}
+
+// Global function for onclick in HTML
+window.removeCartItem = function(index) {
+  cart.splice(index, 1);
+  updateCartBadge();
+  renderCartItems();
+}
+
 </script>
 
 </body>
