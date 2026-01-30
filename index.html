@@ -28,7 +28,7 @@ nav{
   top:0;
   background:rgba(255,255,255,0.85);
   backdrop-filter:blur(14px);
-  z-index:10;
+  z-index:100;
 }
 .logo{
   font-size:22px;
@@ -51,7 +51,7 @@ nav a{
   min-height:100vh;
   background:
     linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),
-    url("hero.jpg");
+    url("hero.jpg"); /* استبدل بصورتك */
   background-size:cover;
   background-position:center;
   display:flex;
@@ -62,23 +62,6 @@ nav a{
   overflow:hidden;
 }
 
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:-20%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.35), transparent 60%);
-  filter: blur(20px);
-  animation: burn 6s ease-in-out infinite;
-  opacity:0.8;
-}
-
-@keyframes burn{
-  0%{ transform:translate(-20px, -20px) scale(1); opacity:0.4; }
-  50%{ transform:translate(20px, 20px) scale(1.12); opacity:0.9; }
-  100%{ transform:translate(-20px, -20px) scale(1); opacity:0.4; }
-}
-
-/* HERO CONTENT – FIX ANIMATION */
 .hero-content{
   color:#fff;
   opacity:0;
@@ -108,6 +91,9 @@ nav a{
   text-decoration:none;
   font-weight:500;
   transition:.35s ease;
+  cursor: pointer;
+  display: inline-block;
+  border: none;
 }
 .btn:hover{
   transform:translateY(-3px);
@@ -143,6 +129,8 @@ h2{
   opacity:0;
   transform:translateY(50px);
   cursor:pointer;
+  position: relative;
+  overflow: hidden;
 }
 .cat.show{
   opacity:1;
@@ -152,11 +140,12 @@ h2{
   transform:translateY(-12px);
   box-shadow:0 30px 60px rgba(0,0,0,.12);
 }
+/* Placeholder backgrounds for categories */
+.cat.modern{background:#333;color:#fff;}
+.cat.islamic{background:#4a3b32;color:#fff;}
+.cat.games{background:#1a1a2e;color:#fff;}
+.cat.quotes{background:#eee;color:#111;}
 
-.cat.modern{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("modern.jpg");background-size:cover;color:#fff;}
-.cat.islamic{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("islamic.jpg");background-size:cover;color:#fff;}
-.cat.games{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("games.jpg");background-size:cover;color:#fff;}
-.cat.quotes{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url("post.jpg");background-size:cover;color:#fff;}
 
 /* ABOUT */
 .about{
@@ -168,7 +157,7 @@ h2{
   line-height:1.8;
 }
 
-/* FAQ – FIX TOUCH EFFECT */
+/* FAQ */
 .faq{
   max-width:820px;
   margin:auto;
@@ -183,20 +172,9 @@ h2{
   cursor:pointer;
   transition:.3s ease;
 }
-.faq-item::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.06);
-  opacity:0;
-  transition:.25s ease;
-  border-radius:20px;
-}
-.faq-item:hover::after{
-  opacity:1;
-}
 .faq-item:hover{
   transform:scale(.985);
+  background:#f4f4f4;
 }
 
 /* FOOTER */
@@ -210,12 +188,14 @@ footer{
 .collection-page{
   display:none;
   background:#f5f5f7;
+  min-height: 100vh;
+  padding-bottom: 50px;
 }
 .collection-header{
-  padding:100px 60px 40px;
+  padding:120px 60px 40px;
 }
 .grid{
-  padding:40px 60px 100px;
+  padding:0 60px 100px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:30px;
@@ -250,19 +230,25 @@ footer{
 
 /* PRODUCT PAGE */
 .product-wrap{
-  max-width:720px;
+  max-width:900px; /* Increased slightly */
   margin:0 auto;
-  padding:40px 60px 120px;
+  padding:120px 60px;
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
 }
 .product-image{
+  flex: 1;
   border-radius:28px;
   overflow:hidden;
   box-shadow:0 40px 80px rgba(0,0,0,.15);
-  margin-bottom:40px;
 }
 .product-image img{
   width:100%;
   display:block;
+}
+.product-info{
+  flex: 1;
 }
 .product-info h2{
   text-align:left;
@@ -277,7 +263,8 @@ footer{
 .sizes{
   display:flex;
   gap:12px;
-  margin:20px 0 35px;
+  margin:20px 0 15px;
+  flex-wrap: wrap;
 }
 .size{
   padding:10px 18px;
@@ -285,42 +272,158 @@ footer{
   border-radius:999px;
   cursor:pointer;
   font-size:14px;
+  transition: 0.2s;
 }
-.size:hover{
+.size:hover, .size.active{
   background:#111;
   color:#fff;
   border-color:#111;
 }
 
+/* NEW: SIZE GUIDE BUTTON STYLES */
+.size-guide-btn {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 30px;
+  display: inline-block;
+}
+.size-guide-btn:hover {
+  color: #000;
+}
+
 .back-btn{
   display:inline-block;
-  margin:90px 60px 0;
+  margin:20px 60px 0;
   padding:12px 28px;
   background:#fff;
   border-radius:999px;
   border:1px solid #ddd;
   text-decoration:none;
   font-weight:600;
+  cursor: pointer;
 }
 
+/* =========================================
+   NEW: SIZE GUIDE MODAL STYLES
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+.modal-content {
+  background: #fff;
+  width: 90%;
+  max-width: 800px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  animation: popIn 0.3s ease;
+}
+@keyframes popIn {
+  from {transform: scale(0.9); opacity: 0;}
+  to {transform: scale(1); opacity: 1;}
+}
+.modal-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+.close-modal {
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.room-container {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Adjust height based on image aspect ratio */
+  background: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Centers the frame relative to the wall */
+}
+/* This overlay darkens the room slightly to make the frame pop */
+.room-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.1);
+}
+
+/* The Frame Representation */
+.frame-preview {
+  position: absolute;
+  background: #fff; /* Represents the art */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 2;
+  border: 4px solid #111; /* Frame border */
+  /* Centering positioning adjustments */
+  top: 35%; /* Approximate height on wall */
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Size Logic relative to the room image
+   Assuming the visible wall width in image is approx 3 meters */
+.frame-preview.s30x40 { width: 10%; height: 13%; }
+.frame-preview.s40x60 { width: 13%; height: 20%; }
+.frame-preview.s60x90 { width: 20%; height: 30%; }
+
+.modal-controls {
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+}
+.modal-btn {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+.modal-btn.active {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+/* RESPONSIVE */
 @media(max-width:768px){
   nav{padding:18px 20px;}
-  section,.grid,.collection-header,.product-wrap{padding-left:20px;padding-right:20px;}
+  section,.grid,.collection-header{padding-left:20px;padding-right:20px;}
+  .product-wrap{flex-direction: column; padding: 100px 20px;}
+  .product-image{width: 100%; margin-bottom: 30px;}
   .hero h1{font-size:42px;}
+  .room-container{height: 250px;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- MAIN PAGE -->
 <div id="main-page">
 <nav>
   <div class="logo">Le Tableau</div>
   <ul>
     <li><a href="#collections">Collections</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#faq">FAQ</a></li>
   </ul>
 </nav>
 
@@ -346,53 +449,38 @@ footer{
   <h2>About Le Tableau</h2>
   <div class="about">
     Le Tableau creates curated wall art pieces designed to elevate modern spaces.
-  </div>
-</section>
-
-<section id="faq">
-  <h2>Frequently Asked Questions</h2>
-  <div class="faq">
-    <div class="faq-item"><h4>What materials are used?</h4><p>Premium paper with museum-quality inks.</p></div>
-    <div class="faq-item"><h4>Delivery time?</h4><p>3–5 business days across Egypt.</p></div>
-    <div class="faq-item"><h4>Frames included?</h4><p>Frames are optional and customizable.</p></div>
+    Premium materials, fast shipping, and elegant designs.
   </div>
 </section>
 
 <footer>© 2026 Le Tableau</footer>
 </div>
 
-<!-- COLLECTION PAGE -->
 <div id="collection-page" class="collection-page">
 <nav><div class="logo">Le Tableau</div></nav>
-<a class="back-btn" id="backBtn">← Back to Home</a>
+<div style="padding-top: 100px;">
+  <a class="back-btn" id="backBtn">← Home</a>
+</div>
 
 <div class="collection-header">
   <h1 id="collectionTitle">Collection</h1>
   <p>Timeless pieces curated for elegant interiors</p>
 </div>
 <div class="grid" id="productGrid">
-  <div class="card"><img src="https://picsum.photos/600/600?1"><div class="card-content"><h4>Artwork I</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?2"><div class="card-content"><h4>Artwork II</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?3"><div class="card-content"><h4>Artwork III</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?4"><div class="card-content"><h4>Artwork IV</h4><div class="price">450 <span class="old">650</span></div></div></div>
-
-  <div class="card"><img src="https://picsum.photos/600/600?5"><div class="card-content"><h4>Artwork V</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?6"><div class="card-content"><h4>Artwork VI</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?7"><div class="card-content"><h4>Artwork VII</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?8"><div class="card-content"><h4>Artwork VIII</h4><div class="price">450 <span class="old">650</span></div></div></div>
-
-  <div class="card"><img src="https://picsum.photos/600/600?9"><div class="card-content"><h4>Artwork IX</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?10"><div class="card-content"><h4>Artwork X</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?11"><div class="card-content"><h4>Artwork XI</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/600?12"><div class="card-content"><h4>Artwork XII</h4><div class="price">450 <span class="old">650</span></div></div></div>
-</div>
+  <div class="card"><img src="https://picsum.photos/600/800?1"><div class="card-content"><h4>Abstract Lines</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?2"><div class="card-content"><h4>Desert Vibes</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?3"><div class="card-content"><h4>Geometry I</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?4"><div class="card-content"><h4>Geometry II</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?5"><div class="card-content"><h4>Ocean Blue</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card"><img src="https://picsum.photos/600/800?6"><div class="card-content"><h4>Golden Touch</h4><div class="price">450 <span class="old">650</span></div></div></div>
 </div>
 </div>
 
-<!-- PRODUCT PAGE -->
-<div id="product-page" class="collection-page">
+<div id="product-page" class="collection-page" style="display:none;">
 <nav><div class="logo">Le Tableau</div></nav>
-<a class="back-btn" id="backToCollection">← Back to Collection</a>
+<div style="padding-top: 100px;">
+  <a class="back-btn" id="backToCollection">← Back to Collection</a>
+</div>
 
 <div class="product-wrap">
   <div class="product-image">
@@ -400,38 +488,57 @@ footer{
   </div>
 
   <div class="product-info">
-    <h2 id="productTitle">Artwork</h2>
-    <p>Museum-quality wall art crafted to bring calm elegance to refined interiors.</p>
+    <h2 id="productTitle">Artwork Name</h2>
+    <p>Museum-quality wall art crafted to bring calm elegance to refined interiors. Printed on high-grade archival paper.</p>
 
     <div style="font-size:22px;margin-bottom:10px">
       <strong>450 EGP</strong>
       <span class="old">650 EGP</span>
     </div>
 
+    <label style="font-weight:600; font-size:14px; margin-top:10px; display:block;">Select Size:</label>
     <div class="sizes">
-      <div class="size">30×40</div>
-      <div class="size">40×60</div>
-      <div class="size">60×90</div>
+      <div class="size active" data-s="30x40">30×40 cm</div>
+      <div class="size" data-s="40x60">40×60 cm</div>
+      <div class="size" data-s="60x90">60×90 cm</div>
     </div>
 
-    <a href="#" class="btn" style="background:#111;color:#fff">Add to Cart</a>
+    <button id="openSizeGuide" class="size-guide-btn">📏 View Size Guide (In Room)</button>
+    <br>
+
+    <a href="#" class="btn" style="background:#111;color:#fff;width:100%;text-align:center;">Add to Cart</a>
   </div>
 </div>
 </div>
-<a href="javascript:void(0)" 
-   class="btn" 
-   id="openSizeGuide"
-   style="background:#111;color:#fff;margin-top:12px;display:inline-block">
-   Size Guide
-</a>
+
+<div class="modal-overlay" id="sizeModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Size Guide</h3>
+      <button class="close-modal" id="closeModal">×</button>
+    </div>
+    
+    <div class="room-container">
+      <div class="frame-preview s30x40" id="framePreview"></div>
+    </div>
+
+    <div class="modal-controls">
+      <p style="margin-bottom:10px; font-size:14px; color:#666;">Select a size to see scale:</p>
+      <button class="modal-btn active" onclick="updateFrame('s30x40', this)">30×40</button>
+      <button class="modal-btn" onclick="updateFrame('s40x60', this)">40×60</button>
+      <button class="modal-btn" onclick="updateFrame('s60x90', this)">60×90</button>
+    </div>
+  </div>
+</div>
+
 <script>
-/* HERO ANIMATION TRIGGER */
+/* 1. HERO ANIMATION */
 window.addEventListener("load",()=>{
   const hero=document.querySelector(".hero-content");
   if(hero) hero.classList.add("show");
 });
 
-/* CATEGORY ANIMATION */
+/* 2. CATEGORY SCROLL ANIMATION */
 const items=document.querySelectorAll('.cat');
 window.addEventListener('scroll',()=>{
   items.forEach(el=>{
@@ -441,128 +548,111 @@ window.addEventListener('scroll',()=>{
   });
 });
 
-/* PAGE NAVIGATION */
-const cats=document.querySelectorAll('.cat');
+/* 3. NAVIGATION LOGIC */
 const mainPage=document.getElementById('main-page');
 const collectionPage=document.getElementById('collection-page');
 const productPage=document.getElementById('product-page');
-const collectionTitle=document.getElementById('collectionTitle');
-const productTitle=document.getElementById('productTitle');
-const productImage=document.getElementById('productImage');
+
+const cats=document.querySelectorAll('.cat');
 const cards=document.querySelectorAll('.card');
 const backBtn=document.getElementById('backBtn');
 const backToCollection=document.getElementById('backToCollection');
 
+const collectionTitle=document.getElementById('collectionTitle');
+const productTitle=document.getElementById('productTitle');
+const productImage=document.getElementById('productImage');
+
+// Go to Collection
 cats.forEach(cat=>{
   cat.addEventListener('click',()=>{
     collectionTitle.innerText=cat.dataset.cat+" Collection";
     mainPage.style.display="none";
     collectionPage.style.display="block";
+    productPage.style.display="none";
     window.scrollTo(0,0);
-    cards.forEach((c,i)=>setTimeout(()=>c.classList.add('show'),i*80));
+    // Stagger animation for cards
+    const gridCards = document.querySelectorAll('.grid .card');
+    gridCards.forEach((c,i)=> {
+      c.classList.remove('show');
+      setTimeout(()=>c.classList.add('show'),i*50);
+    });
   });
 });
 
+// Go to Product
 cards.forEach(card=>{
   card.addEventListener('click',()=>{
     productTitle.innerText=card.querySelector('h4').innerText;
     productImage.src=card.querySelector('img').src;
+    // Set initial active size visual
+    document.querySelectorAll('.size').forEach(s => s.classList.remove('active'));
+    document.querySelector('.size').classList.add('active'); // First one active
+    
     collectionPage.style.display="none";
     productPage.style.display="block";
     window.scrollTo(0,0);
   });
 });
 
+// Back Buttons
 backBtn.onclick=()=>{
   collectionPage.style.display="none";
+  productPage.style.display="none";
   mainPage.style.display="block";
 };
 backToCollection.onclick=()=>{
   productPage.style.display="none";
   collectionPage.style.display="block";
 };
-  const sizeGuideBtn = document.getElementById("openSizeGuide");
-const sizeGuideOverlay = document.getElementById("sizeGuideOverlay");
-const closeSizeGuide = document.getElementById("closeSizeGuide");
 
-if(sizeGuideBtn){
-  sizeGuideBtn.onclick = ()=> {
-    sizeGuideOverlay.style.display="flex";
-  };
-}
+/* 4. SIZE SELECTION (On Product Page) */
+const sizeBtns = document.querySelectorAll('.size');
+sizeBtns.forEach(btn => {
+  btn.addEventListener('click', function(){
+    sizeBtns.forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
 
-if(closeSizeGuide){
-  closeSizeGuide.onclick = ()=> {
-    sizeGuideOverlay.style.display="none";
-  };
-}
-  /* SIZE GUIDE */
-const openSizeGuide = document.getElementById("openSizeGuide");
-const sizeGuide = document.getElementById("sizeGuide");
-const closeSizeGuide = document.getElementById("closeSizeGuide");
+/* =========================================
+   5. SIZE GUIDE MODAL LOGIC
+   ========================================= */
+const modal = document.getElementById('sizeModal');
+const openBtn = document.getElementById('openSizeGuide');
+const closeBtn = document.getElementById('closeModal');
+const framePreview = document.getElementById('framePreview');
 
-if(openSizeGuide){
-  openSizeGuide.onclick = ()=>{
-    sizeGuide.style.display="flex";
-  };
-}
+// Open Modal
+openBtn.addEventListener('click', () => {
+  modal.style.display = 'flex';
+  // Reset visual to match what was selected on page? Or default 30x40
+  // For now default to 30x40 in modal for simplicity
+});
 
-if(closeSizeGuide){
-  closeSizeGuide.onclick = ()=>{
-    sizeGuide.style.display="none";
-  };
-}
-</script>
-<!-- SIZE GUIDE MODAL -->
-<div id="sizeGuideOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;align-items:center;justify-content:center;">
-  <div style="background:#fff;border-radius:26px;max-width:900px;width:90%;padding:40px;position:relative;">
-    
-    <span id="closeSizeGuide" style="position:absolute;top:20px;right:25px;font-size:26px;cursor:pointer;">×</span>
-    
-    <h2 style="margin-bottom:25px;">Size Guide</h2>
-    
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;">
-      
-      <img src="https://i.imgur.com/8QfZQZx.png" style="width:100%;border-radius:18px;">
-      
-      <div style="font-size:16px;line-height:1.7;color:#444;">
-        <p><strong>30×40 cm</strong> – Ideal for small spaces & desks</p>
-        <p><strong>40×60 cm</strong> – Perfect above consoles & side tables</p>
-        <p><strong>60×90 cm</strong> – Statement piece above sofas & beds</p>
-      </div>
-      
-    </div>
-  </div>
-</div><div id="sizeGuide" style="display:none;position:fixed;inset:0;
-background:rgba(0,0,0,.55);z-index:999;
-align-items:center;justify-content:center">
+// Close Modal
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
 
-  <div style="background:#fff;
-  border-radius:26px;
-  max-width:520px;
-  width:90%;
-  padding:32px;
-  text-align:center;
-  position:relative">
+// Close if clicked outside
+window.addEventListener('click', (e) => {
+  if (e.target == modal) {
+    modal.style.display = 'none';
+  }
+});
 
-    <span id="closeSizeGuide"
-      style="position:absolute;top:18px;right:22px;
-      font-size:22px;cursor:pointer">✕</span>
-
-    <h2 style="margin-bottom:20px">Size Guide</h2>
-
-    <p style="color:#555;margin-bottom:18px">
-      Choose the perfect size for your space
-    </p>
-
-    <div style="display:grid;gap:14px;text-align:left">
-      <div>🧍 <strong>30×40 cm</strong> — Desk / small wall</div>
-      <div>🛋 <strong>40×60 cm</strong> — Above sofa or console</div>
-      <div>🛏 <strong>60×90 cm</strong> — Statement wall piece</div>
-    </div>
-
-  </div>
-</div>
+// Function to update the visual frame in modal
+window.updateFrame = function(sizeClass, btnElement) {
+  // Update Frame CSS Class
+  framePreview.className = 'frame-preview ' + sizeClass;
   
+  // Update Active Button Style
+  const modalBtns = document.querySelectorAll('.modal-btn');
+  modalBtns.forEach(b => b.classList.remove('active'));
+  btnElement.classList.add('active');
+}
+
+</script>
+
 </body>
 </html>
