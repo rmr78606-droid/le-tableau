@@ -48,6 +48,17 @@ nav a{
 
 /* HERO */
 .hero{
+  /* HERO ENTRANCE FIX */
+.hero-content{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity 1.4s ease, transform 1.4s ease;
+}
+
+.hero-content.show{
+  opacity:1;
+  transform:translateY(0);
+}
   min-height:100vh;
   background:
     linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),
@@ -308,6 +319,32 @@ footer{
 .faq-item:active::after{
   opacity:1;
 }
+/* FAQ PRESS EFFECT */
+.faq-item{
+  position:relative;
+  overflow:hidden;
+  transition:transform .2s ease;
+}
+
+.faq-item::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.06);
+  opacity:0;
+  transition:.25s ease;
+  border-radius:20px;
+  pointer-events:none;
+}
+
+.faq-item:active::after{
+  opacity:1;
+}
+
+.faq-item:active{
+  transform:scale(.98);
+}
+  
 </style>
 </head>
 
@@ -415,6 +452,9 @@ window.addEventListener('scroll',()=>{
   items.forEach(el=>{
     if(el.getBoundingClientRect().top < window.innerHeight - 120){
       el.classList.add('show');
+      window.addEventListener("load",()=>{
+  document.querySelector(".hero-content").classList.add("show");
+});
     }
   });
 });
