@@ -308,62 +308,6 @@ footer{
   section,.grid,.collection-header,.product-wrap{padding-left:20px;padding-right:20px;}
   .hero h1{font-size:42px;}
 }
-  /* SIZE GUIDE MODAL */
-.size-modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-
-.size-box{
-  background:#fff;
-  border-radius:24px;
-  padding:35px;
-  width:520px;
-  text-align:center;
-}
-
-.preview-area{
-  position:relative;
-  height:320px;
-  margin:30px 0;
-}
-
-.human{
-  height:100%;
-  opacity:.9;
-}
-
-.art-frame{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  background:#ddd;
-  border:3px solid #111;
-}
-
-/* Size simulation */
-.art-frame.small{
-  width:90px;
-  height:120px;
-  top:60px;
-}
-
-.art-frame.medium{
-  width:130px;
-  height:180px;
-  top:40px;
-}
-
-.art-frame.large{
-  width:170px;
-  height:240px;
-  top:20px;
-}
 </style>
 </head>
 
@@ -460,24 +404,22 @@ footer{
     <p>Museum-quality wall art crafted to bring calm elegance to refined interiors.</p>
 
     <div style="font-size:22px;margin-bottom:10px">
-      <strong>250 EGP</strong>
-      <span class="old">350 EGP</span>
+      <strong>450 EGP</strong>
+      <span class="old">650 EGP</span>
     </div>
-<div class="sizes">
-  <div class="size">30×40</div>
-  <div class="size">40×60</div>
-  <div class="size">60×90</div>
-</div>
 
-<!-- حط الزرار هنا -->
-<button id="sizeGuideBtn" class="btn" style="background:#111;color:#fff;margin-top:15px">Size Guide</button>
-    
+    <div class="sizes">
+      <div class="size">30×40</div>
+      <div class="size">40×60</div>
+      <div class="size">60×90</div>
+    </div>
+
+    <a href="#" class="btn" style="background:#111;color:#fff">Add to Cart</a>
   </div>
 </div>
 </div>
 
 <script>
-  ;
 /* HERO ANIMATION TRIGGER */
 window.addEventListener("load",()=>{
   const hero=document.querySelector(".hero-content");
@@ -493,23 +435,6 @@ window.addEventListener('scroll',()=>{
     }
   });
 });
-  const modal = document.getElementById("sizeGuideModal");
-const btn = document.getElementById("sizeGuideBtn");
-const frame = document.getElementById("artFrame");
-
-btn.onclick = () => {
-  modal.style.display = "flex";
-};
-
-document.querySelector(".close").onclick = () => {
-  modal.style.display = "none";
-};
-
-document.querySelectorAll(".size-options button").forEach(b=>{
-  b.onclick = ()=>{
-    frame.className = "art-frame " + b.dataset.size;
-  };
-})
 
 /* PAGE NAVIGATION */
 const cats=document.querySelectorAll('.cat');
@@ -551,66 +476,7 @@ backToCollection.onclick=()=>{
   productPage.style.display="none";
   collectionPage.style.display="block";
 };
-  const sizeGuideBtn = document.getElementById('sizeGuideBtn');
-const sizeGuideModal = document.getElementById('sizeGuideModal');
-const closeSizeGuide = document.getElementById('closeSizeGuide');
-
-sizeGuideBtn.addEventListener('click', () => {
-  sizeGuideModal.style.display = 'flex';
-});
-
-closeSizeGuide.addEventListener('click', () => {
-  sizeGuideModal.style.display = 'none';
-});
-
-// كمان ممكن نغلقه لما المستخدم يضغط بره الصندوق
-sizeGuideModal.addEventListener('click', (e) => {
-  if(e.target === sizeGuideModal){
-    sizeGuideModal.style.display = 'none';
-  }
-});
-  const cats = document.querySelectorAll(".cat");
-const mainPage = document.getElementById("main-page");
-const collectionPage = document.getElementById("collection-page");
-
-cats.forEach(cat=>{
-  cat.addEventListener("click", ()=>{
-    mainPage.style.display = "none";
-    collectionPage.style.display = "block";
-    window.scrollTo(0,0);
-  });
-});
 </script>
-<!-- SIZE GUIDE MODAL -->
-<div id="sizeGuideModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;z-index:999;">
-  <div style="background:#fff;padding:30px 40px;border-radius:20px;max-width:500px;width:90%;position:relative;text-align:center;">
-    <h2>Le Tableau Size Guide</h2>
-    <p>Small: 30×40 cm<br>Medium: 40×60 cm<br>Large: 60×90 cm</p>
-    <button id="closeSizeGuide" style="margin-top:20px;padding:10px 25px;border-radius:20px;border:none;background:#111;color:#fff;cursor:pointer">Close</button>
-  </div>
-</div>
-  <div id="sizeGuideModal" class="size-modal">
 
-  <div class="size-box">
-
-    <h2>Find Your Perfect Size</h2>
-
-    <div class="preview-area">
-      <img src="human.png" class="human">
-
-      <div class="art-frame small" id="artFrame"></div>
-    </div>
-
-    <div class="size-options">
-      <button data-size="small">30 × 40</button>
-      <button data-size="medium">40 × 60</button>
-      <button data-size="large">60 × 90</button>
-    </div>
-
-    <button class="close">Close</button>
-
-  </div>
-
-</div>
 </body>
 </html>
