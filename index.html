@@ -86,10 +86,12 @@ footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 14px;
 .price{font-size:14px; color: #555;}
 .old{color:#999;text-decoration:line-through;margin-left:6px; font-size: 12px;}
 
-/* PRODUCT PAGE */
+/* PRODUCT PAGE - UPDATED IMAGE STYLE */
 .product-wrap{ max-width:1100px; margin:0 auto; padding:140px 40px 60px; display: flex; gap: 60px; align-items: flex-start; }
-.product-image{ flex: 1.2; }
-.product-image img{ width:100%; display:block; box-shadow: 0 0 0 1px #eee; }
+.product-image{ flex: 1.2; display: flex; justify-content: center; align-items: flex-start; }
+/* FIX: Constrain image height so it's not huge */
+.product-image img{ width:100%; max-height: 600px; object-fit: contain; display:block; box-shadow: 0 0 0 1px #eee; }
+
 .product-info{ flex: 1; padding-top: 10px; }
 .product-info h2{ text-align:left; font-family: 'Cinzel', serif; font-size:32px; margin-bottom:10px; font-weight: 400; }
 .short-desc { color:#666; line-height:1.6; margin-bottom:25px; font-size: 15px; }
@@ -121,8 +123,28 @@ footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 14px;
 .add-btn:hover { opacity: 0.9; }
 .back-btn{ display:inline-block; margin:0; color: #777; text-decoration:none; font-size: 13px; cursor: pointer; }
 
+/* NEW PREMIUM "BUY IT NOW" BUTTON */
+.buy-now-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 15px; /* Space between buttons */
+  background: #cba374; /* Premium Bronze/Gold Color */
+  color: #fff;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.buy-now-btn:hover {
+  background: #b48b5a; /* Darker shade on hover */
+  transform: translateY(-2px);
+}
+
+
 /* =========================================
-   UPDATED MODAL STYLES FOR NEW IMAGE
+   UPDATED MODAL STYLES (FIXED POSITIONING)
    ========================================= */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
 .modal-content { background: #fff; width: 95%; max-width: 900px; border-radius: 4px; overflow: hidden; animation: popIn 0.3s ease; display: flex; flex-direction: column; }
@@ -130,32 +152,32 @@ footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 14px;
 .modal-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
 .close-modal { font-size: 28px; cursor: pointer; background: none; border: none; }
 
-/* ROOM CONTAINER - UPDATED */
+/* ROOM CONTAINER */
 .room-container {
   position: relative;
   width: 100%;
-  padding-bottom: 75%; /* 4:3 Aspect ratio to match the photo better */
-  /* ⚠️⚠️⚠️ استبدل الرابط ده برابط الصورة الجديدة بتاعتك هنا ⚠️⚠️⚠️ */
-  background: url('mockup222.jpg') no-repeat center center;
+  padding-bottom: 75%; /* 4:3 Aspect ratio */
+  /* ⚠️⚠️⚠️ PLACEHOLDER FOR YOUR NEW IMAGE URL ⚠️⚠️⚠️ */
+  background: url('https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?q=80&w=1200&auto=format&fit=crop') no-repeat center center;
   background-size: cover;
 }
 
-/* FRAME PREVIEW - UPDATED POSITIONING & SCALE */
+/* FRAME PREVIEW - FIXED CENTER ALIGNMENT */
 .frame-preview {
   position: absolute;
   background: #fff;
   box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-  /* Adjusted placement for the wall molding in the new image */
-  top: 32%;
-  left: 47%;
+  /* FIX: Centered horizontally (50%) and adjusted vertically */
+  top: 35%;
+  left: 50%;
   transform: translate(-50%, -50%);
   border: 4px solid #222;
   width: 0;
   aspect-ratio: 3/4;
-  transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy effect */
+  transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Realistic Scaling for the new large room */
+/* Realistic Scaling */
 .frame-preview.s30x40 { width: 7%; }
 .frame-preview.s40x60 { width: 9.5%; aspect-ratio: 2/3; }
 .frame-preview.s60x90 { width: 14%; aspect-ratio: 2/3; }
@@ -199,7 +221,7 @@ footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 14px;
   .footer-grid{ grid-template-columns: 1fr; gap: 30px; padding-bottom: 30px;}
   .copyright{ flex-direction: column; gap: 10px; }
   .cart-drawer { width: 100%; right: -100%; } .cart-drawer.open { right: 0; }
-  /* Mobile scaling for the new image */
+  /* Mobile scaling */
   .frame-preview.s30x40 { width: 15%; }
   .frame-preview.s40x60 { width: 20%; }
   .frame-preview.s60x90 { width: 30%; }
@@ -385,6 +407,8 @@ footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 14px;
     </button>
 
     <button id="addToCartBtn" class="add-btn">Add to Cart</button>
+    
+    <button id="buyNowBtn" class="buy-now-btn">Buy It Now</button>
   </div>
 </div>
 
