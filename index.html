@@ -7,6 +7,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+/* === APPLE-STYLE ANIMATIONS START === */
+/* Smooth easing for that "premium" feel */
+:root {
+  --apple-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Base class for scroll animations */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  transition: opacity 0.8s var(--apple-ease), transform 0.8s var(--apple-ease);
+  will-change: opacity, transform;
+}
+
+/* The class JS will add to make them appear */
+.reveal-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Staggered Animation for Grid Items */
+.card {
+  /* Hide initially */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--apple-ease), transform 0.6s var(--apple-ease);
+}
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* === ANIMATIONS END === */
+
 *{
   margin:0;
   padding:0;
@@ -188,7 +221,7 @@ h2{
   transition: 0.5s;
 }
 .cat:hover::before { background: rgba(0,0,0,0.5); }
-.cat:hover{ transform:translateY(-5px); }
+.cat:hover{ transform:translateY(-5px) !important; } /* override anim transform */
 .cat span { position: relative; z-index: 2; color: #fff; letter-spacing: 1px; }
 
 .cat.modern{background:url("modern.jpg");background-size:cover;}
@@ -280,6 +313,7 @@ footer{
 .card{
   background:#fff;
   cursor:pointer;
+  /* Card animations handled by JS adding .visible class */
 }
 .card img{
   width:100%;
@@ -417,6 +451,7 @@ footer{
 }
 
 /* BUTTONS */
+/* UPDATED: Size Guide Button with Icon */
 .size-guide-btn {
   background: none;
   border: none;
@@ -425,8 +460,19 @@ footer{
   font-size: 13px;
   color: #555;
   margin-bottom: 30px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
 }
+.size-guide-btn img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+.size-guide-btn:hover { color: #000; }
+.size-guide-btn:hover img { opacity: 1; transform: scale(1.1); }
+
 .add-btn {
   background: #111;
   color: #fff;
@@ -486,7 +532,7 @@ footer{
 }
 
 /* =========================================
-   NEW CART DRAWER CSS
+   CART DRAWER CSS
    ========================================= */
 .cart-overlay-bg {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -592,10 +638,10 @@ footer{
 <section id="collections">
   <h2>Our Collections</h2>
   <div class="categories">
-    <div class="cat modern" data-cat="Modern"><span>Modern</span></div>
-    <div class="cat islamic" data-cat="Islamic"><span>Islamic</span></div>
-    <div class="cat games" data-cat="Games & Other"><span>Games & Other</span></div>
-    <div class="cat quotes" data-cat="Quotes & Posters"><span>Quotes & Posters</span></div>
+    <div class="cat modern reveal-on-scroll" data-cat="Modern"><span>Modern</span></div>
+    <div class="cat islamic reveal-on-scroll" data-cat="Islamic"><span>Islamic</span></div>
+    <div class="cat games reveal-on-scroll" data-cat="Games & Other"><span>Games & Other</span></div>
+    <div class="cat quotes reveal-on-scroll" data-cat="Quotes & Posters"><span>Quotes & Posters</span></div>
   </div>
 </section>
 
@@ -715,7 +761,10 @@ footer{
       <div class="size" data-s="60x90">60×90 cm</div>
     </div>
 
-    <button id="openSizeGuide" class="size-guide-btn">📏 View Size Guide (In Room)</button>
+    <button id="openSizeGuide" class="size-guide-btn">
+      <img src="mockup.jpg" alt="Size Guide">
+      View Size Guide (In Room)
+    </button>
 
     <button id="addToCartBtn" class="add-btn">Add to Cart</button>
   </div>
@@ -821,10 +870,26 @@ footer{
 </div>
 
 <script>
-/* HERO */
+/* 1. HERO */
 window.addEventListener("load",()=>{ const hero=document.querySelector(".hero-content"); if(hero) hero.classList.add("show"); });
 
-/* NAV */
+/* 2. SCROLL ANIMATION OBSERVER (APPLE STYLE) */
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach((entry, index)=>{
+    if(entry.isIntersecting){
+      // Stagger animation for categories
+      setTimeout(()=>{
+        entry.target.classList.add('visible');
+      }, index * 100); 
+      observer.unobserve(entry.target);
+    }
+  });
+}, {threshold: 0.15});
+
+// Apply observer to categories
+document.querySelectorAll('.cat').forEach(cat => observer.observe(cat));
+
+/* 3. NAV LOGIC & GRID ANIMATION */
 const mainPage=document.getElementById('main-page');
 const collectionPage=document.getElementById('collection-page');
 const productPage=document.getElementById('product-page');
@@ -842,12 +907,20 @@ cats.forEach(cat=>{
     mainPage.style.display="none";
     collectionPage.style.display="block";
     window.scrollTo(0,0);
+    
+    // TRIGGER STAGGERED GRID ANIMATION
+    const gridCards = document.querySelectorAll('.grid .card');
+    gridCards.forEach(c => c.classList.remove('visible')); // Reset
+    gridCards.forEach((c, i) => {
+      setTimeout(() => {
+        c.classList.add('visible');
+      }, i * 80); // Stagger delay
+    });
   });
 });
 
 /* Click Logic for ALL cards (including recommendations) */
 document.body.addEventListener('click', function(e){
-  // Check if clicked element is inside a card
   const card = e.target.closest('.card');
   if(card){
     productTitle.innerText = card.querySelector('h4').innerText;
@@ -863,9 +936,16 @@ document.body.addEventListener('click', function(e){
 });
 
 backBtn.onclick=()=>{ collectionPage.style.display="none"; mainPage.style.display="block"; };
-backToCollection.onclick=()=>{ productPage.style.display="none"; collectionPage.style.display="block"; };
+backToCollection.onclick=()=>{ productPage.style.display="none"; collectionPage.style.display="block"; 
+  // Re-trigger animation when going back
+  const gridCards = document.querySelectorAll('.grid .card');
+  gridCards.forEach((c, i) => {
+    c.classList.remove('visible');
+    setTimeout(() => c.classList.add('visible'), i * 80);
+  });
+};
 
-/* SIZE SELECTION */
+/* 4. SIZE SELECTION */
 const sizeBtns = document.querySelectorAll('.size');
 sizeBtns.forEach(btn => {
   btn.addEventListener('click', function(){
@@ -874,7 +954,7 @@ sizeBtns.forEach(btn => {
   });
 });
 
-/* MODAL */
+/* 5. MODAL */
 const modal = document.getElementById('sizeModal');
 const openBtn = document.getElementById('openSizeGuide');
 const closeBtn = document.getElementById('closeModal');
@@ -889,10 +969,8 @@ window.updateFrame = function(sizeClass, btnElement) {
   if(btnElement) btnElement.classList.add('active');
 }
 
-/* =========================================
-   CART LOGIC (UPDATED WITH DRAWER)
-   ========================================= */
-let cart = []; // Array to store actual products
+/* 6. CART LOGIC (WITH DRAWER) */
+let cart = []; 
 
 const cartDrawer = document.getElementById('cartDrawer');
 const cartOverlay = document.getElementById('cartOverlay');
@@ -903,56 +981,34 @@ const badges = document.querySelectorAll('.cart-badge');
 const addToCartBtn = document.getElementById('addToCartBtn');
 const toast = document.getElementById('toast');
 
-// OPEN/CLOSE DRAWER FUNCTIONS
-function openCart() {
-  cartDrawer.classList.add('open');
-  cartOverlay.classList.add('open');
-}
-function closeCart() {
-  cartDrawer.classList.remove('open');
-  cartOverlay.classList.remove('open');
-}
+function openCart() { cartDrawer.classList.add('open'); cartOverlay.classList.add('open'); }
+function closeCart() { cartDrawer.classList.remove('open'); cartOverlay.classList.remove('open'); }
 
-// BIND CLICK TO ALL CART ICONS IN NAV
-document.querySelectorAll('.cart-wrap').forEach(icon => {
-  icon.addEventListener('click', openCart);
-});
+document.querySelectorAll('.cart-wrap').forEach(icon => { icon.addEventListener('click', openCart); });
 closeCartBtn.addEventListener('click', closeCart);
 cartOverlay.addEventListener('click', closeCart);
 
-// ADD TO CART CLICK
 if(addToCartBtn) {
   addToCartBtn.addEventListener('click', function() {
-    // 1. Get Data
     const title = productTitle.innerText;
     const img = productImage.src;
     const size = document.querySelector('.size.active').innerText;
-    const price = 450; // Simple integer for calculation
-
-    // 2. Add to Cart Array
+    const price = 450; 
     const item = { title, img, size, price };
     cart.push(item);
-
-    // 3. Update UI
     updateCartUI();
-
-    // 4. Show Toast
     toast.className = "show";
     setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
   });
 }
 
 function updateCartUI() {
-  // Update Badges
   badges.forEach(badge => {
     badge.innerText = cart.length;
-    badge.classList.add('visible');
-    badge.classList.remove('pop');
-    void badge.offsetWidth; // Trigger reflow
-    badge.classList.add('pop');
+    badge.classList.add('visible'); badge.classList.remove('pop');
+    void badge.offsetWidth; badge.classList.add('pop');
   });
 
-  // Render Items in Drawer
   cartItemsContainer.innerHTML = "";
   let total = 0;
 
@@ -981,12 +1037,10 @@ function updateCartUI() {
   cartSubtotalEl.innerText = total + " EGP";
 }
 
-// REMOVE ITEM FUNCTION (Global)
 window.removeItem = function(index) {
-  cart.splice(index, 1); // Remove item at index
+  cart.splice(index, 1);
   updateCartUI();
 }
-
 </script>
 
 </body>
