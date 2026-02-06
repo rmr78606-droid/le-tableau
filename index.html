@@ -22,24 +22,22 @@
   to {transform: scale(1); opacity: 1;} 
 }
 
-/* FIX: Elements are visible by default now to prevent disappearing */
+/* Scroll Reveal Animation */
 .reveal-on-scroll { 
-  opacity: 1; 
-  transform: translateY(0);
-  transition: opacity 0.8s var(--apple-ease), transform 0.8s var(--apple-ease); 
-}
-
-/* Only hide if JS is working (Handled in script if needed, but safe default is visible) */
-.reveal-on-scroll.hidden {
   opacity: 0; 
   transform: translateY(30px); 
+  transition: opacity 0.8s var(--apple-ease), transform 0.8s var(--apple-ease); 
+}
+.reveal-on-scroll.visible { 
+  opacity: 1; 
+  transform: translateY(0); 
 }
 
 /* =========================================
    2. BASE STYLES
    ========================================= */
 *{ margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif; }
-body{ background:#fff; color:#111; overflow-x: hidden; padding-top: 32px; }
+body{ background:#fff; color:#111; overflow-x: hidden; padding-top: 32px; /* Space for Announcement Bar */ }
 
 /* ANNOUNCEMENT BAR */
 .announcement-bar {
@@ -49,7 +47,9 @@ body{ background:#fff; color:#111; overflow-x: hidden; padding-top: 32px; }
   height: 32px;
   line-height: 32px;
   position: fixed;
-  top: 0; left: 0; width: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 2000;
   overflow: hidden;
   white-space: nowrap;
@@ -89,22 +89,13 @@ nav {
 .cart-badge.visible{ opacity: 1; transform: scale(1); }
 .cart-badge.pop{ transform: scale(1.4); }
 
-/* HERO - VIDEO SUPPORT RESTORED */
+/* HERO (IMAGE RESTORED) */
 .hero{ 
   min-height:100vh; 
-  position:relative; 
-  overflow:hidden; 
-  display:flex; align-items:center; justify-content:center; text-align:center;
-  background: #000; /* Fallback color */
-}
-.bg-video {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  object-fit: cover; z-index: 0;
-}
-.video-overlay {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.3); /* Darkens video slightly so text pops */
-  z-index: 1;
+  background: linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)), url("hero.jpg"); 
+  background-size:cover; background-position:center; 
+  display:flex; align-items:center; justify-content:center; 
+  text-align:center; position:relative; overflow:hidden; 
 }
 .hero-content{ color:#fff; opacity:0; transform:translateY(30px); transition:1.2s ease; z-index: 2; max-width: 700px; }
 .hero-content.show{ opacity:1; transform:translateY(0); }
@@ -150,10 +141,10 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bott
 .collection-header h1 { font-family: 'Cinzel', serif; font-size: 38px; margin-bottom: 10px; font-weight: 400;}
 .grid{ padding:0 60px 100px; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:40px; }
 .card{ 
-  background:#fff; cursor:pointer; 
-  /* Removing initial hide to ensure visibility, animation handled via JS class if loaded */
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  background:#fff; cursor:pointer; opacity: 0; transform: translateY(20px); 
+  transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.6s var(--apple-ease);
 }
+.card.visible { opacity: 1; transform: translateY(0); }
 .card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
 .card img{ width:100%; aspect-ratio: 3/4; object-fit:cover; margin-bottom: 15px; }
 .card-content h4{ font-weight: 500; font-size: 15px; margin-bottom: 5px; color: #111; }
@@ -243,9 +234,17 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
 .modal-content { background: #fff; width: 95%; max-width: 900px; border-radius: 4px; overflow: hidden; animation: popIn 0.3s ease; display: flex; flex-direction: column; }
 .modal-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
 .close-modal { font-size: 28px; cursor: pointer; background: none; border: none; }
-.room-container { position: relative; width: 100%; padding-bottom: 65%; background: url('mmm.jpg') no-repeat center center; background-size: cover; background-color: #f5f5f5; }
-/* Frame Preview - Centered */
-.frame-preview { position: absolute; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.4); top: 30%; left: 50%; transform: translate(-50%, -50%); border: 3px solid #222; width: 0; aspect-ratio: 3/4; transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.room-container { 
+  position: relative; width: 100%; padding-bottom: 65%; /* Aspect Ratio */
+  background: url('mmm.jpg') no-repeat center center; 
+  background-size: cover; background-color: #f5f5f5; 
+}
+.frame-preview { 
+  position: absolute; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.4); 
+  top: 30%; left: 50%; transform: translate(-50%, -50%); 
+  border: 3px solid #222; width: 0; aspect-ratio: 3/4; 
+  transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); 
+}
 .frame-preview.s30x40 { width: 8%; } .frame-preview.s40x60 { width: 10.5%; aspect-ratio: 2/3; } .frame-preview.s60x90 { width: 15%; aspect-ratio: 2/3; }
 .modal-controls { padding: 20px; text-align: center; background: #fff; }
 .modal-btn { padding: 10px 24px; margin: 0 5px; border: 1px solid #e0e0e0; background: #fff; cursor: pointer; }
@@ -484,7 +483,7 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
 
 <div class="trust-strip">
   <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/709/709790.png"><div class="trust-text"><h5>Fast Shipping</h5><p>3-5 Days</p></div></div>
-  <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/2331/2331923.png"><div class="trust-text"><h5>Secure</h5><p>Payment</p></div></div>
+  <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/2331/2331923.png"><div class="trust-text"><h5>Secure Payment</h5><p>100% Protected</p></div></div>
   <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"><div class="trust-text"><h5>Premium</h5><p>Quality</p></div></div>
 </div>
 
@@ -502,7 +501,7 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
 <script>
 window.addEventListener("load",()=>{ const hero=document.querySelector(".hero-content"); if(hero) hero.classList.add("show"); });
 
-/* PROMO POPUP */
+/* PROMO POPUP TIMEOUT */
 setTimeout(() => { document.getElementById('promoPopup').style.display = 'flex'; }, 4000);
 document.getElementById('closePromoBtn').onclick = () => document.getElementById('promoPopup').style.display = 'none';
 
@@ -574,7 +573,6 @@ sizeBtns.forEach(btn => {
   });
 });
 
-/* MODAL */
 const modal = document.getElementById('sizeModal');
 const openBtn = document.getElementById('openSizeGuide');
 const closeBtn = document.getElementById('closeModal');
@@ -632,12 +630,10 @@ function updateCartUI() {
   });
   cartItemsContainer.innerHTML = "";
   let subtotal = 0;
-  
   if(cart.length === 0) {
     cartItemsContainer.innerHTML = '<div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your cart is empty.</div>';
     cartSubtotalEl.innerText = "0 EGP"; finalTotalEl.innerText = "0 EGP"; discountRow.style.display = "none"; return;
   }
-
   cart.forEach((item, index) => {
     subtotal += item.price;
     const div = document.createElement('div');
@@ -653,14 +649,12 @@ function updateCartUI() {
     `;
     cartItemsContainer.appendChild(div);
   });
-
   let discountAmount = 0;
   if(discountApplied) {
     discountAmount = subtotal * discountPercent;
     discountRow.style.display = "flex";
     discountValueEl.innerText = "-" + discountAmount + " EGP";
   } else { discountRow.style.display = "none"; }
-  
   let finalTotal = subtotal - discountAmount;
   cartSubtotalEl.innerText = subtotal + " EGP";
   finalTotalEl.innerText = finalTotal + " EGP";
