@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Le Tableau</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================
@@ -68,25 +68,58 @@ body{ background:#fff; color:#111; overflow-x: hidden; padding-top: 32px; /* Spa
   padding-left: 100%;
 }
 
-/* NAV */
-nav{ 
-  display:flex; justify-content:space-between; align-items:center; 
-  padding:18px 60px; position:fixed; width:100%; 
-  top: 32px; /* Below Announcement Bar */
-  background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); 
-  z-index:1000; border-bottom: 1px solid rgba(0,0,0,0.05); 
+/* === UPDATED NAV (ETHETIC STYLE) === */
+nav { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  padding: 20px 40px; 
+  position: fixed; 
+  width: 100%; 
+  top: 32px; 
+  background: rgba(255,255,255,0.95); 
+  backdrop-filter: blur(10px); 
+  z-index: 1000; 
+  border-bottom: 1px solid rgba(0,0,0,0.05); 
 }
-.logo{ font-family: 'Cinzel', serif; font-size:24px; font-weight:600; letter-spacing:1px; }
-.nav-right{ display: flex; align-items: center; gap: 32px; }
-nav ul{ display:flex; list-style:none; gap:32px; }
-nav a{ text-decoration:none; color:#111; font-weight:500; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Logo Area */
+.logo { 
+  font-family: 'Cinzel', serif; 
+  font-size: 26px; 
+  font-weight: 700; 
+  letter-spacing: 0.5px; 
+  margin-right: 40px; /* Space between logo and links */
+  flex-shrink: 0;
+}
+
+/* Center Links (The Ethetic Look) */
+.nav-center {
+  display: flex;
+  gap: 25px;
+  flex-grow: 1; /* Push to left next to logo */
+}
+
+.nav-center a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.2s;
+}
+.nav-center a:hover { opacity: 0.6; }
+
+/* Right Icons */
+.nav-right { display: flex; align-items: center; gap: 20px; }
 
 /* CART ICON */
 .cart-wrap{ position: relative; cursor: pointer; display: flex; align-items: center; }
-.cart-icon svg{ width: 24px; height: 24px; }
+.cart-icon svg{ width: 22px; height: 22px; }
 .cart-badge{ 
   position: absolute; top: -5px; right: -5px; background: #000; color: white; 
-  font-size: 10px; font-weight: bold; height: 16px; width: 16px; 
+  font-size: 9px; font-weight: bold; height: 15px; width: 15px; 
   display: flex; justify-content: center; align-items: center; border-radius: 50%; 
   opacity: 0; transform: scale(0.5); transition: 0.3s; 
 }
@@ -158,7 +191,7 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bott
 .old{color:#999;text-decoration:line-through;margin-left:6px; font-size: 12px;}
 
 /* =========================================
-   3. PRODUCT PAGE & DETAILS (RESTORED FULLY)
+   3. PRODUCT PAGE & DETAILS
    ========================================= */
 .product-wrap{ max-width:1100px; margin:0 auto; padding:40px 40px 80px; display: flex; gap: 60px; align-items: flex-start; }
 .product-image{ flex: 1.2; display: flex; justify-content: center; }
@@ -185,7 +218,7 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bott
 .buy-now-btn:hover { background: #b48b5a; transform: translateY(-2px); }
 .back-btn{ display:inline-block; margin-bottom:20px; color: #777; text-decoration:none; font-size: 12px; cursor: pointer; }
 
-/* DETAILS SECTION (RESTORED TEXT) */
+/* DETAILS SECTION */
 .details-section { max-width: 900px; margin: 0 auto; padding: 60px 40px; border-top: 1px solid #eee; }
 .details-title { text-align: center; font-family: 'Cinzel', serif; font-size: 26px; margin-bottom: 40px; }
 .details-text-block { margin-bottom: 50px; text-align: center; color: #555; line-height: 1.8; font-size: 15px; }
@@ -204,7 +237,7 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bott
 .recommendations { max-width: 1200px; margin: 0 auto 100px; padding: 0 40px; }
 .recommendations h3 { font-family: 'Cinzel', serif; text-align: center; font-size: 24px; margin-bottom: 40px; font-weight: 400; }
 
-/* TRUST STRIP (ETHETIC STYLE) */
+/* TRUST STRIP */
 .trust-strip {
   background: #fff; padding: 40px 20px; border-top: 1px solid #eee; 
   display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; text-align: left;
@@ -214,14 +247,109 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bott
 .trust-text h5 { font-size: 12px; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; font-weight: 700; }
 .trust-text p { font-size: 11px; color: #777; margin: 0; }
 
-/* MEGA FOOTER */
-footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 13px; }
-.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; border-bottom: 1px solid #333; padding-bottom: 60px; }
-.footer-col h3 { font-family: 'Cinzel', serif; font-size: 18px; margin-bottom: 20px; color: #fff; }
-.footer-col p { color: #999; line-height: 1.8; margin-bottom: 20px; }
-.footer-links a { display: block; color: #999; text-decoration: none; margin-bottom: 10px; transition: 0.3s; }
-.footer-links a:hover { color: #fff; transform: translateX(5px); }
-.copyright { text-align: center; color: #555; font-size: 11px; display: flex; justify-content: space-between; }
+/* === UPDATED FOOTER (ETHETIC LAYOUT) === */
+footer {
+  background: #f9f9f9; /* Light background like reference */
+  color: #111;
+  padding: 80px 60px 30px;
+  font-size: 13px;
+  border-top: 1px solid #eee;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr; /* Wider first column */
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+/* Col 1: About */
+.footer-col h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #000;
+}
+.footer-about-text {
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  font-size: 13px;
+  max-width: 90%;
+}
+.footer-support-link {
+  text-decoration: underline;
+  color: #111;
+  font-weight: 600;
+}
+.currency-selector {
+  margin-top: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Col 2: Newsletter */
+.newsletter-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+.newsletter-desc {
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+.newsletter-input {
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+.newsletter-btn {
+  width: 100%;
+  padding: 14px;
+  background: #111;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Col 3 & 4: Links */
+.footer-menu-title {
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+.footer-links a {
+  display: block;
+  color: #555;
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: 0.2s;
+  font-size: 13px;
+}
+.footer-links a:hover { color: #000; }
+
+.footer-bottom {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.social-icons { display: flex; gap: 15px; }
+.social-icons span { font-weight: bold; cursor: pointer; }
 
 /* =========================================
    4. MODALS, DRAWERS & POPUPS
@@ -281,7 +409,8 @@ footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 13px;
 #toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media(max-width:768px){
-  nav{padding:15px 20px;} nav ul { display: none; } 
+  nav{padding:15px 20px;} 
+  .nav-center { display: none; } /* Hide center links on mobile */
   section,.grid,.collection-header,.product-wrap,.recommendations,.footer-grid{padding-left:20px;padding-right:20px;}
   .product-wrap{flex-direction: column; padding-top: 40px;}
   .product-image{width: 100%; margin-bottom: 30px;}
@@ -336,15 +465,26 @@ footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 13px;
   </div>
 </div>
 
-<div id="main-page">
 <nav>
   <div class="logo">Le Tableau</div>
+  
+  <div class="nav-center">
+    <a href="#collections">Shop All</a>
+    <a href="#collections">Modern</a>
+    <a href="#collections">Islamic</a>
+    <a href="#collections">Gaming</a>
+    <a href="#collections">Quotes</a>
+  </div>
+
   <div class="nav-right">
-    <ul><li><a href="#collections">Collections</a></li><li><a href="#about">About</a></li><li><a href="#faq">FAQ</a></li></ul>
-    <div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge" id="cartBadge">0</span></div>
+    <div class="cart-wrap">
+      <div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </div>
   </div>
 </nav>
 
+<div id="main-page">
 <div class="hero">
   <div class="hero-content">
     <h1>Art That Speaks</h1>
@@ -385,17 +525,54 @@ footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 13px;
 
 <footer>
   <div class="footer-grid">
-    <div class="footer-col"><h3>Le Tableau</h3><p>Elevating interiors with timeless art since 2026. Designed in Alexandria, cherished worldwide.</p></div>
-    <div class="footer-col footer-links"><h3>Shop</h3><a href="#">Modern Art</a><a href="#">Islamic Calligraphy</a><a href="#">Gaming Setup</a><a href="#">Minimalist</a></div>
-    <div class="footer-col footer-links"><h3>Support</h3><a href="#">Track Order</a><a href="#">Shipping Policy</a><a href="#">Returns & Exchange</a><a href="#">Contact Us</a></div>
-    <div class="footer-col"><h3>Newsletter</h3><input type="email" placeholder="Your email"><button style="margin-top:10px;padding:5px;width:100%">Subscribe</button></div>
+    <div class="footer-col">
+      <h3>Le Tableau.</h3>
+      <div class="footer-about-text">
+        At Le Tableau, we believe in creating spaces that reflect who you are. Our posters are more than just decoration—they're designed to help transform your environment into a peaceful sanctuary.
+      </div>
+      <p style="margin-bottom:10px;">For questions or support:</p>
+      <a href="mailto:support@letableau.com" class="footer-support-link">support@letableau.com</a>
+      <div class="currency-selector">
+        🇪🇬 EGP E£ <span>⌄</span>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <div class="newsletter-title">Stay in Touch</div>
+      <div class="newsletter-desc">Subscribe to our newsletter for exclusive offers and promotions.</div>
+      <input type="email" class="newsletter-input" placeholder="E-mail">
+      <button class="newsletter-btn">Subscribe</button>
+    </div>
+
+    <div class="footer-col footer-links">
+      <div class="footer-menu-title">Main Menu</div>
+      <a href="#">Shop All</a>
+      <a href="#">Modern Art</a>
+      <a href="#">Islamic</a>
+      <a href="#">Gaming</a>
+      <a href="#">Contact Us</a>
+    </div>
+
+    <div class="footer-col footer-links">
+      <div class="footer-menu-title">Footer Menu</div>
+      <a href="#">Search</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Refund Policy</a>
+      <a href="#">Shipping Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
   </div>
-  <div class="copyright"><div>© 2026 Le Tableau. All rights reserved.</div></div>
+
+  <div class="footer-bottom">
+    <div class="copyright">© 2026 Le Tableau.</div>
+    <div class="social-icons">
+      <span>IG</span> <span>FB</span> <span>TT</span>
+    </div>
+  </div>
 </footer>
 </div>
 
 <div id="collection-page" class="collection-page">
-<nav><div class="logo">Le Tableau</div><div class="nav-right"><div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div></div></nav>
 <div class="collection-header"><a class="back-btn" id="backBtn">← Back to Home</a><h1 id="collectionTitle">Collection</h1><p>Hand-picked pieces for the discerning collector</p></div>
 <div class="grid" id="productGrid">
   <div class="card"><img src="https://picsum.photos/600/800?1"><div class="card-content"><h4>Abstract Lines</h4><div class="price">450 <span class="old">650</span></div></div></div>
@@ -411,14 +588,13 @@ footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 13px;
 </div>
 
 <div id="product-page" class="collection-page" style="display:none;">
-<nav><div class="logo">Le Tableau</div><div class="nav-right"><div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div></div></nav>
 <div class="product-wrap">
   <div class="product-image"><img id="productImage" src=""></div>
   <div class="product-info">
     <a class="back-btn" id="backToCollection">← Back to Collection</a>
     <h2 id="productTitle">Artwork Name</h2>
     <div style="font-size:24px; margin-bottom:20px; color:#111;"><strong>450 EGP</strong> <span class="old">650 EGP</span></div>
-    <p class="short-desc">This premium artwork is printed on museum-grade paper, ensuring depth and clarity that lasts a lifetime. Perfect for adding a sophisticated touch to your living room or office.</p>
+    <p class="short-desc">This premium artwork is printed on museum-grade paper, ensuring depth and clarity that lasts a lifetime.</p>
     <label style="font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:1px; margin-top:10px; display:block;">Select Size</label>
     <div class="sizes"><div class="size active" data-s="30x40">30×40 cm</div><div class="size" data-s="40x60">40×60 cm</div><div class="size" data-s="60x90">60×90 cm</div></div>
     <button id="openSizeGuide" class="size-guide-btn"><img src="https://cdn-icons-png.flaticon.com/512/3300/3300959.png">View Size Guide (In Room)</button>
@@ -429,14 +605,12 @@ footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 13px;
 
 <div class="details-section">
   <h3 class="details-title">The Craftsmanship</h3>
-  
   <div class="details-text-block">
     <h4>Product Description</h4>
     <p>Enhance Your Walls with Classic Wooden Frames. Our Wooden Frame is crafted from 100% natural wood, providing a timeless, elegant addition to your decor. The frame’s glass front offers lasting protection for your artwork or photos, and the sturdy engineered wood back ensures stability and durability.</p>
     <br>
     <p>Each piece is printed using eco-solvent inks on premium poster material, delivering vibrant colors and sharp details. Arrives ready to hang with pre-installed hardware for effortless display. Ideal for living rooms, bedrooms, offices, or as part of a gallery wall arrangement.</p>
   </div>
-
   <div class="features-grid">
     <div class="feature-box"><span class="feature-icon">🪵</span><h4>Solid Natural Wood</h4><p>Classic, eco-friendly look.</p></div>
     <div class="feature-box"><span class="feature-icon">💎</span><h4>Glass Protection</h4><p>Durable clarity & longevity.</p></div>
@@ -543,13 +717,10 @@ window.updateFrame = function(sizeClass, btnElement) {
   if(btnElement) btnElement.classList.add('active');
 }
 
-/* =========================================
-   CART LOGIC (FIXED)
-   ========================================= */
+/* CART LOGIC */
 let cart = []; 
 let discountApplied = false;
 let discountPercent = 0;
-
 const cartDrawer = document.getElementById('cartDrawer');
 const cartOverlay = document.getElementById('cartOverlay');
 const closeCartBtn = document.getElementById('closeCart');
@@ -564,6 +735,13 @@ const buyNowBtn = document.getElementById('buyNowBtn');
 const toast = document.getElementById('toast');
 const promoInput = document.getElementById('promoInput');
 const applyPromoBtn = document.getElementById('applyPromoBtn');
+
+applyPromoBtn.addEventListener('click', function() {
+  const code = promoInput.value.trim();
+  if(code === "Frist10") {
+    discountApplied = true; discountPercent = 0.10; alert("Coupon Applied: 10% OFF!"); updateCartUI();
+  } else { alert("Invalid Promo Code"); discountApplied = false; discountPercent = 0; updateCartUI(); }
+});
 
 function openCart() { cartDrawer.classList.add('open'); cartOverlay.classList.add('open'); }
 function closeCart() { cartDrawer.classList.remove('open'); cartOverlay.classList.remove('open'); }
@@ -589,12 +767,10 @@ function updateCartUI() {
   });
   cartItemsContainer.innerHTML = "";
   let subtotal = 0;
-  
   if(cart.length === 0) {
     cartItemsContainer.innerHTML = '<div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your cart is empty.</div>';
     cartSubtotalEl.innerText = "0 EGP"; finalTotalEl.innerText = "0 EGP"; discountRow.style.display = "none"; return;
   }
-
   cart.forEach((item, index) => {
     subtotal += item.price;
     const div = document.createElement('div');
@@ -610,27 +786,18 @@ function updateCartUI() {
     `;
     cartItemsContainer.appendChild(div);
   });
-
   let discountAmount = 0;
   if(discountApplied) {
     discountAmount = subtotal * discountPercent;
     discountRow.style.display = "flex";
     discountValueEl.innerText = "-" + discountAmount + " EGP";
   } else { discountRow.style.display = "none"; }
-  
   let finalTotal = subtotal - discountAmount;
   cartSubtotalEl.innerText = subtotal + " EGP";
   finalTotalEl.innerText = finalTotal + " EGP";
 }
 
 window.removeItem = function(index) { cart.splice(index, 1); updateCartUI(); }
-
-applyPromoBtn.addEventListener('click', function() {
-  const code = promoInput.value.trim();
-  if(code === "Frist10") {
-    discountApplied = true; discountPercent = 0.10; alert("Coupon Applied: 10% OFF!"); updateCartUI();
-  } else { alert("Invalid Promo Code"); discountApplied = false; discountPercent = 0; updateCartUI(); }
-});
 
 const checkoutBtn = document.getElementById('checkoutBtn');
 checkoutBtn.addEventListener('click', function() {
@@ -649,7 +816,4 @@ checkoutBtn.addEventListener('click', function() {
   const phone = "201000000000"; 
   window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
 });
-</script>
-
-</body>
-</html>
+</script
