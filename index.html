@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Le Tableau</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================
@@ -17,12 +17,16 @@
   100% { transform: translateX(-100%); }
 }
 
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes popIn { 
   from {transform: scale(0.9); opacity: 0;} 
   to {transform: scale(1); opacity: 1;} 
 }
 
-/* Scroll Reveal Animation */
 .reveal-on-scroll { 
   opacity: 0; 
   transform: translateY(30px); 
@@ -64,43 +68,43 @@ body{ background:#fff; color:#111; overflow-x: hidden; padding-top: 32px; /* Spa
   padding-left: 100%;
 }
 
-/* NAV (ETHETIC STYLE) */
-nav { 
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 40px; position: fixed; width: 100%; 
-  top: 32px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); 
-  z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); 
+/* NAV */
+nav{ 
+  display:flex; justify-content:space-between; align-items:center; 
+  padding:18px 60px; position:fixed; width:100%; 
+  top: 32px; /* Below Announcement Bar */
+  background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); 
+  z-index:1000; border-bottom: 1px solid rgba(0,0,0,0.05); 
 }
-.logo { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; letter-spacing: 0.5px; margin-right: 40px; }
-.nav-center { display: flex; gap: 25px; flex-grow: 1; }
-.nav-center a { text-decoration: none; color: #111; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
-.nav-center a:hover { opacity: 0.6; }
-.nav-right { display: flex; align-items: center; gap: 20px; }
+.logo{ font-family: 'Cinzel', serif; font-size:24px; font-weight:600; letter-spacing:1px; }
+.nav-right{ display: flex; align-items: center; gap: 32px; }
+nav ul{ display:flex; list-style:none; gap:32px; }
+nav a{ text-decoration:none; color:#111; font-weight:500; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
 
 /* CART ICON */
 .cart-wrap{ position: relative; cursor: pointer; display: flex; align-items: center; }
-.cart-icon svg{ width: 22px; height: 22px; stroke: #000; }
+.cart-icon svg{ width: 24px; height: 24px; }
 .cart-badge{ 
   position: absolute; top: -5px; right: -5px; background: #000; color: white; 
-  font-size: 9px; font-weight: bold; height: 15px; width: 15px; 
+  font-size: 10px; font-weight: bold; height: 16px; width: 16px; 
   display: flex; justify-content: center; align-items: center; border-radius: 50%; 
   opacity: 0; transform: scale(0.5); transition: 0.3s; 
 }
 .cart-badge.visible{ opacity: 1; transform: scale(1); }
 .cart-badge.pop{ transform: scale(1.4); }
 
-/* HERO (IMAGE RESTORED) */
+/* HERO */
 .hero{ 
   min-height:100vh; 
-  background: linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)), url("hero.jpg"); 
+  background: linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)), url("hero.jpg"); 
   background-size:cover; background-position:center; 
   display:flex; align-items:center; justify-content:center; 
   text-align:center; position:relative; overflow:hidden; 
 }
 .hero-content{ color:#fff; opacity:0; transform:translateY(30px); transition:1.2s ease; z-index: 2; max-width: 700px; }
 .hero-content.show{ opacity:1; transform:translateY(0); }
-.hero h1{ font-family: 'Cinzel', serif; font-size:52px; margin-bottom:20px; font-weight:400; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-.hero p{ font-size:16px; opacity:.9; margin-bottom:30px; line-height: 1.6; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+.hero h1{ font-family: 'Cinzel', serif; font-size:52px; margin-bottom:20px; font-weight:400; }
+.hero p{ font-size:16px; opacity:.9; margin-bottom:30px; line-height: 1.6; }
 .btn{ 
   padding:14px 40px; background:#fff; color:#111; text-decoration:none; 
   font-weight:600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; 
@@ -110,29 +114,31 @@ nav {
 
 /* SECTIONS */
 section{ padding:100px 60px; }
-h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bottom:50px; font-weight: 400; color: #111; }
+h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bottom:50px; font-weight: 400; }
 
 /* COLLECTIONS */
 .categories{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px; }
 .cat{ 
-  height:300px; background:#f5f5f5; display:flex; justify-content:center; align-items:center; 
+  height:300px; background:#fafafa; display:flex; justify-content:center; align-items:center; 
   font-size:24px; font-family: 'Cinzel', serif; transition:.5s ease; cursor:pointer; 
-  position: relative; overflow: hidden; color: #fff;
+  position: relative; overflow: hidden; opacity: 0; transform: translateY(30px);
 }
-.cat::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.3); transition: 0.5s; }
-.cat:hover::before { background: rgba(0,0,0,0.5); }
+.cat.visible{ opacity: 1; transform: translateY(0); transition: opacity 0.8s, transform 0.8s; }
+.cat::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.2); transition: 0.5s; }
+.cat:hover::before { background: rgba(0,0,0,0.4); }
 .cat:hover{ transform:translateY(-5px); }
-.cat span { position: relative; z-index: 2; letter-spacing: 1px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+.cat span { position: relative; z-index: 2; color: #fff; letter-spacing: 1px; }
+/* Cat Backgrounds */
 .cat.modern{background:url("modern.jpg");background-size:cover;}
 .cat.islamic{background:url("islamic.jpg");background-size:cover;}
 .cat.games{background:url("games.jpg");background-size:cover;}
 .cat.quotes{background:url("post.jpg");background-size:cover;}
 
 /* ABOUT & FAQ */
-.about{ max-width:800px; margin:auto; text-align:center; font-size:16px; color:#444; line-height:1.9; }
+.about{ max-width:800px; margin:auto; text-align:center; font-size:16px; color:#555; line-height:1.9; }
 .faq{ max-width:800px; margin:auto; }
 .faq-item{ border-bottom: 1px solid #eee; padding:20px 0; }
-.faq-item h4 { font-weight: 600; font-size: 16px; margin-bottom: 8px; color: #222; }
+.faq-item h4 { font-weight: 500; font-size: 16px; margin-bottom: 8px; }
 .faq-item p { color: #666; font-size: 14px; line-height: 1.6; }
 
 /* COLLECTION GRID */
@@ -142,12 +148,37 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bott
 .grid{ padding:0 60px 100px; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:40px; }
 .card{ 
   background:#fff; cursor:pointer; opacity: 0; transform: translateY(20px); 
-  transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.6s var(--apple-ease);
+  transition: opacity 0.6s var(--apple-ease), transform 0.6s var(--apple-ease); 
 }
 .card.visible { opacity: 1; transform: translateY(0); }
-.card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-.card img{ width:100%; aspect-ratio: 3/4; object-fit:cover; margin-bottom: 15px; }
-.card-content h4{ font-weight: 500; font-size: 15px; margin-bottom: 5px; color: #111; }
+
+/* --- ORIGINAL IMAGE STYLE (KEPT AS REQUESTED) --- */
+.card img{ width:100%; aspect-ratio: 3/4; object-fit:cover; margin-bottom: 15px; transition: 0.4s; }
+.card:hover img { opacity: 0.9; }
+/* --- END ORIGINAL IMAGE STYLE --- */
+
+/* === NEW STYLES FOR SIDE-BY-SIDE IMAGES === */
+.card-img-row {
+  display: flex;
+  gap: 10px; /* Space between the two images */
+  margin-bottom: 15px;
+}
+/* Style for the new static image (mmo.png) */
+.card-img-row img.static-thumb {
+  width: 35%; /* Takes up 35% of space */
+  margin-bottom: 0; /* Override original margin */
+}
+/* Style for the main random image */
+.card-img-row img.main-thumb {
+  width: 65%; /* Takes up rest of space */
+  margin-bottom: 0; /* Override original margin */
+}
+/* Ensure hover only affects main image if desired, or leave as is for both */
+.card:hover img.main-thumb { opacity: 0.9; }
+/* ========================================== */
+
+
+.card-content h4{ font-weight: 500; font-size: 15px; margin-bottom: 5px; }
 .price{font-size:14px; color: #555;}
 .old{color:#999;text-decoration:line-through;margin-left:6px; font-size: 12px;}
 
@@ -158,7 +189,7 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bott
 .product-image{ flex: 1.2; display: flex; justify-content: center; }
 .product-image img{ width:100%; max-height: 600px; object-fit: contain; box-shadow: 0 0 0 1px #eee; }
 .product-info{ flex: 1; padding-top: 10px; }
-.product-info h2{ text-align:left; font-family: 'Cinzel', serif; font-size:30px; margin-bottom:10px; font-weight: 400; color: #111; }
+.product-info h2{ text-align:left; font-family: 'Cinzel', serif; font-size:30px; margin-bottom:10px; font-weight: 400; }
 .short-desc { color:#666; line-height:1.6; margin-bottom:25px; font-size: 14px; }
 .sizes{ display:flex; gap:10px; margin:20px 0 25px; }
 .size{ padding:10px 18px; border:1px solid #ddd; cursor:pointer; font-size:12px; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; }
@@ -181,14 +212,14 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bott
 
 /* DETAILS SECTION */
 .details-section { max-width: 900px; margin: 0 auto; padding: 60px 40px; border-top: 1px solid #eee; }
-.details-title { text-align: center; font-family: 'Cinzel', serif; font-size: 26px; margin-bottom: 40px; color: #111; }
+.details-title { text-align: center; font-family: 'Cinzel', serif; font-size: 26px; margin-bottom: 40px; }
 .details-text-block { margin-bottom: 50px; text-align: center; color: #555; line-height: 1.8; font-size: 15px; }
 .details-text-block h4 { color: #111; margin-bottom: 10px; font-size: 16px; font-weight: 600; }
 
 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; }
 .feature-box { padding: 25px; background: #fcfcfc; border: 1px solid #f0f0f0; }
 .feature-icon { font-size: 22px; margin-bottom: 15px; display: block; }
-.feature-box h4 { font-size: 13px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; color: #111; }
+.feature-box h4 { font-size: 13px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
 .feature-box p { font-size: 13px; color: #777; line-height: 1.5; margin: 0; }
 
 /* MARKETING & RECOMMENDATIONS */
@@ -196,7 +227,7 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bott
 .marketing-quote h3 { font-family: 'Cinzel', serif; font-size: 24px; color: #333; margin-bottom: 10px; font-weight: 400; }
 .marketing-quote p { color: #777; font-style: italic; }
 .recommendations { max-width: 1200px; margin: 0 auto 100px; padding: 0 40px; }
-.recommendations h3 { font-family: 'Cinzel', serif; text-align: center; font-size: 24px; margin-bottom: 40px; font-weight: 400; color: #111; }
+.recommendations h3 { font-family: 'Cinzel', serif; text-align: center; font-size: 24px; margin-bottom: 40px; font-weight: 400; }
 
 /* TRUST STRIP */
 .trust-strip {
@@ -205,29 +236,20 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bott
 }
 .trust-item { display: flex; align-items: center; gap: 15px; max-width: 250px; }
 .trust-item img { width: 32px; opacity: 0.8; }
-.trust-text h5 { font-size: 12px; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; font-weight: 700; color: #111; }
+.trust-text h5 { font-size: 12px; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; font-weight: 700; }
 .trust-text p { font-size: 11px; color: #777; margin: 0; }
 
-/* FOOTER */
-footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 13px; border-top: 1px solid #eee; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1.5fr 1fr 1fr; gap: 50px; margin-bottom: 60px; }
-.footer-col h3 { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; margin-bottom: 25px; color: #000; }
-.footer-about-text { color: #555; line-height: 1.8; margin-bottom: 25px; font-size: 13px; max-width: 90%; }
-.footer-support-link { text-decoration: underline; color: #111; font-weight: 600; }
-.currency-selector { margin-top: 30px; display: inline-flex; align-items: center; gap: 5px; font-weight: 600; cursor: pointer; }
-.newsletter-title { font-weight: 700; text-transform: uppercase; margin-bottom: 15px; font-size: 12px; letter-spacing: 1px; color: #111; }
-.newsletter-desc { color: #555; margin-bottom: 20px; line-height: 1.6; }
-.newsletter-input { width: 100%; padding: 12px; background: #fff; border: 1px solid #ddd; margin-bottom: 10px; font-size: 13px; }
-.newsletter-btn { width: 100%; padding: 14px; background: #111; color: #fff; border: none; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-.footer-menu-title { font-weight: 600; margin-bottom: 20px; font-size: 13px; color: #111; }
-.footer-links a { display: block; color: #555; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 13px; }
-.footer-links a:hover { color: #000; }
-.footer-bottom { border-top: 1px solid #e0e0e0; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; }
-.social-icons { display: flex; gap: 15px; }
-.social-icons span { font-weight: bold; cursor: pointer; color: #111; }
+/* MEGA FOOTER */
+footer{ background: #111; color: #fff; padding: 80px 60px 30px; font-size: 13px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; border-bottom: 1px solid #333; padding-bottom: 60px; }
+.footer-col h3 { font-family: 'Cinzel', serif; font-size: 18px; margin-bottom: 20px; color: #fff; }
+.footer-col p { color: #999; line-height: 1.8; margin-bottom: 20px; }
+.footer-links a { display: block; color: #999; text-decoration: none; margin-bottom: 10px; transition: 0.3s; }
+.footer-links a:hover { color: #fff; transform: translateX(5px); }
+.copyright { text-align: center; color: #555; font-size: 11px; display: flex; justify-content: space-between; }
 
 /* =========================================
-   4. MODALS & DRAWERS
+   4. MODALS, DRAWERS & POPUPS
    ========================================= */
 /* SIZE MODAL */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 3000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
@@ -241,7 +263,7 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
 }
 .frame-preview { 
   position: absolute; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.4); 
-  top: 30%; left: 50%; transform: translate(-50%, -50%); 
+  top: 25%; left: 50%; transform: translate(-50%, -50%); 
   border: 3px solid #222; width: 0; aspect-ratio: 3/4; 
   transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); 
 }
@@ -260,21 +282,22 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
 .cart-footer-draw { padding: 25px; border-top: 1px solid #eee; background: #f9f9f9; }
 .cart-item { display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
 .cart-item img { width: 70px; height: 90px; object-fit: cover; }
-.cart-item-title { font-size: 14px; font-weight: 600; color: #111; margin-bottom: 5px; }
 .remove-item { color: #c00; font-size: 11px; cursor: pointer; text-decoration: underline; margin-top: 5px; display: inline-block; }
+
+/* PROMO INPUT IN CART */
 .promo-section { margin-bottom: 20px; }
 .promo-input-group { display: flex; gap: 8px; }
 .promo-input { flex: 1; padding: 12px; border: 1px solid #ddd; font-size: 13px; background: #fff; }
 .promo-btn { padding: 0 20px; background: #222; color: #fff; border: none; cursor: pointer; font-size: 12px; text-transform: uppercase; }
 .discount-row { display: flex; justify-content: space-between; color: #27ae60; font-size: 14px; margin-bottom: 10px; font-weight: 600; }
-.cart-total { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 10px; color: #111; }
-.final-total { display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; margin-top: 15px; border-top: 1px solid #ddd; padding-top: 15px; color: #111; }
+.cart-total { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 10px; }
+.final-total { display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; margin-top: 15px; border-top: 1px solid #ddd; padding-top: 15px; }
 .checkout-btn { width: 100%; padding: 16px; background: #111; color: #fff; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; margin-top: 15px; }
 
-/* PROMO POPUP */
+/* PROMO POPUP (WELCOME) */
 .promo-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 4000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
 .promo-modal { background: #fff; padding: 50px 40px; text-align: center; max-width: 450px; position: relative; border-radius: 4px; animation: popIn 0.5s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
-.promo-modal h2 { font-family: 'Cinzel', serif; font-size: 32px; margin-bottom: 15px; color: #111; }
+.promo-modal h2 { font-family: 'Cinzel', serif; font-size: 32px; margin-bottom: 15px; }
 .promo-code-box { background: #f4f4f4; border: 1px dashed #333; padding: 15px; font-size: 22px; font-weight: 700; letter-spacing: 2px; color: #cba374; margin: 25px 0; display: inline-block; width: 100%; }
 .close-promo { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #999; }
 
@@ -283,8 +306,7 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
 #toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media(max-width:768px){
-  nav{padding:15px 20px;} 
-  .nav-center { display: none; } 
+  nav{padding:15px 20px;} nav ul { display: none; } 
   section,.grid,.collection-header,.product-wrap,.recommendations,.footer-grid{padding-left:20px;padding-right:20px;}
   .product-wrap{flex-direction: column; padding-top: 40px;}
   .product-image{width: 100%; margin-bottom: 30px;}
@@ -308,7 +330,7 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
   <div class="promo-modal">
     <span class="close-promo" id="closePromoBtn">×</span>
     <h2>Welcome Gift</h2>
-    <p style="color:#666;line-height:1.6;">Join the Le Tableau family and get 10% off your first purchase.</p>
+    <p>Join the Le Tableau family and get 10% off your first purchase.</p>
     <div class="promo-code-box">Frist10</div>
     <button class="add-btn" onclick="document.getElementById('promoPopup').style.display='none'">Start Shopping</button>
   </div>
@@ -319,7 +341,7 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
 <div class="cart-overlay-bg" id="cartOverlay"></div>
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-header-draw">
-    <h3 style="font-family:'Cinzel',serif;">Shopping Cart</h3>
+    <h3>Shopping Cart</h3>
     <span class="close-cart-btn" id="closeCart" style="font-size:24px;cursor:pointer;">×</span>
   </div>
   <div class="cart-items-container" id="cartItemsContainer">
@@ -339,24 +361,15 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
   </div>
 </div>
 
+<div id="main-page">
 <nav>
   <div class="logo">Le Tableau</div>
-  <div class="nav-center">
-    <a href="#collections">Shop All</a>
-    <a href="#collections">Modern</a>
-    <a href="#collections">Islamic</a>
-    <a href="#collections">Gaming</a>
-    <a href="#collections">Quotes</a>
-  </div>
   <div class="nav-right">
-    <div class="cart-wrap">
-      <div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
-      <span class="cart-badge" id="cartBadge">0</span>
-    </div>
+    <ul><li><a href="#collections">Collections</a></li><li><a href="#about">About</a></li><li><a href="#faq">FAQ</a></li></ul>
+    <div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge" id="cartBadge">0</span></div>
   </div>
 </nav>
 
-<div id="main-page">
 <div class="hero">
   <div class="hero-content">
     <h1>Art That Speaks</h1>
@@ -397,60 +410,88 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
 
 <footer>
   <div class="footer-grid">
-    <div class="footer-col">
-      <h3>Le Tableau</h3>
-      <div class="footer-about-text">
-        At Le Tableau, we believe in creating spaces that reflect who you are. Our posters are more than just decoration—they're designed to help transform your environment into a peaceful sanctuary.
-      </div>
-      <p style="margin-bottom:10px;font-weight:600;">For questions or support:</p>
-      <a href="mailto:support@letableau.com" class="footer-support-link">support@letableau.com</a>
-      <div class="currency-selector">🇪🇬 EGP E£ <span>⌄</span></div>
-    </div>
-    <div class="footer-col">
-      <div class="newsletter-title">Stay in Touch</div>
-      <div class="newsletter-desc">Subscribe to our newsletter for exclusive offers and promotions.</div>
-      <input type="email" class="newsletter-input" placeholder="E-mail">
-      <button class="newsletter-btn">Subscribe</button>
-    </div>
-    <div class="footer-col footer-links">
-      <div class="footer-menu-title">Main Menu</div>
-      <a href="#">Shop All</a><a href="#">Modern Art</a><a href="#">Islamic</a><a href="#">Gaming</a><a href="#">Contact Us</a>
-    </div>
-    <div class="footer-col footer-links">
-      <div class="footer-menu-title">Footer Menu</div>
-      <a href="#">Search</a><a href="#">Privacy Policy</a><a href="#">Refund Policy</a><a href="#">Shipping Policy</a><a href="#">Terms of Service</a>
-    </div>
+    <div class="footer-col"><h3>Le Tableau</h3><p>Elevating interiors with timeless art since 2026. Designed in Alexandria, cherished worldwide.</p></div>
+    <div class="footer-col footer-links"><h3>Shop</h3><a href="#">Modern Art</a><a href="#">Islamic Calligraphy</a><a href="#">Gaming Setup</a><a href="#">Minimalist</a></div>
+    <div class="footer-col footer-links"><h3>Support</h3><a href="#">Track Order</a><a href="#">Shipping Policy</a><a href="#">Returns & Exchange</a><a href="#">Contact Us</a></div>
+    <div class="footer-col"><h3>Newsletter</h3><input type="email" placeholder="Your email"><button style="margin-top:10px;padding:5px;width:100%">Subscribe</button></div>
   </div>
-  <div class="footer-bottom">
-    <div class="copyright">© 2026 Le Tableau. All rights reserved.</div>
-    <div class="social-icons"><span>IG</span> <span>FB</span> <span>TT</span></div>
-  </div>
+  <div class="copyright"><div>© 2026 Le Tableau. All rights reserved.</div></div>
 </footer>
 </div>
 
 <div id="collection-page" class="collection-page">
+<nav><div class="logo">Le Tableau</div><div class="nav-right"><div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div></div></nav>
 <div class="collection-header"><a class="back-btn" id="backBtn">← Back to Home</a><h1 id="collectionTitle">Collection</h1><p>Hand-picked pieces for the discerning collector</p></div>
 <div class="grid" id="productGrid">
-  <div class="card"><img src="https://picsum.photos/600/800?1"><div class="card-content"><h4>Abstract Lines</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/800?2"><div class="card-content"><h4>Desert Vibes</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/800?3"><div class="card-content"><h4>Geometry I</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/800?4"><div class="card-content"><h4>Geometry II</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/800?5"><div class="card-content"><h4>Ocean Blue</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/800?6"><div class="card-content"><h4>Golden Touch</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/800?7"><div class="card-content"><h4>Mountain Mist</h4><div class="price">450 <span class="old">650</span></div></div></div>
-  <div class="card"><img src="https://picsum.photos/600/800?8"><div class="card-content"><h4>Urban Night</h4><div class="price">450 <span class="old">650</span></div></div></div>
+  <div class="card">
+    <div class="card-img-row">
+      <img src="mmo.png" class="static-thumb" alt="Category">
+      <img src="https://picsum.photos/600/800?1" class="main-thumb" alt="Artwork">
+    </div>
+    <div class="card-content"><h4>Abstract Lines</h4><div class="price">450 <span class="old">650</span></div></div>
+  </div>
+  <div class="card">
+    <div class="card-img-row">
+      <img src="mmo.png" class="static-thumb" alt="Category">
+      <img src="https://picsum.photos/600/800?2" class="main-thumb" alt="Artwork">
+    </div>
+    <div class="card-content"><h4>Desert Vibes</h4><div class="price">450 <span class="old">650</span></div></div>
+  </div>
+  <div class="card">
+    <div class="card-img-row">
+      <img src="mmo.png" class="static-thumb" alt="Category">
+      <img src="https://picsum.photos/600/800?3" class="main-thumb" alt="Artwork">
+    </div>
+    <div class="card-content"><h4>Geometry I</h4><div class="price">450 <span class="old">650</span></div></div>
+  </div>
+  <div class="card">
+    <div class="card-img-row">
+      <img src="mmo.png" class="static-thumb" alt="Category">
+      <img src="https://picsum.photos/600/800?4" class="main-thumb" alt="Artwork">
+    </div>
+    <div class="card-content"><h4>Geometry II</h4><div class="price">450 <span class="old">650</span></div></div>
+  </div>
+  <div class="card">
+    <div class="card-img-row">
+      <img src="mmo.png" class="static-thumb" alt="Category">
+      <img src="https://picsum.photos/600/800?5" class="main-thumb" alt="Artwork">
+    </div>
+    <div class="card-content"><h4>Ocean Blue</h4><div class="price">450 <span class="old">650</span></div></div>
+  </div>
+  <div class="card">
+    <div class="card-img-row">
+      <img src="mmo.png" class="static-thumb" alt="Category">
+      <img src="https://picsum.photos/600/800?6" class="main-thumb" alt="Artwork">
+    </div>
+    <div class="card-content"><h4>Golden Touch</h4><div class="price">450 <span class="old">650</span></div></div>
+  </div>
+  <div class="card">
+    <div class="card-img-row">
+      <img src="mmo.png" class="static-thumb" alt="Category">
+      <img src="https://picsum.photos/600/800?7" class="main-thumb" alt="Artwork">
+    </div>
+    <div class="card-content"><h4>Mountain Mist</h4><div class="price">450 <span class="old">650</span></div></div>
+  </div>
+  <div class="card">
+    <div class="card-img-row">
+      <img src="mmo.png" class="static-thumb" alt="Category">
+      <img src="https://picsum.photos/600/800?8" class="main-thumb" alt="Artwork">
+    </div>
+    <div class="card-content"><h4>Urban Night</h4><div class="price">450 <span class="old">650</span></div></div>
+  </div>
 </div>
 <footer><div class="copyright"><div>© 2026 Le Tableau. All rights reserved.</div></div></footer>
 </div>
 
 <div id="product-page" class="collection-page" style="display:none;">
+<nav><div class="logo">Le Tableau</div><div class="nav-right"><div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div></div></nav>
 <div class="product-wrap">
   <div class="product-image"><img id="productImage" src=""></div>
   <div class="product-info">
     <a class="back-btn" id="backToCollection">← Back to Collection</a>
     <h2 id="productTitle">Artwork Name</h2>
     <div style="font-size:24px; margin-bottom:20px; color:#111;"><strong>450 EGP</strong> <span class="old">650 EGP</span></div>
-    <p class="short-desc">This premium artwork is printed on museum-grade paper, ensuring depth and clarity that lasts a lifetime.</p>
+    <p class="short-desc">This premium artwork is printed on museum-grade paper, ensuring depth and clarity that lasts a lifetime. Perfect for adding a sophisticated touch to your living room or office.</p>
     <label style="font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:1px; margin-top:10px; display:block;">Select Size</label>
     <div class="sizes"><div class="size active" data-s="30x40">30×40 cm</div><div class="size" data-s="40x60">40×60 cm</div><div class="size" data-s="60x90">60×90 cm</div></div>
     <button id="openSizeGuide" class="size-guide-btn"><img src="https://cdn-icons-png.flaticon.com/512/3300/3300959.png">View Size Guide (In Room)</button>
@@ -461,12 +502,14 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
 
 <div class="details-section">
   <h3 class="details-title">The Craftsmanship</h3>
+  
   <div class="details-text-block">
     <h4>Product Description</h4>
     <p>Enhance Your Walls with Classic Wooden Frames. Our Wooden Frame is crafted from 100% natural wood, providing a timeless, elegant addition to your decor. The frame’s glass front offers lasting protection for your artwork or photos, and the sturdy engineered wood back ensures stability and durability.</p>
     <br>
     <p>Each piece is printed using eco-solvent inks on premium poster material, delivering vibrant colors and sharp details. Arrives ready to hang with pre-installed hardware for effortless display. Ideal for living rooms, bedrooms, offices, or as part of a gallery wall arrangement.</p>
   </div>
+
   <div class="features-grid">
     <div class="feature-box"><span class="feature-icon">🪵</span><h4>Solid Natural Wood</h4><p>Classic, eco-friendly look.</p></div>
     <div class="feature-box"><span class="feature-icon">💎</span><h4>Glass Protection</h4><p>Durable clarity & longevity.</p></div>
@@ -483,7 +526,7 @@ footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 1
 
 <div class="trust-strip">
   <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/709/709790.png"><div class="trust-text"><h5>Fast Shipping</h5><p>3-5 Days</p></div></div>
-  <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/2331/2331923.png"><div class="trust-text"><h5>Secure Payment</h5><p>100% Protected</p></div></div>
+  <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/2331/2331923.png"><div class="trust-text"><h5>Secure</h5><p>Payment</p></div></div>
   <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"><div class="trust-text"><h5>Premium</h5><p>Quality</p></div></div>
 </div>
 
@@ -505,24 +548,13 @@ window.addEventListener("load",()=>{ const hero=document.querySelector(".hero-co
 setTimeout(() => { document.getElementById('promoPopup').style.display = 'flex'; }, 4000);
 document.getElementById('closePromoBtn').onclick = () => document.getElementById('promoPopup').style.display = 'none';
 
-/* SCROLL VISIBILITY FIX (REVEAL SCRIPT) */
+/* SCROLL OBSERVER */
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach((entry, index)=>{
-    if(entry.isIntersecting){
-      // Adding visible class triggers the animation
-      setTimeout(()=>{ entry.target.classList.add('visible'); }, index * 100); 
-      observer.unobserve(entry.target);
-    }
+    if(entry.isIntersecting){ setTimeout(()=>{ entry.target.classList.add('visible'); }, index * 100); observer.unobserve(entry.target); }
   });
-}, {threshold: 0.1}); // Trigger when 10% visible
-
-// Apply to cats, cards, and reveal elements
-document.querySelectorAll('.cat, .reveal-on-scroll').forEach(el => {
-  // Ensure they are initially opacity 0 via class if JS is running
-  el.classList.add('reveal-on-scroll');
-  el.classList.remove('visible'); // Reset
-  observer.observe(el);
-});
+}, {threshold: 0.15});
+document.querySelectorAll('.cat').forEach(cat => observer.observe(cat));
 
 /* NAV */
 const mainPage=document.getElementById('main-page');
@@ -541,18 +573,17 @@ cats.forEach(cat=>{
     mainPage.style.display="none"; collectionPage.style.display="block"; window.scrollTo(0,0);
     const gridCards = document.querySelectorAll('.grid .card');
     gridCards.forEach(c => c.classList.remove('visible'));
-    gridCards.forEach((c, i) => { 
-      observer.observe(c); // Re-observe
-      setTimeout(() => { c.classList.add('visible'); }, i * 80); 
-    });
+    gridCards.forEach((c, i) => { setTimeout(() => { c.classList.add('visible'); }, i * 80); });
   });
 });
 
+// MODIFIED CLICK HANDLER TO PICK THE CORRECT IMAGE
 document.body.addEventListener('click', function(e){
   const card = e.target.closest('.card');
   if(card){
     productTitle.innerText = card.querySelector('h4').innerText;
-    productImage.src = card.querySelector('img').src;
+    // Select the main-thumb specifically, not the first image (mmo.png)
+    productImage.src = card.querySelector('.main-thumb').src;
     document.querySelectorAll('.size').forEach(s => s.classList.remove('active'));
     document.querySelector('.size').classList.add('active'); 
     mainPage.style.display="none"; collectionPage.style.display="none"; productPage.style.display="block"; window.scrollTo(0,0);
@@ -587,10 +618,13 @@ window.updateFrame = function(sizeClass, btnElement) {
   if(btnElement) btnElement.classList.add('active');
 }
 
-/* CART LOGIC */
+/* =========================================
+   CART LOGIC (FIXED)
+   ========================================= */
 let cart = []; 
 let discountApplied = false;
 let discountPercent = 0;
+
 const cartDrawer = document.getElementById('cartDrawer');
 const cartOverlay = document.getElementById('cartOverlay');
 const closeCartBtn = document.getElementById('closeCart');
@@ -630,10 +664,12 @@ function updateCartUI() {
   });
   cartItemsContainer.innerHTML = "";
   let subtotal = 0;
+  
   if(cart.length === 0) {
     cartItemsContainer.innerHTML = '<div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your cart is empty.</div>';
     cartSubtotalEl.innerText = "0 EGP"; finalTotalEl.innerText = "0 EGP"; discountRow.style.display = "none"; return;
   }
+
   cart.forEach((item, index) => {
     subtotal += item.price;
     const div = document.createElement('div');
@@ -642,19 +678,21 @@ function updateCartUI() {
       <img src="${item.img}">
       <div class="cart-item-info">
         <div class="cart-item-title">${item.title}</div>
-        <div class="cart-item-meta" style="font-size:12px;color:#777;">Size: ${item.size}</div>
-        <div class="cart-item-price" style="font-weight:600;">${item.price} EGP</div>
+        <div class="cart-item-meta">Size: ${item.size}</div>
+        <div class="cart-item-price">${item.price} EGP</div>
         <span class="remove-item" onclick="removeItem(${index})">Remove</span>
       </div>
     `;
     cartItemsContainer.appendChild(div);
   });
+
   let discountAmount = 0;
   if(discountApplied) {
     discountAmount = subtotal * discountPercent;
     discountRow.style.display = "flex";
     discountValueEl.innerText = "-" + discountAmount + " EGP";
   } else { discountRow.style.display = "none"; }
+  
   let finalTotal = subtotal - discountAmount;
   cartSubtotalEl.innerText = subtotal + " EGP";
   finalTotalEl.innerText = finalTotal + " EGP";
