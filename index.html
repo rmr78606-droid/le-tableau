@@ -36,7 +36,7 @@ ul { list-style: none; }
 }
 .announcement-content { display: inline-block; animation: marquee 25s linear infinite; padding-left: 100%; }
 
-/* NAV - UPDATED LINKS */
+/* NAV - ETHETIC STYLE */
 nav { 
   display: flex; justify-content: space-between; align-items: center;
   padding: 18px 50px; position: fixed; width: 100%; top: 32px;
@@ -116,16 +116,25 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:34px; margin-bott
 .collection-header h1 { font-family: 'Cinzel', serif; font-size: 40px; margin-bottom: 10px; font-weight: 400;}
 .grid{ padding:0 60px 60px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:40px; }
 
-/* CARD STYLE (SINGLE IMAGE RESTORED) */
-.card{ background:#fff; cursor:pointer; transition: transform 0.3s ease; }
+/* CARD STYLE (SINGLE IMAGE) */
+.card{ background:#fff; cursor:pointer; transition: transform 0.3s ease; position: relative;}
 .card:hover { transform: translateY(-5px); }
-.card-img { width: 100%; height: 380px; object-fit: cover; display: block; margin-bottom: 15px; } /* Single image style */
+.card-img-row { width: 100%; margin-bottom: 15px; position: relative; padding-bottom: 133%; overflow: hidden; background: #f0f0f0; } /* Aspect Ratio Container */
+.card-img-row img.main-thumb { 
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+  object-fit: cover; transition: transform 0.5s ease;
+}
+.card:hover img.main-thumb { transform: scale(1.03); }
+
+/* Hide mmo.png from grid view, keep only main image as per request */
+.card-img-row img.static-thumb { display: none; }
+
 .card-content h4{ font-weight: 600; font-size: 15px; margin-bottom: 5px; color: #111; }
 .price{font-size:14px; color: #555;}
 .old{color:#999;text-decoration:line-through;margin-left:6px; font-size: 12px;}
 
 /* =========================================
-   PRODUCT PAGE (ETHETIC STYLE)
+   PRODUCT PAGE (ETHETIC STYLE MATCH)
    ========================================= */
 .product-wrap{ max-width:1200px; margin:0 auto; padding:60px 40px 80px; display: flex; gap: 60px; align-items: flex-start; }
 .product-image{ flex: 1.3; }
@@ -137,13 +146,13 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:34px; margin-bott
 .stars { color: #f4c542; font-size: 16px; letter-spacing: 1px; }
 
 /* Title & Desc */
-.product-info h2{ text-align:left; font-family: 'Cinzel', serif; font-size:36px; margin-bottom:15px; font-weight: 700; color: #111; }
+.product-info h2{ text-align:left; font-family: 'Cinzel', serif; font-size: 38px; margin-bottom: 15px; font-weight: 700; color: #111; }
 .short-desc { color:#666; line-height:1.6; margin-bottom:25px; font-size: 15px; }
 
-/* Black Ribbon Timer */
+/* Black Ribbon Timer (Ethetic Style) */
 .sale-banner-strip {
   background: #000; color: #fff; padding: 12px 15px;
-  font-weight: 700; text-transform: uppercase; font-size: 13px;
+  font-weight: 700; text-transform: uppercase; font-size: 14px;
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 25px; letter-spacing: 0.5px;
   transform: skewX(-10deg); width: 98%; margin-left: 1%;
@@ -164,18 +173,18 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:34px; margin-bott
 }
 .green-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 2px #bbf7d0; }
 
-/* Options */
-.size-label { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; }
-.sizes{ display:flex; gap:12px; margin-bottom: 25px; }
-.size{ padding:14px 24px; border:1px solid #ddd; cursor:pointer; font-size:13px; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; }
-.size:hover, .size.active{ background:#111; color:#fff; border-color:#111; }
+/* Options (Sizes & Frame) */
+.option-label { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; margin-top: 20px;}
+.sizes, .frames { display:flex; gap:12px; margin-bottom: 10px; flex-wrap: wrap;}
+.size, .frame-opt { padding:14px 24px; border:1px solid #ddd; cursor:pointer; font-size:13px; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; }
+.size:hover, .size.active, .frame-opt:hover, .frame-opt.active { background:#111; color:#fff; border-color:#111; }
 
 /* Buttons */
-.size-guide-btn { background: none; border: none; text-decoration: underline; cursor: pointer; font-size: 13px; color: #555; margin-bottom: 25px; display: flex; align-items: center; gap: 8px; }
+.size-guide-btn { background: none; border: none; text-decoration: underline; cursor: pointer; font-size: 13px; color: #555; margin: 15px 0 25px; display: flex; align-items: center; gap: 8px; }
 .size-guide-btn img { width: 18px; opacity: 0.6; }
-.add-btn { background: #111; color: #fff; width: 100%; padding: 18px; border: none; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: 0.3s; margin-bottom: 12px; }
+.add-btn { background: #111; color: #fff; width: 100%; padding: 18px; border: none; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: 0.3s; margin-bottom: 12px; border-radius: 4px; }
 .add-btn:hover { opacity: 0.9; }
-.buy-now-btn { width: 100%; padding: 18px; background: #cba374; color: #fff; border: none; text-transform: uppercase; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: 0.3s ease; }
+.buy-now-btn { width: 100%; padding: 18px; background: #cba374; color: #fff; border: none; text-transform: uppercase; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: 0.3s ease; border-radius: 4px; }
 .buy-now-btn:hover { background: #b48b5a; transform: translateY(-2px); }
 .back-btn{ display:inline-block; margin-bottom:20px; color: #777; text-decoration:none; font-size: 13px; cursor: pointer; }
 
@@ -192,8 +201,7 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:34px; margin-bott
 .marketing-quote { text-align: center; background: #f9f9f9; padding: 80px 20px; margin: 60px 0; }
 .marketing-quote h3 { font-family: 'Cinzel', serif; font-size: 26px; color: #333; margin-bottom: 10px; font-weight: 400; }
 .marketing-quote p { color: #777; font-style: italic; font-size: 16px; }
-/* RECOMMENDATIONS SECTION (REQUESTED TO BE KEPT) */
-.recommendations { max-width: 1200px; margin: 0 auto 60px; padding: 0 40px; }
+.recommendations { max-width: 1200px; margin: 0 auto 100px; padding: 0 40px; }
 .recommendations h3 { font-family: 'Cinzel', serif; text-align: center; font-size: 26px; margin-bottom: 50px; font-weight: 400; color: #111; }
 
 /* TRUST STRIP */
@@ -360,7 +368,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
     <h2>Frequently Asked Questions</h2>
     <div class="faq">
       <div class="faq-item"><h4>What materials are used?</h4><p>We use premium 250gsm archival paper and solid wood frames with crystal-clear glass protection.</p></div>
-      <div class="faq-item"><h4>Delivery time?</h4><p>We deliver within 3–5 business days anywhere in Egypt.</p></div>
+      <div class="faq-item"><h4>Delivery time?</h4><p>We deliver within 3–5 business days anywhere in Egypt, ensuring your art arrives safe and sound.</p></div>
       <div class="faq-item"><h4>Warranty?</h4><p>All our frames come with a 1-year warranty.</p></div>
     </div>
   </section>
@@ -408,15 +416,40 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 <div id="collection-page">
   <div class="collection-header"><a class="back-btn" onclick="goHome()">← Back to Home</a><h1 id="collectionTitle">Collection</h1><p>Hand-picked pieces for the discerning collector</p></div>
   <div class="grid" id="productGrid">
-    <div class="card"><img src="https://picsum.photos/600/800?1" class="card-img"><div class="card-content"><h4>Abstract Lines</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/800?2" class="card-img"><div class="card-content"><h4>Desert Vibes</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/800?3" class="card-img"><div class="card-content"><h4>Geometry I</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/800?4" class="card-img"><div class="card-content"><h4>Geometry II</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/800?5" class="card-img"><div class="card-content"><h4>Ocean Blue</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/800?6" class="card-img"><div class="card-content"><h4>Golden Touch</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/800?7" class="card-img"><div class="card-content"><h4>Mountain Mist</h4><div class="price">450 <span class="old">650</span></div></div></div>
-    <div class="card"><img src="https://picsum.photos/600/800?8" class="card-img"><div class="card-content"><h4>Urban Night</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card">
+      <div class="card-img-row"><img src="https://picsum.photos/600/800?1" class="main-thumb"></div>
+      <div class="card-content"><h4>Abstract Lines</h4><div class="price">450 <span class="old">650</span></div></div>
+    </div>
+    <div class="card">
+      <div class="card-img-row"><img src="https://picsum.photos/600/800?2" class="main-thumb"></div>
+      <div class="card-content"><h4>Desert Vibes</h4><div class="price">450 <span class="old">650</span></div></div>
+    </div>
+    <div class="card">
+      <div class="card-img-row"><img src="https://picsum.photos/600/800?3" class="main-thumb"></div>
+      <div class="card-content"><h4>Geometry I</h4><div class="price">450 <span class="old">650</span></div></div>
+    </div>
+    <div class="card">
+      <div class="card-img-row"><img src="https://picsum.photos/600/800?4" class="main-thumb"></div>
+      <div class="card-content"><h4>Geometry II</h4><div class="price">450 <span class="old">650</span></div></div>
+    </div>
+    <div class="card">
+      <div class="card-img-row"><img src="https://picsum.photos/600/800?5" class="main-thumb"></div>
+      <div class="card-content"><h4>Ocean Blue</h4><div class="price">450 <span class="old">650</span></div></div>
+    </div>
+    <div class="card">
+      <div class="card-img-row"><img src="https://picsum.photos/600/800?6" class="main-thumb"></div>
+      <div class="card-content"><h4>Golden Touch</h4><div class="price">450 <span class="old">650</span></div></div>
+    </div>
+    <div class="card">
+      <div class="card-img-row"><img src="https://picsum.photos/600/800?7" class="main-thumb"></div>
+      <div class="card-content"><h4>Mountain Mist</h4><div class="price">450 <span class="old">650</span></div></div>
+    </div>
+    <div class="card">
+      <div class="card-img-row"><img src="https://picsum.photos/600/800?8" class="main-thumb"></div>
+      <div class="card-content"><h4>Urban Night</h4><div class="price">450 <span class="old">650</span></div></div>
+    </div>
   </div>
+  <footer><div class="copyright" style="padding:20px;text-align:center;">© 2026 Le Tableau. All rights reserved.</div></footer>
 </div>
 
 <div id="product-page" style="display:none;">
@@ -429,7 +462,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
       <h2 id="productTitle">Artwork Name</h2>
       <p class="short-desc">This premium artwork is printed on museum-grade paper, ensuring depth and clarity that lasts a lifetime.</p>
       
-      <div class="sale-banner-strip"><span>30% OFF SITEWIDE - ENDS IN <span id="timer">15H : 42M : 44S</span></span></div>
+      <div class="sale-banner-strip"><span>40% OFF SITEWIDE - ENDS IN <span id="timer">15H : 42M : 44S</span></span></div>
       
       <div class="price-container">
         <span class="current-price">450 EGP</span>
@@ -439,11 +472,17 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
       
       <div class="shipping-estimator"><span class="green-dot"></span> <span id="deliveryDateText">Order Today & Get It By Feb 12</span></div>
       
-      <span class="size-label">Select Size</span>
+      <span class="option-label">Select Size</span>
       <div class="sizes">
         <div class="size active" data-s="30x40">30×40 cm</div>
         <div class="size" data-s="40x60">40×60 cm</div>
         <div class="size" data-s="60x90">60×90 cm</div>
+      </div>
+
+      <span class="option-label">Frame Option</span>
+      <div class="frames">
+        <div class="frame-opt active">No Frame</div>
+        <div class="frame-opt">Frame</div>
       </div>
       
       <button id="openSizeGuide" class="size-guide-btn"><img src="https://cdn-icons-png.flaticon.com/512/3300/3300959.png">View Size Guide (In Room)</button>
@@ -472,8 +511,8 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   <div class="recommendations">
     <h3>Curated For You</h3>
     <div class="grid" style="padding:0; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-      <div class="card"><img src="https://picsum.photos/600/800?10" class="card-img"><div class="card-content"><h4>Midnight Calm</h4><div class="price">450</div></div></div>
-      <div class="card"><img src="https://picsum.photos/600/800?11" class="card-img"><div class="card-content"><h4>Golden Horizon</h4><div class="price">450</div></div></div>
+      <div class="card"><div class="card-img-row"><img src="https://picsum.photos/600/800?10" class="main-thumb"></div><div class="card-content"><h4>Midnight Calm</h4><div class="price">450</div></div></div>
+      <div class="card"><div class="card-img-row"><img src="https://picsum.photos/600/800?11" class="main-thumb"></div><div class="card-content"><h4>Golden Horizon</h4><div class="price">450</div></div></div>
     </div>
   </div>
 
@@ -500,7 +539,7 @@ const productPage = document.getElementById('product-page');
 const collectionTitle = document.getElementById('collectionTitle');
 const productTitle = document.getElementById('productTitle');
 const productImage = document.getElementById('productImage');
-let lastCollectionName = 'All'; // Store last collection for back button
+let lastCollectionName = 'All'; 
 
 // --- INIT ---
 window.addEventListener("load",()=>{ 
@@ -519,8 +558,10 @@ function goHome() {
 }
 
 function openCollection(name) {
-  lastCollectionName = name; // Save for back button
-  collectionTitle.innerText = name + " Collection";
+  lastCollectionName = name; 
+  if(name === 'All') collectionTitle.innerText = "Shop All";
+  else collectionTitle.innerText = name + " Collection";
+  
   mainPage.style.display="none";
   collectionPage.style.display="block";
   productPage.style.display="none";
@@ -531,11 +572,11 @@ function goBackToCollection() {
   openCollection(lastCollectionName);
 }
 
-// --- CARD CLICK (SINGLE IMAGE UPDATE) ---
+// --- CARD CLICK ---
 document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('click', function(){
     const title = this.querySelector('h4').innerText;
-    const img = this.querySelector('.card-img').src; // Changed selector for single image
+    const img = this.querySelector('.main-thumb').src;
     
     productTitle.innerText = title;
     productImage.src = img;
@@ -585,8 +626,9 @@ function addItemToCart() {
   const t = productTitle.innerText;
   const i = productImage.src;
   const s = document.querySelector('.size.active').innerText;
+  const f = document.querySelector('.frame-opt.active').innerText;
   const p = 450;
-  cart.push({title:t, img:i, size:s, price:p});
+  cart.push({title:t, img:i, size:s, frame:f, price:p});
   updateCartUI();
   document.getElementById('toast').className = "show";
   setTimeout(()=>document.getElementById('toast').className = "", 3000);
@@ -615,7 +657,7 @@ function updateCartUI() {
         <img src="${item.img}">
         <div class="cart-item-info">
           <div class="cart-item-title">${item.title}</div>
-          <div style="font-size:12px;color:#777;">Size: ${item.size}</div>
+          <div style="font-size:12px;color:#777;">Size: ${item.size} | ${item.frame}</div>
           <div style="font-weight:600;">${item.price} EGP</div>
           <span class="remove-item" onclick="removeItem(${index})">Remove</span>
         </div>
@@ -642,11 +684,11 @@ document.getElementById('applyPromoBtn').addEventListener('click', function() {
 document.getElementById('checkoutBtn').addEventListener('click', function() {
   if(cart.length === 0) return alert("Empty Cart");
   let msg = "Order Details:%0a";
-  cart.forEach(x => msg += `- ${x.title} (${x.size})%0a`);
+  cart.forEach(x => msg += `- ${x.title} (${x.size} - ${x.frame})%0a`);
   window.open(`https://wa.me/201000000000?text=${msg}`, '_blank');
 });
 
-// --- SIZE MODAL ---
+// --- SIZE & FRAME SELECTION ---
 const sizeModal = document.getElementById('sizeModal');
 document.getElementById('openSizeGuide').onclick = () => sizeModal.style.display = "flex";
 document.getElementById('closeSizeModal').onclick = () => sizeModal.style.display = "none";
@@ -658,6 +700,10 @@ window.updateFrame = function(s, btn) {
 const sBtns = document.querySelectorAll('.size');
 sBtns.forEach(b => b.addEventListener('click', function() {
   sBtns.forEach(x => x.classList.remove('active')); this.classList.add('active');
+}));
+const fBtns = document.querySelectorAll('.frame-opt');
+fBtns.forEach(b => b.addEventListener('click', function() {
+  fBtns.forEach(x => x.classList.remove('active')); this.classList.add('active');
 }));
 </script>
 
