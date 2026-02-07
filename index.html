@@ -22,6 +22,7 @@
   to {transform: scale(1); opacity: 1;} 
 }
 
+/* Scroll Reveal Animation */
 .reveal-on-scroll { 
   opacity: 0; 
   transform: translateY(30px); 
@@ -64,25 +65,24 @@ body{ background:#fff; color:#111; overflow-x: hidden; padding-top: 32px; /* Spa
 }
 
 /* NAV */
-nav{ 
-  display:flex; justify-content:space-between; align-items:center; 
-  padding:20px 50px; position:fixed; width:100%; 
-  top: 32px; /* Below Announcement Bar */
-  background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); 
-  z-index:1000; border-bottom: 1px solid rgba(0,0,0,0.05); 
+nav { 
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 40px; position: fixed; width: 100%; 
+  top: 32px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); 
+  z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); 
 }
-.logo{ font-family: 'Cinzel', serif; font-size:26px; font-weight:700; letter-spacing:1px; color: #000; }
-.nav-center { display: flex; gap: 30px; }
-.nav-center a { text-decoration: none; color: #111; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; cursor: pointer; }
+.logo { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; letter-spacing: 0.5px; margin-right: 40px; }
+.nav-center { display: flex; gap: 25px; flex-grow: 1; }
+.nav-center a { text-decoration: none; color: #111; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
 .nav-center a:hover { opacity: 0.6; }
-.nav-right { display: flex; align-items: center; gap: 25px; }
+.nav-right { display: flex; align-items: center; gap: 20px; }
 
 /* CART ICON */
 .cart-wrap{ position: relative; cursor: pointer; display: flex; align-items: center; }
 .cart-icon svg{ width: 22px; height: 22px; stroke: #000; }
 .cart-badge{ 
-  position: absolute; top: -6px; right: -6px; background: #000; color: white; 
-  font-size: 10px; font-weight: bold; height: 16px; width: 16px; 
+  position: absolute; top: -5px; right: -5px; background: #000; color: white; 
+  font-size: 9px; font-weight: bold; height: 15px; width: 15px; 
   display: flex; justify-content: center; align-items: center; border-radius: 50%; 
   opacity: 0; transform: scale(0.5); transition: 0.3s; 
 }
@@ -92,162 +92,164 @@ nav{
 /* HERO */
 .hero{ 
   min-height:100vh; 
-  background: linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)), url("hero.jpg"); 
+  background: linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)), url("hero.jpg"); 
   background-size:cover; background-position:center; 
   display:flex; align-items:center; justify-content:center; 
   text-align:center; position:relative; overflow:hidden; 
 }
 .hero-content{ color:#fff; opacity:0; transform:translateY(30px); transition:1.2s ease; z-index: 2; max-width: 700px; }
 .hero-content.show{ opacity:1; transform:translateY(0); }
-.hero h1{ font-family: 'Cinzel', serif; font-size:56px; margin-bottom:20px; font-weight:400; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-.hero p{ font-size:17px; opacity:.9; margin-bottom:35px; line-height: 1.6; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+.hero h1{ font-family: 'Cinzel', serif; font-size:52px; margin-bottom:20px; font-weight:400; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+.hero p{ font-size:16px; opacity:.9; margin-bottom:30px; line-height: 1.6; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
 .btn{ 
-  padding:15px 45px; background:#fff; color:#111; text-decoration:none; 
-  font-weight:600; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; 
+  padding:14px 40px; background:#fff; color:#111; text-decoration:none; 
+  font-weight:600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; 
   transition:.3s ease; border: 1px solid #fff; cursor: pointer; display: inline-block; 
 }
 .btn:hover{ background:transparent; color:#fff; }
 
 /* SECTIONS */
-section{ padding:80px 60px; }
-h2{ text-align:center; font-family: 'Cinzel', serif; font-size:34px; margin-bottom:60px; font-weight: 400; color: #111; }
+section{ padding:100px 60px; }
+h2{ text-align:center; font-family: 'Cinzel', serif; font-size:32px; margin-bottom:50px; font-weight: 400; color: #111; }
 
-/* COLLECTIONS (FIXED IMAGE ALIGNMENT) */
+/* COLLECTIONS */
 .categories{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px; }
 .cat{ 
-  height:350px; background:#f5f5f5; display:flex; justify-content:center; align-items:center; 
-  font-size:26px; font-family: 'Cinzel', serif; transition:.5s ease; cursor:pointer; 
+  height:300px; background:#f5f5f5; display:flex; justify-content:center; align-items:center; 
+  font-size:24px; font-family: 'Cinzel', serif; transition:.5s ease; cursor:pointer; 
   position: relative; overflow: hidden; color: #fff;
-  opacity: 0; transform: translateY(30px); /* For animation */
 }
-.cat.visible{ opacity: 1; transform: translateY(0); transition: opacity 0.8s, transform 0.8s; }
-.cat::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.25); transition: 0.5s; z-index: 1; }
-.cat:hover::before { background: rgba(0,0,0,0.45); }
+.cat::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.3); transition: 0.5s; }
+.cat:hover::before { background: rgba(0,0,0,0.5); }
 .cat:hover{ transform:translateY(-5px); }
-.cat span { position: relative; z-index: 2; letter-spacing: 1px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-
-/* IMPORTANT: background-position: center ensures images are centered */
-.cat.modern{background:url("modern.jpg") no-repeat center center; background-size:cover;}
-.cat.islamic{background:url("islamic.jpg") no-repeat center center; background-size:cover;}
-.cat.games{background:url("games.jpg") no-repeat center center; background-size:cover;}
-.cat.quotes{background:url("post.jpg") no-repeat center center; background-size:cover;}
+.cat span { position: relative; z-index: 2; letter-spacing: 1px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+.cat.modern{background:url("modern.jpg");background-size:cover;}
+.cat.islamic{background:url("islamic.jpg");background-size:cover;}
+.cat.games{background:url("games.jpg");background-size:cover;}
+.cat.quotes{background:url("post.jpg");background-size:cover;}
 
 /* ABOUT & FAQ */
 .about{ max-width:800px; margin:auto; text-align:center; font-size:16px; color:#444; line-height:1.9; }
 .faq{ max-width:800px; margin:auto; }
-.faq-item{ border-bottom: 1px solid #eee; padding:25px 0; }
+.faq-item{ border-bottom: 1px solid #eee; padding:20px 0; }
 .faq-item h4 { font-weight: 600; font-size: 16px; margin-bottom: 8px; color: #222; }
 .faq-item p { color: #666; font-size: 14px; line-height: 1.6; }
 
 /* COLLECTION GRID */
 .collection-page{ display:none; background:#fff; min-height: 100vh; padding-top: 100px; }
 .collection-header{ padding:40px 60px; text-align: center; }
-.collection-header h1 { font-family: 'Cinzel', serif; font-size: 40px; margin-bottom: 10px; font-weight: 400;}
-.grid{ padding:0 60px 100px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:40px; }
+.collection-header h1 { font-family: 'Cinzel', serif; font-size: 38px; margin-bottom: 10px; font-weight: 400;}
+.grid{ padding:0 60px 100px; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:40px; }
 .card{ 
   background:#fff; cursor:pointer; opacity: 0; transform: translateY(20px); 
   transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.6s var(--apple-ease);
 }
 .card.visible { opacity: 1; transform: translateY(0); }
-.card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
-.card-img-row { display: flex; gap: 8px; margin-bottom: 15px; }
-.card-img-row img.static-thumb { width: 35%; margin-bottom: 0; aspect-ratio: 3/4; object-fit: cover;}
-.card-img-row img.main-thumb { width: 65%; margin-bottom: 0; aspect-ratio: 3/4; object-fit: cover;}
-.card-content h4{ font-weight: 600; font-size: 15px; margin-bottom: 5px; color: #111; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+.card-img-row { display: flex; gap: 10px; margin-bottom: 15px; }
+.card-img-row img.static-thumb { width: 35%; margin-bottom: 0; }
+.card-img-row img.main-thumb { width: 65%; margin-bottom: 0; }
+.card-content h4{ font-weight: 500; font-size: 15px; margin-bottom: 5px; color: #111; }
 .price{font-size:14px; color: #555;}
 .old{color:#999;text-decoration:line-through;margin-left:6px; font-size: 12px;}
 
 /* =========================================
-   3. PRODUCT PAGE & DETAILS
+   3. PRODUCT PAGE & DETAILS (UPDATED - ETHETIC STYLE)
    ========================================= */
-.product-wrap{ max-width:1150px; margin:0 auto; padding:60px 40px 100px; display: flex; gap: 70px; align-items: flex-start; }
-.product-image{ flex: 1.3; display: flex; justify-content: center; }
-.product-image img{ width:100%; max-height: 650px; object-fit: contain; box-shadow: 0 0 0 1px #eee; }
+.product-wrap{ max-width:1100px; margin:0 auto; padding:40px 40px 80px; display: flex; gap: 60px; align-items: flex-start; }
+.product-image{ flex: 1.2; display: flex; justify-content: center; }
+.product-image img{ width:100%; max-height: 600px; object-fit: contain; box-shadow: 0 0 0 1px #eee; }
 .product-info{ flex: 1; padding-top: 5px; }
 
-/* REVIEWS & BANNER */
-.product-review-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; color: #333; }
-.stars { color: #f4c542; font-size: 16px; letter-spacing: 1px; }
-.product-info h2{ text-align:left; font-family: 'Cinzel', serif; font-size:34px; margin-bottom:15px; font-weight: 700; color: #111; }
-.short-desc { color:#666; line-height:1.6; margin-bottom:25px; font-size: 15px; }
-
-/* SALE BANNER (MATCHING IMAGE) */
-.sale-banner-strip {
-  background: #000; color: #fff; padding: 12px 15px; font-weight: 700; text-transform: uppercase;
-  font-size: 13px; display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 25px; letter-spacing: 0.5px; transform: skewX(-10deg); width: 100%;
+/* --- NEW ETHETIC STYLES --- */
+.product-review-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; color: #333;
 }
-.sale-banner-strip span { transform: skewX(10deg); display: block; } 
+.stars { color: #f4c542; font-size: 16px; letter-spacing: 1px; }
 
-/* PRICE & SHIPPING */
-.price-container { margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+.product-info h2{ text-align:left; font-family: 'Cinzel', serif; font-size:32px; margin-bottom:10px; font-weight: 700; color: #111; }
+.short-desc { color:#666; line-height:1.6; margin-bottom:20px; font-size: 14px; }
+
+/* Black Ribbon Timer */
+.sale-banner-strip {
+  background: #000; color: #fff; padding: 12px 15px;
+  font-weight: 700; text-transform: uppercase; font-size: 14px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 25px; letter-spacing: 0.5px;
+  transform: skewX(-10deg); width: 98%;
+}
+.sale-banner-strip span { transform: skewX(10deg); display: block; }
+
+/* Price Styling */
+.price-container { margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
 .current-price { font-size: 26px; font-weight: 700; color: #111; }
 .original-price { font-size: 18px; color: #999; text-decoration: line-through; }
-.sale-badge { background: #d32f2f; color: #fff; padding: 5px 10px; font-size: 11px; font-weight: 700; border-radius: 2px; text-transform: uppercase; }
+.sale-badge { background: #d32f2f; color: #fff; padding: 4px 8px; font-size: 11px; font-weight: 700; border-radius: 2px; text-transform: uppercase; }
+
+/* Shipping Estimator */
 .shipping-estimator {
   display: flex; align-items: center; gap: 10px;
   background: #f0fdf4; border: 1px solid #dcfce7; color: #166534;
-  padding: 12px; border-radius: 4px; margin-bottom: 30px; font-size: 13px; font-weight: 500;
+  padding: 12px; border-radius: 4px; margin-bottom: 25px; font-size: 13px; font-weight: 500;
 }
 .green-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 2px #bbf7d0; }
+/* ------------------------- */
 
-.sizes{ display:flex; gap:12px; margin:20px 0 25px; }
-.size{ padding:12px 20px; border:1px solid #ddd; cursor:pointer; font-size:13px; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+.sizes{ display:flex; gap:10px; margin:20px 0 25px; }
+.size{ padding:10px 18px; border:1px solid #ddd; cursor:pointer; font-size:12px; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; }
 .size:hover, .size.active{ background:#111; color:#fff; border-color:#111; }
 
 /* BUTTONS */
 .size-guide-btn { background: none; border: none; text-decoration: underline; cursor: pointer; font-size: 13px; color: #555; margin-bottom: 25px; display: flex; align-items: center; gap: 8px; }
 .size-guide-btn img { width: 18px; opacity: 0.6; }
-.add-btn { background: #111; color: #fff; width: 100%; padding: 18px; border: none; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: 0.3s; margin-bottom: 12px; }
+.add-btn { background: #111; color: #fff; width: 100%; padding: 16px; border: none; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: 0.3s; margin-bottom: 10px; }
 .add-btn:hover { opacity: 0.9; }
-.buy-now-btn { width: 100%; padding: 18px; background: #cba374; color: #fff; border: none; text-transform: uppercase; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: 0.3s ease; }
+.buy-now-btn { width: 100%; padding: 16px; background: #cba374; color: #fff; border: none; text-transform: uppercase; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: 0.3s ease; }
 .buy-now-btn:hover { background: #b48b5a; transform: translateY(-2px); }
-.back-btn{ display:inline-block; margin-bottom:20px; color: #777; text-decoration:none; font-size: 13px; cursor: pointer; }
+.back-btn{ display:inline-block; margin-bottom:20px; color: #777; text-decoration:none; font-size: 12px; cursor: pointer; }
 
-/* DETAILS */
-.details-section { max-width: 900px; margin: 0 auto; padding: 80px 40px; border-top: 1px solid #eee; }
-.details-title { text-align: center; font-family: 'Cinzel', serif; font-size: 28px; margin-bottom: 40px; color: #111; }
-.details-text-block { margin-bottom: 60px; text-align: center; color: #555; line-height: 1.8; font-size: 16px; }
-.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center; }
-.feature-box { padding: 30px; background: #fcfcfc; border: 1px solid #f0f0f0; }
-.feature-icon { font-size: 24px; margin-bottom: 15px; display: block; }
-.feature-box h4 { font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; color: #111; }
+/* DETAILS SECTION */
+.details-section { max-width: 900px; margin: 0 auto; padding: 60px 40px; border-top: 1px solid #eee; }
+.details-title { text-align: center; font-family: 'Cinzel', serif; font-size: 26px; margin-bottom: 40px; color: #111; }
+.details-text-block { margin-bottom: 50px; text-align: center; color: #555; line-height: 1.8; font-size: 15px; }
+.details-text-block h4 { color: #111; margin-bottom: 10px; font-size: 16px; font-weight: 600; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; }
+.feature-box { padding: 25px; background: #fcfcfc; border: 1px solid #f0f0f0; }
+.feature-icon { font-size: 22px; margin-bottom: 15px; display: block; }
+.feature-box h4 { font-size: 13px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; color: #111; }
 .feature-box p { font-size: 13px; color: #777; line-height: 1.5; margin: 0; }
 
 /* MARKETING & RECOMMENDATIONS */
-.marketing-quote { text-align: center; background: #f9f9f9; padding: 80px 20px; margin: 60px 0; }
-.marketing-quote h3 { font-family: 'Cinzel', serif; font-size: 26px; color: #333; margin-bottom: 10px; font-weight: 400; }
-.marketing-quote p { color: #777; font-style: italic; font-size: 16px; }
+.marketing-quote { text-align: center; background: #f9f9f9; padding: 70px 20px; margin: 60px 0; }
+.marketing-quote h3 { font-family: 'Cinzel', serif; font-size: 24px; color: #333; margin-bottom: 10px; font-weight: 400; }
+.marketing-quote p { color: #777; font-style: italic; }
 .recommendations { max-width: 1200px; margin: 0 auto 100px; padding: 0 40px; }
-.recommendations h3 { font-family: 'Cinzel', serif; text-align: center; font-size: 26px; margin-bottom: 50px; font-weight: 400; color: #111; }
+.recommendations h3 { font-family: 'Cinzel', serif; text-align: center; font-size: 24px; margin-bottom: 40px; font-weight: 400; color: #111; }
 
-/* =========================================
-   FOOTER (ETHETIC STYLE RECREATED)
-   ========================================= */
-footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 13px; border-top: 1px solid #eee; }
-.footer-wrapper { display: flex; flex-wrap: wrap; gap: 60px; justify-content: space-between; }
+/* TRUST STRIP */
+.trust-strip { background: #fff; padding: 40px 20px; border-top: 1px solid #eee; display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; text-align: left; }
+.trust-item { display: flex; align-items: center; gap: 15px; max-width: 250px; }
+.trust-item img { width: 32px; opacity: 0.8; }
+.trust-text h5 { font-size: 12px; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; font-weight: 700; color: #111; }
+.trust-text p { font-size: 11px; color: #777; margin: 0; }
 
-/* Left Side: About & Newsletter */
-.footer-left { flex: 1; min-width: 300px; max-width: 450px; }
-.footer-logo { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; margin-bottom: 20px; display: block; }
-.footer-about { color: #555; line-height: 1.8; margin-bottom: 30px; font-size: 13px; }
-.stay-in-touch { margin-top: 30px; }
-.stay-title { font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; margin-bottom: 10px; }
-.stay-text { color: #555; margin-bottom: 15px; font-size: 13px; }
-.newsletter-form { display: flex; flex-direction: column; gap: 10px; }
-.newsletter-input { padding: 12px; border: 1px solid #eee; background: #f9f9f9; width: 100%; outline: none; }
-.newsletter-btn { padding: 14px; background: #111; color: #fff; border: none; font-weight: 600; text-transform: uppercase; font-size: 12px; cursor: pointer; letter-spacing: 1px; }
-
-/* Right Side: Menus */
-.footer-right { display: flex; gap: 80px; flex-wrap: wrap; }
-.footer-menu h4 { font-weight: 600; text-transform: uppercase; font-size: 12px; margin-bottom: 20px; letter-spacing: 0.5px; }
-.footer-menu ul { list-style: none; padding: 0; }
-.footer-menu li { margin-bottom: 12px; }
-.footer-menu a { text-decoration: none; color: #555; font-size: 13px; transition: 0.2s; }
-.footer-menu a:hover { color: #000; text-decoration: underline; }
-
-.footer-bottom { border-top: 1px solid #eee; margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; color: #777; font-size: 12px; }
-.currency { display: flex; align-items: center; gap: 5px; font-weight: 600; color: #111; cursor: pointer; }
+/* FOOTER */
+footer { background: #f9f9f9; color: #111; padding: 80px 60px 30px; font-size: 13px; border-top: 1px solid #eee; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1.5fr 1fr 1fr; gap: 50px; margin-bottom: 60px; }
+.footer-col h3 { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; margin-bottom: 25px; color: #000; }
+.footer-about-text { color: #555; line-height: 1.8; margin-bottom: 25px; font-size: 13px; max-width: 90%; }
+.footer-support-link { text-decoration: underline; color: #111; font-weight: 600; }
+.currency-selector { margin-top: 30px; display: inline-flex; align-items: center; gap: 5px; font-weight: 600; cursor: pointer; }
+.newsletter-title { font-weight: 700; text-transform: uppercase; margin-bottom: 15px; font-size: 12px; letter-spacing: 1px; color: #111; }
+.newsletter-desc { color: #555; margin-bottom: 20px; line-height: 1.6; }
+.newsletter-input { width: 100%; padding: 12px; background: #fff; border: 1px solid #ddd; margin-bottom: 10px; font-size: 13px; }
+.newsletter-btn { width: 100%; padding: 14px; background: #111; color: #fff; border: none; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+.footer-menu-title { font-weight: 600; margin-bottom: 20px; font-size: 13px; color: #111; }
+.footer-links a { display: block; color: #555; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 13px; }
+.footer-links a:hover { color: #000; }
+.footer-bottom { border-top: 1px solid #e0e0e0; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; }
+.social-icons { display: flex; gap: 15px; }
+.social-icons span { font-weight: bold; cursor: pointer; color: #111; }
 
 /* MODALS & DRAWERS */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 3000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
@@ -255,7 +257,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .modal-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
 .close-modal { font-size: 28px; cursor: pointer; background: none; border: none; }
 .room-container { position: relative; width: 100%; padding-bottom: 65%; background: url('mmm.jpg') no-repeat center center; background-size: cover; background-color: #f5f5f5; }
-.frame-preview { position: absolute; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.4); top: 22%; left: 50%; transform: translate(-50%, -50%); border: 3px solid #222; width: 0; aspect-ratio: 3/4; transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.frame-preview { position: absolute; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.4); top: 30%; left: 50%; transform: translate(-50%, -50%); border: 3px solid #222; width: 0; aspect-ratio: 3/4; transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .frame-preview.s30x40 { width: 8%; } .frame-preview.s40x60 { width: 10.5%; aspect-ratio: 2/3; } .frame-preview.s60x90 { width: 15%; aspect-ratio: 2/3; }
 .modal-controls { padding: 20px; text-align: center; background: #fff; }
 .modal-btn { padding: 10px 24px; margin: 0 5px; border: 1px solid #e0e0e0; background: #fff; cursor: pointer; }
@@ -296,8 +298,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   .product-wrap{flex-direction: column; padding-top: 40px;}
   .product-image{width: 100%; margin-bottom: 30px;}
   .hero h1{font-size:42px;}
-  .footer-wrapper { flex-direction: column; gap: 40px; }
-  .footer-right { gap: 40px; }
+  .footer-grid{ grid-template-columns: 1fr; gap: 30px; padding-bottom: 30px;}
   .cart-drawer { width: 100%; right: -100%; } .cart-drawer.open { right: 0; }
   .frame-preview.s30x40 { width: 15%; } .frame-preview.s40x60 { width: 20%; } .frame-preview.s60x90 { width: 30%; }
 }
@@ -392,55 +393,40 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   </div>
 </section>
 
-<footer>
-  <div class="footer-wrapper">
-    <div class="footer-left">
-      <span class="footer-logo">Le Tableau.</span>
-      <div class="stay-in-touch">
-        <div class="stay-title">Stay in Touch</div>
-        <p class="stay-text">Subscribe to our newsletter for exclusive offers and promotions.</p>
-        <div class="newsletter-form">
-          <input type="email" class="newsletter-input" placeholder="E-mail">
-          <button class="newsletter-btn">Subscribe</button>
-        </div>
-      </div>
-      <p style="margin-top:20px; color:#555; font-size:13px; line-height:1.6;">
-        At Le Tableau, we believe in creating spaces that reflect who you are. Our posters are designed to transform your environment into a peaceful sanctuary.
-      </p>
-    </div>
+<div class="trust-strip">
+  <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/709/709790.png"><div class="trust-text"><h5>Fast Shipping</h5><p>3-5 Days Delivery</p></div></div>
+  <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/2331/2331923.png"><div class="trust-text"><h5>Secure Payment</h5><p>100% Protected</p></div></div>
+  <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"><div class="trust-text"><h5>Premium Quality</h5><p>Museum Grade Ink</p></div></div>
+</div>
 
-    <div class="footer-right">
-      <div class="footer-menu">
-        <h4>Main Menu</h4>
-        <ul>
-          <li><a href="#">Shop All</a></li>
-          <li><a href="#">Modern</a></li>
-          <li><a href="#">Islamic</a></li>
-          <li><a href="#">Gaming</a></li>
-          <li><a href="#">Quotes</a></li>
-        </ul>
-      </div>
-      <div class="footer-menu">
-        <h4>Footer Menu</h4>
-        <ul>
-          <li><a href="#">Search</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Refund Policy</a></li>
-          <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-        </ul>
-      </div>
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3>Le Tableau</h3>
+      <p class="footer-about-text">Elevating interiors with timeless art since 2026. Designed in Alexandria, cherished worldwide.</p>
+    </div>
+    <div class="footer-col footer-links">
+      <div class="footer-menu-title">Shop</div>
+      <a href="#">Modern Art</a><a href="#">Islamic Calligraphy</a><a href="#">Gaming Setup</a><a href="#">Minimalist</a>
+    </div>
+    <div class="footer-col footer-links">
+      <div class="footer-menu-title">Support</div>
+      <a href="#">Track Order</a><a href="#">Shipping Policy</a><a href="#">Returns & Exchange</a><a href="#">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <div class="newsletter-title">Newsletter</div>
+      <p class="newsletter-desc">Subscribe for exclusive drops.</p>
+      <input type="email" class="newsletter-input" placeholder="Your email">
+      <button class="newsletter-btn">Subscribe</button>
     </div>
   </div>
-
   <div class="footer-bottom">
-    <div class="currency">🇪🇬 EGP E£</div>
-    <div class="copyright">© 2026 Le Tableau.</div>
+    <div class="copyright">© 2026 Le Tableau. All rights reserved.</div>
+    <div class="social-icons"><span>IG</span> <span>FB</span> <span>TT</span></div>
   </div>
 </footer>
 
 <div id="collection-page" class="collection-page">
-<nav><div class="logo">Le Tableau</div><div class="nav-right"><div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div></div></nav>
 <div class="collection-header"><a class="back-btn" id="backBtn">← Back to Home</a><h1 id="collectionTitle">Collection</h1><p>Hand-picked pieces for the discerning collector</p></div>
 <div class="grid" id="productGrid">
   <div class="card"><div class="card-img-row"><img src="mmo.png" class="static-thumb"><img src="https://picsum.photos/600/800?1" class="main-thumb"></div><div class="card-content"><h4>Abstract Lines</h4><div class="price">450 <span class="old">650</span></div></div></div>
@@ -452,10 +438,10 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   <div class="card"><div class="card-img-row"><img src="mmo.png" class="static-thumb"><img src="https://picsum.photos/600/800?7" class="main-thumb"></div><div class="card-content"><h4>Mountain Mist</h4><div class="price">450 <span class="old">650</span></div></div></div>
   <div class="card"><div class="card-img-row"><img src="mmo.png" class="static-thumb"><img src="https://picsum.photos/600/800?8" class="main-thumb"></div><div class="card-content"><h4>Urban Night</h4><div class="price">450 <span class="old">650</span></div></div></div>
 </div>
+<footer><div class="copyright"><div>© 2026 Le Tableau. All rights reserved.</div></div></footer>
 </div>
 
 <div id="product-page" class="collection-page" style="display:none;">
-<nav><div class="logo">Le Tableau</div><div class="nav-right"><div class="cart-wrap"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge">0</span></div></div></nav>
 <div class="product-wrap">
   <div class="product-image"><img id="productImage" src=""></div>
   <div class="product-info">
@@ -519,6 +505,8 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/2331/2331923.png"><div class="trust-text"><h5>Secure Payment</h5><p>100% Protected</p></div></div>
   <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"><div class="trust-text"><h5>Premium Quality</h5><p>Museum Grade Ink</p></div></div>
 </div>
+
+<footer><div class="copyright"><div>© 2026 Le Tableau. All rights reserved.</div></div></footer>
 </div>
 
 <div class="modal-overlay" id="sizeModal">
@@ -530,12 +518,10 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 </div>
 
 <script>
-/* 1. INITIALIZATION */
 window.addEventListener("load",()=>{ const hero=document.querySelector(".hero-content"); if(hero) hero.classList.add("show"); });
 setTimeout(() => { document.getElementById('promoPopup').style.display = 'flex'; }, 4000);
 document.getElementById('closePromoBtn').onclick = () => document.getElementById('promoPopup').style.display = 'none';
 
-/* 2. SCROLL REVEAL */
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach((entry, index)=>{
     if(entry.isIntersecting){ setTimeout(()=>{ entry.target.classList.add('visible'); }, index * 100); observer.unobserve(entry.target); }
@@ -543,7 +529,6 @@ const observer = new IntersectionObserver((entries)=>{
 }, {threshold: 0.15});
 document.querySelectorAll('.cat').forEach(cat => observer.observe(cat));
 
-/* 3. NAVIGATION LOGIC (FIXED) */
 const mainPage=document.getElementById('main-page');
 const collectionPage=document.getElementById('collection-page');
 const productPage=document.getElementById('product-page');
@@ -554,37 +539,24 @@ const collectionTitle=document.getElementById('collectionTitle');
 const productTitle=document.getElementById('productTitle');
 const productImage=document.getElementById('productImage');
 
-// Category Click Handler
 cats.forEach(cat=>{
   cat.addEventListener('click',()=>{
-    // Update Title
     collectionTitle.innerText=cat.dataset.cat+" Collection";
-    // Toggle Pages
-    mainPage.style.display="none"; 
-    collectionPage.style.display="block"; 
-    productPage.style.display="none";
-    window.scrollTo(0,0);
-    // Animate Grid
+    mainPage.style.display="none"; collectionPage.style.display="block"; window.scrollTo(0,0);
     const gridCards = document.querySelectorAll('.grid .card');
     gridCards.forEach(c => c.classList.remove('visible'));
     gridCards.forEach((c, i) => { setTimeout(() => { c.classList.add('visible'); }, i * 80); });
   });
 });
 
-// Card Click Handler (Use main image)
 document.body.addEventListener('click', function(e){
   const card = e.target.closest('.card');
   if(card){
     productTitle.innerText = card.querySelector('h4').innerText;
-    // Get the main random image, not the static one
     productImage.src = card.querySelector('.main-thumb').src;
     document.querySelectorAll('.size').forEach(s => s.classList.remove('active'));
     document.querySelector('.size').classList.add('active'); 
-    
-    mainPage.style.display="none"; 
-    collectionPage.style.display="none"; 
-    productPage.style.display="block"; 
-    window.scrollTo(0,0);
+    mainPage.style.display="none"; collectionPage.style.display="none"; productPage.style.display="block"; window.scrollTo(0,0);
   }
 });
 
@@ -594,7 +566,6 @@ backToCollection.onclick=()=>{ productPage.style.display="none"; collectionPage.
   gridCards.forEach((c, i) => { c.classList.remove('visible'); setTimeout(() => c.classList.add('visible'), i * 80); });
 };
 
-/* 4. MODAL & SIZES */
 const sizeBtns = document.querySelectorAll('.size');
 sizeBtns.forEach(btn => {
   btn.addEventListener('click', function(){
@@ -617,33 +588,9 @@ window.updateFrame = function(sizeClass, btnElement) {
   if(btnElement) btnElement.classList.add('active');
 }
 
-/* 5. TIMER & DATES */
-const deliveryDateEl = document.getElementById('deliveryDateText');
-if(deliveryDateEl) {
-  const today = new Date();
-  const deliveryDate = new Date(today);
-  deliveryDate.setDate(today.getDate() + 4);
-  const options = { month: 'long', day: 'numeric' };
-  deliveryDateEl.innerHTML = `Order Today & Get It By <strong>${deliveryDate.toLocaleDateString('en-US', options)}</strong>`;
-}
-
-function startTimer(duration, display) {
-  let timer = duration, hours, minutes, seconds;
-  setInterval(function () {
-    hours = parseInt(timer / 3600, 10);
-    minutes = parseInt((timer % 3600) / 60, 10);
-    seconds = parseInt(timer % 60, 10);
-    hours = hours < 10 ? "0" + hours : hours;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    display.textContent = hours + "H : " + minutes + "M : " + seconds + "S";
-    if (--timer < 0) timer = duration;
-  }, 1000);
-}
-const timerDisplay = document.querySelector('#timer');
-if(timerDisplay) startTimer(56564, timerDisplay);
-
-/* 6. CART LOGIC */
+/* =========================================
+   CART LOGIC (FIXED)
+   ========================================= */
 let cart = []; 
 let discountApplied = false;
 let discountPercent = 0;
@@ -742,6 +689,48 @@ checkoutBtn.addEventListener('click', function() {
   const phone = "201000000000"; 
   window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
 });
+
+/* =========================================
+   NEW LOGIC: TIMER & DELIVERY DATE
+   ========================================= */
+// 1. DELIVERY DATE (Today + 4 Days)
+const deliveryDateEl = document.getElementById('deliveryDateText');
+if(deliveryDateEl) {
+  const today = new Date();
+  const deliveryDate = new Date(today);
+  deliveryDate.setDate(today.getDate() + 4);
+  
+  const options = { month: 'long', day: 'numeric' };
+  const formattedDate = deliveryDate.toLocaleDateString('en-US', options);
+  
+  deliveryDateEl.innerHTML = `Order Today & Get It By <strong>${formattedDate}</strong>`;
+}
+
+// 2. COUNTDOWN TIMER
+function startTimer(duration, display) {
+  let timer = duration, hours, minutes, seconds;
+  setInterval(function () {
+    hours = parseInt(timer / 3600, 10);
+    minutes = parseInt((timer % 3600) / 60, 10);
+    seconds = parseInt(timer % 60, 10);
+
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    display.textContent = hours + "H : " + minutes + "M : " + seconds + "S";
+
+    if (--timer < 0) {
+      timer = duration;
+    }
+  }, 1000);
+}
+
+const timerDisplay = document.querySelector('#timer');
+if(timerDisplay) {
+  // 15 hours, 42 minutes, 44 seconds in total seconds = 56564
+  startTimer(56564, timerDisplay);
+}
 </script>
 
 </body>
