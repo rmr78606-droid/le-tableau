@@ -25,7 +25,7 @@
    ========================================= */
 *{ margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif; }
 body{ background:#fff; color:#111; overflow-x: hidden; padding-top: 32px; }
-a { text-decoration: none; color: inherit; }
+a { text-decoration: none; color: inherit; cursor: pointer; }
 ul { list-style: none; }
 
 /* ANNOUNCEMENT BAR */
@@ -36,7 +36,7 @@ ul { list-style: none; }
 }
 .announcement-content { display: inline-block; animation: marquee 25s linear infinite; padding-left: 100%; }
 
-/* NAV - ETHETIC STYLE */
+/* NAV - UPDATED LINKS */
 nav { 
   display: flex; justify-content: space-between; align-items: center;
   padding: 18px 50px; position: fixed; width: 100%; top: 32px;
@@ -46,8 +46,8 @@ nav {
 .logo { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; letter-spacing: 1px; color: #000; cursor: pointer; }
 
 .nav-right { display: flex; align-items: center; gap: 30px; }
-.nav-links { display: flex; gap: 25px; }
-.nav-links a { font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; }
+.nav-links { display: flex; gap: 20px; }
+.nav-links a { font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; color: #111; }
 .nav-links a:hover { opacity: 0.6; }
 
 /* CART ICON */
@@ -60,7 +60,6 @@ nav {
   opacity: 0; transform: scale(0.5); transition: 0.3s; 
 }
 .cart-badge.visible{ opacity: 1; transform: scale(1); }
-.cart-badge.pop{ transform: scale(1.4); }
 
 /* HERO SECTION */
 .hero{ 
@@ -91,7 +90,7 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:34px; margin-bott
   height:350px; background:#f5f5f5; display:flex; justify-content:center; align-items:center; 
   font-size:26px; font-family: 'Cinzel', serif; transition:.3s ease; cursor:pointer; 
   position: relative; overflow: hidden; color: #fff;
-  z-index: 1; /* Fix clickable issue */
+  z-index: 1;
 }
 .cat::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.25); transition: 0.5s; z-index: 1; }
 .cat:hover::before { background: rgba(0,0,0,0.45); }
@@ -112,18 +111,15 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:34px; margin-bott
 .faq-item p { color: #666; font-size: 14px; line-height: 1.6; }
 
 /* COLLECTION PAGE (GRID) */
-.collection-page{ display:none; background:#fff; min-height: 100vh; padding-top: 100px; }
+.collection-page{ display:none; background:#fff; min-height: 100vh; padding-top: 100px; padding-bottom: 50px; }
 .collection-header{ padding:40px 60px; text-align: center; }
 .collection-header h1 { font-family: 'Cinzel', serif; font-size: 40px; margin-bottom: 10px; font-weight: 400;}
-.grid{ padding:0 60px 100px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:40px; }
+.grid{ padding:0 60px 60px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:40px; }
 
-/* CARD STYLE (SIDE BY SIDE IMAGES) */
+/* CARD STYLE (SINGLE IMAGE RESTORED) */
 .card{ background:#fff; cursor:pointer; transition: transform 0.3s ease; }
 .card:hover { transform: translateY(-5px); }
-.card-img-row { display: flex; gap: 8px; margin-bottom: 15px; width: 100%; }
-.card-img-row img { display: block; height: 350px; object-fit: cover; } /* Fixed height */
-.card-img-row .static-thumb { width: 35%; }
-.card-img-row .main-thumb { width: 65%; }
+.card-img { width: 100%; height: 380px; object-fit: cover; display: block; margin-bottom: 15px; } /* Single image style */
 .card-content h4{ font-weight: 600; font-size: 15px; margin-bottom: 5px; color: #111; }
 .price{font-size:14px; color: #555;}
 .old{color:#999;text-decoration:line-through;margin-left:6px; font-size: 12px;}
@@ -131,7 +127,7 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:34px; margin-bott
 /* =========================================
    PRODUCT PAGE (ETHETIC STYLE)
    ========================================= */
-.product-wrap{ max-width:1200px; margin:0 auto; padding:60px 40px 100px; display: flex; gap: 60px; align-items: flex-start; }
+.product-wrap{ max-width:1200px; margin:0 auto; padding:60px 40px 80px; display: flex; gap: 60px; align-items: flex-start; }
 .product-image{ flex: 1.3; }
 .product-image img{ width:100%; display:block; box-shadow: 0 0 0 1px #eee; }
 .product-info{ flex: 1; padding-top: 5px; }
@@ -196,7 +192,8 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:34px; margin-bott
 .marketing-quote { text-align: center; background: #f9f9f9; padding: 80px 20px; margin: 60px 0; }
 .marketing-quote h3 { font-family: 'Cinzel', serif; font-size: 26px; color: #333; margin-bottom: 10px; font-weight: 400; }
 .marketing-quote p { color: #777; font-style: italic; font-size: 16px; }
-.recommendations { max-width: 1200px; margin: 0 auto 100px; padding: 0 40px; }
+/* RECOMMENDATIONS SECTION (REQUESTED TO BE KEPT) */
+.recommendations { max-width: 1200px; margin: 0 auto 60px; padding: 0 40px; }
 .recommendations h3 { font-family: 'Cinzel', serif; text-align: center; font-size: 26px; margin-bottom: 50px; font-weight: 400; color: #111; }
 
 /* TRUST STRIP */
@@ -232,7 +229,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   background: rgba(0,0,0,0.5); z-index: 3000; 
   display: none; justify-content: center; align-items: center; backdrop-filter: blur(4px); 
 }
-.cart-overlay-bg.open { display: block; } /* Fix cart overlay */
+.cart-overlay-bg.open { display: block; }
 
 /* CART DRAWER */
 .cart-drawer { position: fixed; top: 0; right: -450px; width: 450px; height: 100%; background: #fff; z-index: 3001; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; flex-direction: column; }
@@ -319,11 +316,14 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 </div>
 
 <nav>
-  <div class="logo" onclick="window.location.reload()">Le Tableau</div>
+  <div class="logo" onclick="goHome()">Le Tableau</div>
   <div class="nav-right">
     <div class="nav-links">
-      <a href="#" onclick="goHome()">Home</a>
-      <a href="#" onclick="openCollection('Shop')">Shop</a>
+      <a onclick="openCollection('All')">SHOP ALL</a>
+      <a onclick="openCollection('Modern')">MODERN</a>
+      <a onclick="openCollection('Islamic')">ISLAMIC</a>
+      <a onclick="openCollection('Games')">GAMING</a>
+      <a onclick="openCollection('Quotes')">QUOTES</a>
     </div>
     <div class="cart-wrap">
       <div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
@@ -390,7 +390,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
       <div class="footer-right">
         <div class="footer-menu">
           <h4>Main Menu</h4>
-          <ul><li><a href="#" onclick="openCollection('All')">Shop All</a></li><li><a href="#" onclick="openCollection('Modern')">Modern</a></li><li><a href="#" onclick="openCollection('Islamic')">Islamic</a></li></ul>
+          <ul><li><a onclick="openCollection('All')">Shop All</a></li><li><a onclick="openCollection('Modern')">Modern</a></li><li><a onclick="openCollection('Islamic')">Islamic</a></li></ul>
         </div>
         <div class="footer-menu">
           <h4>Footer Menu</h4>
@@ -408,47 +408,22 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 <div id="collection-page">
   <div class="collection-header"><a class="back-btn" onclick="goHome()">← Back to Home</a><h1 id="collectionTitle">Collection</h1><p>Hand-picked pieces for the discerning collector</p></div>
   <div class="grid" id="productGrid">
-    <div class="card">
-      <div class="card-img-row"><img src="mmo.png" class="static-thumb"><img src="https://picsum.photos/600/800?1" class="main-thumb"></div>
-      <div class="card-content"><h4>Abstract Lines</h4><div class="price">450 <span class="old">650</span></div></div>
-    </div>
-    <div class="card">
-      <div class="card-img-row"><img src="mmo.png" class="static-thumb"><img src="https://picsum.photos/600/800?2" class="main-thumb"></div>
-      <div class="card-content"><h4>Desert Vibes</h4><div class="price">450 <span class="old">650</span></div></div>
-    </div>
-    <div class="card">
-      <div class="card-img-row"><img src="mmo.png" class="static-thumb"><img src="https://picsum.photos/600/800?3" class="main-thumb"></div>
-      <div class="card-content"><h4>Geometry I</h4><div class="price">450 <span class="old">650</span></div></div>
-    </div>
-    <div class="card">
-      <div class="card-img-row"><img src="mmo.png" class="static-thumb"><img src="https://picsum.photos/600/800?4" class="main-thumb"></div>
-      <div class="card-content"><h4>Geometry II</h4><div class="price">450 <span class="old">650</span></div></div>
-    </div>
-    <div class="card">
-      <div class="card-img-row"><img src="mmo.png" class="static-thumb"><img src="https://picsum.photos/600/800?5" class="main-thumb"></div>
-      <div class="card-content"><h4>Ocean Blue</h4><div class="price">450 <span class="old">650</span></div></div>
-    </div>
-    <div class="card">
-      <div class="card-img-row"><img src="mmo.png" class="static-thumb"><img src="https://picsum.photos/600/800?6" class="main-thumb"></div>
-      <div class="card-content"><h4>Golden Touch</h4><div class="price">450 <span class="old">650</span></div></div>
-    </div>
-    <div class="card">
-      <div class="card-img-row"><img src="mmo.png" class="static-thumb"><img src="https://picsum.photos/600/800?7" class="main-thumb"></div>
-      <div class="card-content"><h4>Mountain Mist</h4><div class="price">450 <span class="old">650</span></div></div>
-    </div>
-    <div class="card">
-      <div class="card-img-row"><img src="mmo.png" class="static-thumb"><img src="https://picsum.photos/600/800?8" class="main-thumb"></div>
-      <div class="card-content"><h4>Urban Night</h4><div class="price">450 <span class="old">650</span></div></div>
-    </div>
+    <div class="card"><img src="https://picsum.photos/600/800?1" class="card-img"><div class="card-content"><h4>Abstract Lines</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/800?2" class="card-img"><div class="card-content"><h4>Desert Vibes</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/800?3" class="card-img"><div class="card-content"><h4>Geometry I</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/800?4" class="card-img"><div class="card-content"><h4>Geometry II</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/800?5" class="card-img"><div class="card-content"><h4>Ocean Blue</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/800?6" class="card-img"><div class="card-content"><h4>Golden Touch</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/800?7" class="card-img"><div class="card-content"><h4>Mountain Mist</h4><div class="price">450 <span class="old">650</span></div></div></div>
+    <div class="card"><img src="https://picsum.photos/600/800?8" class="card-img"><div class="card-content"><h4>Urban Night</h4><div class="price">450 <span class="old">650</span></div></div></div>
   </div>
-  <footer><div class="copyright" style="padding:20px;text-align:center;">© 2026 Le Tableau. All rights reserved.</div></footer>
 </div>
 
 <div id="product-page" style="display:none;">
   <div class="product-wrap">
     <div class="product-image"><img id="productImage" src=""></div>
     <div class="product-info">
-      <a class="back-btn" onclick="openCollection('Back')">← Back to Collection</a>
+      <a class="back-btn" onclick="goBackToCollection()">← Back to Collection</a>
       
       <div class="product-review-header"><div class="stars">★★★★★</div><span>Rated 4.9 | 467 Reviews</span></div>
       <h2 id="productTitle">Artwork Name</h2>
@@ -494,12 +469,19 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
     </div>
   </div>
 
+  <div class="recommendations">
+    <h3>Curated For You</h3>
+    <div class="grid" style="padding:0; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <div class="card"><img src="https://picsum.photos/600/800?10" class="card-img"><div class="card-content"><h4>Midnight Calm</h4><div class="price">450</div></div></div>
+      <div class="card"><img src="https://picsum.photos/600/800?11" class="card-img"><div class="card-content"><h4>Golden Horizon</h4><div class="price">450</div></div></div>
+    </div>
+  </div>
+
   <div class="trust-strip">
     <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/709/709790.png"><div class="trust-text"><h5>Fast Shipping</h5><p>3-5 Days Delivery</p></div></div>
     <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/2331/2331923.png"><div class="trust-text"><h5>Secure Payment</h5><p>100% Protected</p></div></div>
     <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"><div class="trust-text"><h5>Premium Quality</h5><p>Museum Grade Ink</p></div></div>
   </div>
-  <footer><div class="copyright" style="padding:20px;text-align:center;">© 2026 Le Tableau.</div></footer>
 </div>
 
 <div class="modal-overlay" id="sizeModal">
@@ -518,6 +500,7 @@ const productPage = document.getElementById('product-page');
 const collectionTitle = document.getElementById('collectionTitle');
 const productTitle = document.getElementById('productTitle');
 const productImage = document.getElementById('productImage');
+let lastCollectionName = 'All'; // Store last collection for back button
 
 // --- INIT ---
 window.addEventListener("load",()=>{ 
@@ -536,6 +519,7 @@ function goHome() {
 }
 
 function openCollection(name) {
+  lastCollectionName = name; // Save for back button
   collectionTitle.innerText = name + " Collection";
   mainPage.style.display="none";
   collectionPage.style.display="block";
@@ -543,12 +527,15 @@ function openCollection(name) {
   window.scrollTo(0,0);
 }
 
-// --- CARD CLICK ---
+function goBackToCollection() {
+  openCollection(lastCollectionName);
+}
+
+// --- CARD CLICK (SINGLE IMAGE UPDATE) ---
 document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('click', function(){
     const title = this.querySelector('h4').innerText;
-    // IMPORTANT: GET THE SECOND IMAGE (MAIN THUMB) NOT THE FIRST (MMO.PNG)
-    const img = this.querySelector('.main-thumb').src;
+    const img = this.querySelector('.card-img').src; // Changed selector for single image
     
     productTitle.innerText = title;
     productImage.src = img;
