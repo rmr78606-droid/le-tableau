@@ -21,6 +21,7 @@ button { cursor: pointer; font-family: 'Inter', sans-serif; }
 @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
 
 /* Scroll Reveal */
 .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -277,6 +278,7 @@ h2 {
 }
 .size:hover, .size.active, .frame-opt:hover, .frame-opt.active { background: #111; color: #fff; border-color: #111; }
 
+/* Action Buttons */
 .size-guide-btn { 
   background: none; border: none; text-decoration: underline; cursor: pointer; 
   font-size: 13px; color: #555; margin: 20px 0; display: flex; align-items: center; gap: 8px; 
@@ -373,9 +375,13 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .cart-item-info { flex: 1; }
 .remove-item { color: #c00; font-size: 11px; cursor: pointer; text-decoration: underline; margin-top: 5px; display: inline-block; }
 
-.promo-row { display: flex; gap: 8px; margin-bottom: 20px; }
+.promo-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.promo-input-group { display: flex; gap: 5px; }
 .promo-input { flex: 1; padding: 12px; border: 1px solid #ddd; }
 .promo-btn { padding: 0 20px; background: #222; color: #fff; border: none; font-size: 12px; cursor: pointer; text-transform: uppercase; }
+.promo-msg { font-size: 11px; margin-top: 5px; font-weight: 600; display: none; }
+.promo-msg.error { color: #d32f2f; display: block; }
+.promo-msg.success { color: #2e7d32; display: block; }
 
 .cart-summary-row { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 10px; }
 .checkout-btn { width: 100%; padding: 16px; background: #111; color: #fff; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; margin-top: 15px; }
@@ -477,8 +483,11 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   </div>
   <div class="cart-footer">
     <div class="promo-row">
-      <input type="text" id="promoInput" class="promo-input" placeholder="Promo Code">
-      <button id="applyPromoBtn" class="promo-btn">Apply</button>
+      <div class="promo-input-group">
+        <input type="text" id="promoInput" class="promo-input" placeholder="Promo Code">
+        <button id="applyPromoBtn" class="promo-btn">Apply</button>
+      </div>
+      <div id="promoMessage" class="promo-msg"></div>
     </div>
     <div class="cart-summary-row"><span>Subtotal</span><span id="cartSubtotal">0 EGP</span></div>
     <div class="cart-summary-row" id="discountRow" style="display:none; color:#27ae60;"><span>Discount</span><span id="discountValue">-0 EGP</span></div>
@@ -747,7 +756,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
       <div class="newsletter-form"><input type="email" class="newsletter-input" placeholder="E-mail"><button class="newsletter-btn">Subscribe</button></div>
     </div>
     <div class="footer-right">
-      <div class="footer-menu"><h4>Main Menu</h4><ul><li><a onclick="openCollection('Shop All')">Shop All</a></li><li><a onclick="openCollection('Modern')">Modern</a></li><li><a onclick="openCollection('Islamic')">Islamic</a></li></ul></div>
+      <div class="footer-menu"><h4>Main Menu</h4><ul><li><a onclick="openCollection('Shop All')">Shop All</a></li><li><a onclick="openCollection('Modern')">Modern</a></li><li><a onclick="openCollection('Islamic')">Islamic</a></li><li><a onclick="openCollection('Games')">Gaming</a></li><li><a onclick="openCollection('Quotes')">Quotes</a></li></ul></div>
       <div class="footer-menu"><h4>Footer Menu</h4><ul><li onclick="toggleSearch()"><a>Search</a></li><li onclick="openPage('privacy')"><a>Privacy Policy</a></li><li onclick="openPage('refund')"><a>Refund Policy</a></li><li onclick="openPage('shipping')"><a>Shipping Policy</a></li></ul></div>
     </div>
   </div>
@@ -886,7 +895,22 @@ document.getElementById('closeCartBtn').onclick = () => { document.getElementByI
 document.getElementById('addToCartBtn').onclick = () => quickAdd(document.getElementById('productTitle').innerText, document.getElementById('productImage').src);
 document.getElementById('buyNowBtn').onclick = () => { quickAdd(document.getElementById('productTitle').innerText, document.getElementById('productImage').src); document.getElementById('cartIcon').click(); };
 document.getElementById('checkoutBtn').onclick = () => { if(cart.length) window.open(`https://wa.me/201000000000?text=Order Details:%0a${cart.map(i=>`- ${i.title}`).join('%0a')}`, '_blank'); };
-document.getElementById('applyPromoBtn').onclick = () => { if(document.getElementById('promoInput').value==="Frist10"){discountApplied=true;alert("Code Applied!");updateCart();} };
+
+// --- PROMO CODE LOGIC ---
+document.getElementById('applyPromoBtn').onclick = () => { 
+  const code = document.getElementById('promoInput').value.trim();
+  const msg = document.getElementById('promoMessage');
+  
+  if(code === "Frist10"){
+    discountApplied = true;
+    msg.innerText = "Code Applied Successfully!";
+    msg.className = "promo-msg success";
+    updateCart();
+  } else {
+    msg.innerText = "Invalid Promo Code";
+    msg.className = "promo-msg error";
+  }
+};
 
 // --- SEARCH ---
 function toggleSearch(){ const s = document.getElementById('searchOverlay'); s.style.display = s.style.display==='flex'?'none':'flex'; if(s.style.display==='flex') document.getElementById('searchInput').focus(); }
