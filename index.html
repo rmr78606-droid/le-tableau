@@ -118,7 +118,6 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:34px; margin-bott
 .card-img-wrap img.main-thumb { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
 .card:hover img.main-thumb { transform: scale(1.03); }
 
-/* Quick Add Button */
 .quick-add-btn {
   position: absolute; bottom: 15px; right: 15px; width: 40px; height: 40px;
   background: #000; color: #fff; border-radius: 50%; display: flex;
@@ -161,7 +160,6 @@ h2{ text-align:center; font-family: 'Cinzel', serif; font-size:34px; margin-bott
 .buy-now-btn:hover { background: #b48b5a; transform: translateY(-2px); }
 .back-btn{ display:inline-block; margin-bottom:20px; color: #777; text-decoration:none; font-size: 13px; cursor: pointer; }
 
-/* DETAILS */
 .details-section { max-width: 900px; margin: 0 auto; padding: 80px 40px; border-top: 1px solid #eee; }
 .details-title { text-align: center; font-family: 'Cinzel', serif; font-size: 28px; margin-bottom: 40px; color: #111; }
 .details-text-block { margin-bottom: 60px; text-align: center; color: #555; line-height: 1.8; font-size: 16px; }
@@ -199,7 +197,6 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .footer-right { display: flex; gap: 80px; flex-wrap: wrap; }
 .footer-menu h4 { font-weight: 600; text-transform: uppercase; font-size: 12px; margin-bottom: 20px; letter-spacing: 0.5px; }
 .footer-menu a { text-decoration: none; color: #555; font-size: 13px; transition: 0.2s; display: block; margin-bottom: 12px; cursor: pointer;}
-.footer-menu a:hover { color: #000; text-decoration: underline; }
 .footer-bottom { border-top: 1px solid #eee; margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; color: #777; font-size: 12px; }
 
 /* DRAWERS & OVERLAYS */
@@ -207,15 +204,15 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .cart-overlay-bg.open { display: block; }
 .cart-drawer { position: fixed; top: 0; right: -450px; width: 450px; height: 100%; background: #fff; z-index: 3001; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; flex-direction: column; }
 .cart-drawer.open { right: 0; }
-.cart-header { padding: 25px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-.cart-items { flex: 1; overflow-y: auto; padding: 25px; }
-.cart-footer { padding: 25px; border-top: 1px solid #eee; background: #f9f9f9; }
+.cart-header-draw { padding: 25px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+.cart-items-container { flex: 1; overflow-y: auto; padding: 25px; }
+.cart-footer-draw { padding: 25px; border-top: 1px solid #eee; background: #f9f9f9; }
 .cart-item { display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
 .cart-item img { width: 70px; height: 90px; object-fit: cover; }
 .remove-item { color: #c00; font-size: 11px; cursor: pointer; text-decoration: underline; }
 .promo-section { margin-bottom: 20px; }
 .promo-input-group { display: flex; gap: 8px; }
-.promo-input { flex: 1; padding: 12px; border: 1px solid #ddd; }
+.promo-input { flex: 1; padding: 12px; border: 1px solid #ddd; font-size: 13px; }
 .promo-btn { padding: 0 20px; background: #222; color: #fff; border: none; cursor: pointer; }
 .cart-total { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 10px; }
 .checkout-btn { width: 100%; padding: 16px; background: #111; color: #fff; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; margin-top: 15px; }
@@ -228,17 +225,30 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .text-page h3 { margin-top: 30px; margin-bottom: 10px; font-size: 18px; font-weight: 700; }
 .text-page p, .text-page li { font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 15px; }
 .text-page ul { list-style: disc; padding-left: 20px; margin-bottom: 20px; }
-.modal-content, .promo-modal { background: #fff; width: 95%; max-width: 900px; border-radius: 4px; overflow: hidden; animation: popIn 0.3s ease; position: relative; }
+
+/* MODAL FIX: SMALLER & BETTER */
+.modal-content { 
+  background: #fff; width: 90%; max-width: 500px; /* Reduced from 900px */
+  border-radius: 4px; overflow: hidden; animation: popIn 0.3s ease; position: relative; 
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
 .promo-modal { max-width: 450px; padding: 50px; text-align: center; }
-.room-container { position: relative; width: 100%; padding-bottom: 65%; background: url('mmm.jpg') no-repeat center center; background-size: cover; background-color: #f5f5f5; }
+.room-container { position: relative; width: 100%; padding-bottom: 80%; background: url('mmm.jpg') no-repeat center center; background-size: cover; background-color: #f5f5f5; }
 .frame-preview { position: absolute; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.4); top: 22%; left: 50%; transform: translate(-50%, -50%); border: 3px solid #222; width: 0; aspect-ratio: 3/4; transition: 0.5s; }
-.frame-preview.s30x40 { width: 8%; } .frame-preview.s40x60 { width: 10.5%; aspect-ratio: 2/3; } .frame-preview.s60x90 { width: 15%; aspect-ratio: 2/3; }
+.frame-preview.s30x40 { width: 12%; } .frame-preview.s40x60 { width: 16%; aspect-ratio: 2/3; } .frame-preview.s60x90 { width: 22%; aspect-ratio: 2/3; }
 .modal-controls { padding: 20px; text-align: center; background: #fff; }
 .promo-code-box { background: #f4f4f4; border: 1px dashed #333; padding: 15px; font-size: 22px; font-weight: 700; letter-spacing: 2px; color: #cba374; margin: 25px 0; display: inline-block; width: 100%; }
-.close-icon { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #999; border: none; background: none; }
+.close-promo, .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #999; border: none; background: none; }
+
 #toast { visibility: hidden; min-width: 250px; background-color: #111; color: #fff; text-align: center; border-radius: 50px; padding: 16px; position: fixed; z-index: 5000; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(50px); font-size: 13px; opacity: 0; transition: all 0.5s; font-weight: 600; }
 #toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
-@media(max-width:768px){ nav{padding:15px 20px;} .nav-links { display: none; } section,.grid,.collection-header,.product-wrap,.footer-grid{padding-left:20px;padding-right:20px;} .product-wrap{flex-direction: column; padding-top: 40px;} .product-image{width: 100%; margin-bottom: 30px;} .hero h1{font-size:42px;} .footer-wrapper { flex-direction: column; gap: 40px; } .cart-drawer { width: 100%; right: -100%; } .cart-drawer.open { right: 0; } }
+
+@media(max-width:768px){
+  nav{padding:15px 20px;} .nav-links { display: none; } 
+  section,.grid,.collection-header,.product-wrap,.footer-grid{padding-left:20px;padding-right:20px;}
+  .product-wrap{flex-direction: column; padding-top: 40px;} .product-image{width: 100%; margin-bottom: 30px;}
+  .footer-wrapper { flex-direction: column; gap: 40px; } .cart-drawer { width: 100%; right: -100%; } .cart-drawer.open { right: 0; }
+}
 </style>
 </head>
 
@@ -248,12 +258,12 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   <div class="announcement-content">✨ FREE SHIPPING ON ORDERS OVER 1500 EGP &nbsp; • &nbsp; USE CODE: <strong>FRIST10</strong> FOR 10% OFF &nbsp; • &nbsp; PREMIUM WALL ART</div>
 </div>
 
-<div class="overlay-bg active" id="promoPopup">
+<div class="promo-modal-overlay" id="promoPopup" style="display:none;">
   <div class="promo-modal">
     <button class="close-icon" onclick="document.getElementById('promoPopup').style.display='none'">×</button>
     <h2 style="font-family:'Cinzel',serif;margin-bottom:15px;font-size:32px;">Welcome Gift</h2>
     <p style="color:#666;line-height:1.6;margin-bottom:20px;">Join the Le Tableau family and get 10% off your first purchase.</p>
-    <div class="promo-code-display">Frist10</div>
+    <div class="promo-code-box">Frist10</div>
     <button class="add-btn" onclick="document.getElementById('promoPopup').style.display='none'">Start Shopping</button>
   </div>
 </div>
@@ -267,12 +277,12 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 
 <div id="toast">Added to cart successfully</div>
 
-<div class="overlay-bg" id="cartOverlay"></div>
+<div class="cart-overlay-bg" id="cartOverlay"></div>
 <div class="cart-drawer" id="cartDrawer">
-  <div class="cart-header"><h3 style="font-family:'Cinzel',serif;">Shopping Cart</h3><span class="close-icon" id="closeCartBtn" style="position:static;">×</span></div>
-  <div class="cart-items" id="cartItemsContainer"><div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your cart is empty.</div></div>
-  <div class="cart-footer">
-    <div class="promo-row"><input type="text" id="promoInput" class="promo-input" placeholder="Promo Code"><button id="applyPromoBtn" class="promo-btn">Apply</button></div>
+  <div class="cart-header-draw"><h3 style="font-family:'Cinzel',serif;">Shopping Cart</h3><span class="close-modal" id="closeCartBtn" style="position:static;">×</span></div>
+  <div class="cart-items-container" id="cartItemsContainer"><div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your cart is empty.</div></div>
+  <div class="cart-footer-draw">
+    <div style="display:flex;gap:8px;margin-bottom:20px;"><input type="text" id="promoInput" style="flex:1;padding:12px;border:1px solid #ddd;font-size:13px;" placeholder="Promo Code"><button id="applyPromoBtn" style="padding:0 20px;background:#222;color:#fff;border:none;cursor:pointer;font-size:12px;text-transform:uppercase;">Apply</button></div>
     <div class="cart-total"><span>Subtotal</span><span id="cartSubtotal">0 EGP</span></div>
     <div class="cart-total" id="discountRow" style="display:none; color:#27ae60;"><span>Discount</span><span id="discountValue">-0 EGP</span></div>
     <div class="cart-total" style="font-weight:700; font-size:18px; border-top:1px solid #ddd; padding-top:15px; margin-top:15px;"><span>Total</span><span id="finalTotal">0 EGP</span></div>
@@ -385,19 +395,26 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 <div id="privacy-page" class="text-page">
   <h1>Privacy Policy</h1>
   <p>Last updated: December 2024</p>
-  <p>This Privacy Policy describes how Le Tableau (the "Site", "we", "us", or "our") collects, uses, and discloses your personal information when you visit, use our services, or make a purchase from letableau.com.</p>
+  <p>This Privacy Policy describes how Le Tableau (the "Site", "we", "us", or "our") collects, uses, and discloses your personal information when you visit, use our services, or make a purchase from letableau.com (the "Site") or otherwise communicate with us (collectively, the "Services"). For purposes of this Privacy Policy, "you" and "your" means you as the user of the Services, whether you are a customer, website visitor, or another individual whose information we have collected pursuant to this Privacy Policy.</p>
   <p>Please read this Privacy Policy carefully. By using and accessing any of the Services, you agree to the collection, use, and disclosure of your information as described in this Privacy Policy. If you do not agree to this Privacy Policy, please do not use or access any of the Services.</p>
+  <h3>Changes to This Privacy Policy</h3>
+  <p>We may update this Privacy Policy from time to time, including to reflect changes to our practices or for other operational, legal, or regulatory reasons. We will post the revised Privacy Policy on the Site, update the "Last updated" date and take any other steps required by applicable law.</p>
   <h3>How We Collect and Use Your Personal Information</h3>
   <p>To provide the Services, we collect and have collected over the past 12 months personal information about you from a variety of sources, as set out below. The information that we collect and use varies depending on how you interact with us.</p>
-  <h3>Information We Collect</h3>
+  <p>In addition to the specific uses set out below, we may use information we collect about you to communicate with you, provide the Services, comply with any applicable legal obligations, enforce any applicable terms of service, and to protect or defend the Services, our rights, and the rights of our users or others.</p>
+  <h3>What Personal Information We Collect</h3>
+  <p>The types of personal information we obtain about you depends on how you interact with our Site and use our Services. When we use the term "personal information", we are referring to information that identifies, relates to, describes or can be associated with you. The following sections describe the categories and specific types of personal information we collect.</p>
+  <h3>Information We Collect Directly from You</h3>
+  <p>Information that you directly submit to us through our Services may include:</p>
   <ul>
     <li>Basic contact details including your name, address, phone number, email.</li>
     <li>Order information including your name, billing address, shipping address, payment confirmation, email address, phone number.</li>
     <li>Account information including your username, password, security questions.</li>
     <li>Shopping information including the items you view, put in your cart or add to your wishlist.</li>
+    <li>Customer support information including the information you choose to include in communications with us, for example, when sending a message through the Services.</li>
   </ul>
   <h3>Security and Fraud Prevention</h3>
-  <p>We use your personal information to detect, investigate or take action regarding possible fraudulent, illegal or malicious activity. If you choose to use the Services and register an account, you are responsible for keeping your account credentials safe.</p>
+  <p>We use your personal information to detect, investigate or take action regarding possible fraudulent, illegal or malicious activity. If you choose to use the Services and register an account, you are responsible for keeping your account credentials safe. We highly recommend that you do not share your username, password, or other access details with anyone else. If you believe your account has been compromised, please contact us immediately.</p>
   <h3>Contact</h3>
   <p>Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to exercise any of the rights available to you, please email us at support@letableau.com</p>
 </div>
@@ -411,39 +428,70 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
     <li>To be eligible for a refund, items must be in their original condition, unused, and in their original packaging.</li>
   </ul>
   <h3>Custom Posters:</h3>
-  <p>Please note that custom posters, including personalized and customized items, are non-refundable, due to the personalized nature of custom prints. Once an order for custom album prints has been placed and production has begun, it cannot be canceled, returned, or refunded.</p>
+  <p>Please note that custom posters, including personalized and customized items, are non-refundable, due to the personalized nature of custom prints and the fact that these prints are individually produced to a specific order. Once an order for custom album prints has been placed and production has begun, it cannot be canceled, returned, or refunded. We recommend reviewing custom orders carefully before submitting them.</p>
   <h3>Returns Process:</h3>
-  <p>To initiate a return, please contact our customer support team at support@letableau.com within 30 days of receiving your order. Provide your order number and a brief description of the reason for the return.</p>
+  <p>To initiate a return, please contact our customer support team at support@letableau.com within 30 days of receiving your order.</p>
+  <p>Provide your order number and a brief description of the reason for the return.</p>
+  <p>Our customer support team will provide you with instructions on how to return the item(s).</p>
   <h3>Return Shipping:</h3>
-  <p>Customers are responsible for the cost of return shipping unless the return is due to an error on our part or a defective item. We recommend using a trackable shipping method.</p>
+  <p>Customers are responsible for the cost of return shipping unless the return is due to an error on our part or a defective item.</p>
+  <p>We recommend using a trackable shipping method and retaining proof of postage for your records.</p>
+  <h3>Refund Processing:</h3>
+  <p>Once we receive the returned item(s) and inspect their condition, we will process the refund.</p>
+  <p>Refunds will be issued to the original payment method used for the purchase.</p>
+  <p>Please allow a reasonable processing time for the refund to appear in your account.</p>
+  <h3>Exchanges:</h3>
+  <p>We do not offer direct exchanges. If you wish to exchange an item, you will need to return the original item for a refund and place a new order for the desired item.</p>
   <h3>Damaged or Defective Items:</h3>
-  <p>If you receive a damaged or defective item, please contact us immediately with photos of the item and packaging. We will arrange for a replacement. Please note that orders arriving damaged are eligible for a free replacement only.</p>
+  <p>If you receive a damaged or defective item, please contact us immediately with photos of the item and packaging. We will arrange for a replacement. Please note that orders arriving damaged are eligible for a free replacement only. Refunds are not provided for damaged items.</p>
+  <h3>Contact Us:</h3>
+  <p>If you have any questions or need assistance with a return or refund, please reach out to our customer support team at support@letableau.com. We are here to help.</p>
+  <p>Le Tableau reserves the right to amend this refund policy as needed. We recommend reviewing our refund policy periodically for any updates or changes.</p>
   <p>Last Updated: February 2026</p>
 </div>
 
 <div id="shipping-page" class="text-page">
   <h1>Shipping Policy</h1>
   <p>At Le Tableau, every poster is made to order using premium materials and shipped with care. Below is our full shipping policy so you know exactly what to expect when ordering from us.</p>
+  <p>Holiday Shipping Notice: While we do our best to deliver orders as quickly as possible, orders placed after February 14, 2026 may not arrive before holidays due to increased courier demand.</p>
   <h3>Order Processing</h3>
-  <p>All orders are processed within 24 hours. Once your order is printed, framed (if selected), and packaged, you will receive a tracking link via email.</p>
+  <p>All orders are processed within 24 hours.</p>
+  <p>Once your order is printed, framed (if selected), and packaged, you will receive a tracking link via email.</p>
+  <p>Please note: Orders placed during high-volume periods (Black Friday, Holidays, etc.) may require slightly more time to process.</p>
   <h3>Shipping Times</h3>
+  <p>We ship inside Egypt. Estimated delivery windows:</p>
   <ul>
     <li>Cairo & Alexandria: 2–3 business days</li>
     <li>Delta & Canal Cities: 3–4 business days</li>
     <li>Upper Egypt: 5–7 business days</li>
-    <li>Rest of World: 6–12 business days</li>
+    <li>Rest of Governorates: 6–12 business days</li>
   </ul>
   <p>Timeframes may vary slightly based on destination and local carrier delays.</p>
   <h3>Shipping Costs</h3>
   <p>Shipping costs are calculated at checkout based on your region and the products in your cart. Free-shipping promotions (when applicable) will be clearly displayed on the site.</p>
+  <h3>Order Tracking</h3>
+  <p>As soon as your order ships, you will receive a tracking email. Tracking may take 24–48 hours to update depending on the carrier. If your tracking shows no updates after 3 business days, feel free to contact us.</p>
   <h3>Incorrect Address Policy</h3>
-  <p>Le Tableau is not responsible for orders shipped to an address entered incorrectly at checkout. If you made a mistake, please contact us within 24 hours of placing your order.</p>
+  <p>Le Tableau is not responsible for orders shipped to an address entered incorrectly at checkout. If you made a mistake, please contact us within 24 hours of placing your order so we can attempt to correct it before production begins.</p>
+  <h3>Damaged or Lost Orders</h3>
+  <p>If your order arrives damaged or is lost in transit, we will replace it free of charge.</p>
+  <p>Please email us with:</p>
+  <ul>
+    <li>Your order number</li>
+    <li>Photos of the damage (if applicable)</li>
+    <li>A brief description of the issue</li>
+  </ul>
+  <p>We will resolve it as quickly as possible.</p>
+  <h3>Returns & Exchanges</h3>
+  <p>All orders placed during the holiday season are eligible for returns until January 15.</p>
+  <p>Standard return policy: Returns accepted within 30 days of delivery for unused, unopened items.</p>
+  <p>(Custom prints are not eligible for return unless damaged.)</p>
   <h3>Questions?</h3>
   <p>If you need support with your order, tracking, or anything else, contact us anytime at: support@letableau.com</p>
 </div>
 
-<div class="overlay-bg" id="sizeModal">
-  <div class="modal-content">
+<div class="overlay-bg" id="sizeModal" onclick="document.getElementById('sizeModal').style.display='none'">
+  <div class="modal-content" onclick="event.stopPropagation()">
     <div class="modal-header"><h3>Size Visualizer</h3><button class="close-icon" id="closeSizeModal">×</button></div>
     <div class="room-container"><div class="frame-preview s30x40" id="framePreview"></div></div>
     <div class="modal-controls"><button class="btn s-btn active" data-s="s30x40">30x40</button><button class="btn s-btn" data-s="s40x60">40x60</button><button class="btn s-btn" data-s="s60x90">60x90</button></div>
@@ -625,7 +673,11 @@ let t = 56564; setInterval(()=>{
 const sm = document.getElementById('sizeModal');
 document.getElementById('openSizeGuide').onclick = () => sm.style.display = 'flex';
 document.getElementById('closeSizeModal').onclick = () => sm.style.display = 'none';
-window.updateFrame = (s,b) => { document.getElementById('framePreview').className='frame-preview '+s; document.querySelectorAll('.s-btn').forEach(btn=>btn.classList.remove('active')); b.classList.add('active'); };
+window.updateFrame = (s,b) => { 
+  document.getElementById('framePreview').className='frame-preview '+s; 
+  document.querySelectorAll('.s-btn').forEach(btn=>btn.classList.remove('active')); 
+  b.classList.add('active'); 
+};
 const sBtns = document.querySelectorAll('.size'); sBtns.forEach(b => b.addEventListener('click', function() { sBtns.forEach(x => x.classList.remove('active')); this.classList.add('active'); }));
 const fBtns = document.querySelectorAll('.frame-opt'); fBtns.forEach(b => b.addEventListener('click', function() { fBtns.forEach(x => x.classList.remove('active')); this.classList.add('active'); }));
 document.getElementById('backToCollBtn').onclick = () => openCollection(currentCollection);
