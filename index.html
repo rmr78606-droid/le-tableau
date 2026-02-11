@@ -8,7 +8,7 @@
 
 <style>
 /* =========================================
-   1. CORE ANIMATIONS (IPHONE SMOOTHNESS)
+   1. CSS RESET & ANIMATIONS (IPHONE SMOOTHNESS)
    ========================================= */
 :root { 
   --apple-ease: cubic-bezier(0.25, 1, 0.5, 1); 
@@ -18,29 +18,32 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
 body { background: #fff; color: #111; overflow-x: hidden; padding-top: 32px; }
 
-/* Global Smoothness */
-a, button, .btn, .cat, .card, input, select, .size, .frame-opt {
+/* Smooth Transitions (The Apple Feel) */
+a, button, .btn, .cat, .card, .size, .frame-opt, .nav-link, input, select {
   transition: all 0.3s var(--apple-ease);
   cursor: pointer;
 }
 
-/* The Magic Animation Class */
+/* Page & Grid Entry Animation */
 .page-enter {
   animation: fadeUp 0.6s var(--apple-ease) forwards;
 }
 
-/* Click Feedback (Touch) */
+/* Touch Feedback */
 button:active, .btn:active, .cat:active, .card:active, .size:active, .frame-opt:active, a:active { 
   transform: scale(0.96); 
 }
 
 @keyframes fadeUp { 
-  from { opacity: 0; transform: translateY(25px); } 
+  from { opacity: 0; transform: translateY(20px); } 
   to { opacity: 1; transform: translateY(0); } 
 }
 @keyframes popIn { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+
+.reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.reveal-on-scroll.visible { opacity: 1; transform: translateY(0); }
 
 /* =========================================
    2. HEADER & NAVIGATION
@@ -52,18 +55,18 @@ button:active, .btn:active, .cat:active, .card:active, .size:active, .frame-opt:
 }
 .announcement-content { display: inline-block; animation: marquee 25s linear infinite; padding-left: 100%; }
 
+/* Glass Navbar */
 nav { 
   display: flex; justify-content: space-between; align-items: center;
   padding: 15px 50px; position: fixed; width: 100%; top: 32px;
   background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); 
 }
-.logo { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; letter-spacing: 1px; color: #000; }
-
+.logo { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; letter-spacing: 1px; color: #000; cursor: pointer; }
 .nav-right { display: flex; align-items: center; gap: 30px; }
 .nav-links { display: flex; gap: 25px; }
 
-/* Nav Links Animation */
+/* Animated Underline for Links */
 .nav-links a { 
   font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; 
   color: #111; position: relative; padding: 5px 0;
@@ -80,15 +83,14 @@ nav {
   position: absolute; top: -6px; right: -6px; background: #000; color: white; 
   font-size: 10px; font-weight: bold; height: 16px; width: 16px; 
   display: flex; justify-content: center; align-items: center; border-radius: 50%; 
-  opacity: 0; transform: scale(0); transition: 0.4s var(--bounce);
+  opacity: 0; transform: scale(0); transition: 0.4s var(--bounce); 
 }
 .cart-badge.visible { opacity: 1; transform: scale(1); }
 
 /* =========================================
-   3. SECTIONS & PAGES
+   3. HOME SECTIONS
    ========================================= */
-/* All pages start hidden except main */
-.page-section, .text-page { display: none; padding-top: 100px; min-height: 100vh; }
+.page-section { display: none; padding-top: 100px; min-height: 100vh; }
 #main-page { padding-top: 0; }
 
 .hero { 
@@ -119,8 +121,7 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 .cat:hover::before { background: rgba(0,0,0,0.45); }
 .cat:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
 .cat span { position: relative; z-index: 2; letter-spacing: 1px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-.cat.modern { background: url("modern.jpg") center/cover; } .cat.islamic { background: url("islamic.jpg") center/cover; } 
-.cat.games { background: url("games.jpg") center/cover; } .cat.quotes { background: url("post.jpg") center/cover; }
+.cat.modern { background: url("modern.jpg") center/cover; } .cat.islamic { background: url("islamic.jpg") center/cover; } .cat.games { background: url("games.jpg") center/cover; } .cat.quotes { background: url("post.jpg") center/cover; }
 
 .about { max-width: 800px; margin: auto; text-align: center; font-size: 17px; color: #444; line-height: 1.9; }
 .trust-strip { background: #fff; padding: 60px 20px; border-top: 1px solid #eee; display: flex; justify-content: center; gap: 80px; flex-wrap: wrap; text-align: left; }
@@ -136,11 +137,12 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 .collection-header h1 { font-family: 'Cinzel', serif; font-size: 42px; margin-bottom: 10px; font-weight: 400; }
 .grid { padding: 0 60px 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; }
 
-.card { background: #fff; position: relative; border-radius: 4px; overflow: hidden; }
+.card { background: #fff; cursor: pointer; position: relative; border-radius: 4px; overflow: hidden; }
 .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
 .card-badge { position: absolute; top: 12px; left: 12px; background: #000; color: #fff; padding: 6px 10px; font-size: 10px; font-weight: 700; z-index: 2; letter-spacing: 1px; }
+
 .card-img-wrap { width: 100%; margin-bottom: 15px; position: relative; aspect-ratio: 3/4; overflow: hidden; background: #f9f9f9; }
-.card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--apple-ease); }
+.card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--apple-ease); }
 .card:hover .card-img-wrap img { transform: scale(1.05); }
 
 .quick-add-btn {
@@ -158,7 +160,7 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 .old { color: #999; text-decoration: line-through; margin-left: 8px; font-size: 12px; font-weight: 400; }
 
 /* =========================================
-   5. PRODUCT PAGE STYLE
+   5. PRODUCT PAGE
    ========================================= */
 .product-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 80px; display: flex; gap: 70px; align-items: flex-start; }
 .product-image { flex: 1.3; } .product-image img { width: 100%; display: block; box-shadow: 0 0 0 1px #eee; }
@@ -185,7 +187,7 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 .option-label { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; margin-top: 25px;}
 .sizes, .frames { display: flex; gap: 10px; flex-wrap: wrap; }
 
-/* FIX: SELECTION ACTIVE STATES */
+/* FIX: SELECTION ACTIVE STATE */
 .size, .frame-opt { 
   padding: 14px 24px; border: 1px solid #ddd; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; cursor: pointer; transition: 0.2s;
 }
@@ -234,6 +236,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .newsletter-input:focus { background: #fff; border-color: #000; }
 .newsletter-btn { padding: 14px; background: #111; color: #fff; border: none; font-weight: 600; text-transform: uppercase; font-size: 12px; width: 100%; }
 .news-success-msg { color: #2e7d32; font-weight: 600; font-size: 12px; margin-top: 10px; display: none; line-height: 1.6; animation: fadeUp 0.5s; }
+
 .footer-right { display: flex; gap: 80px; flex-wrap: wrap; }
 .footer-menu h4 { font-weight: 600; text-transform: uppercase; font-size: 12px; margin-bottom: 20px; letter-spacing: 0.5px; }
 .footer-menu ul { list-style: none; padding: 0; } .footer-menu li { margin-bottom: 12px; }
@@ -324,119 +327,22 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 
 <body>
 
-<div class="announcement-bar">
-  <div class="announcement-content">✨ FREE SHIPPING ON ORDERS OVER 1500 EGP &nbsp; • &nbsp; USE CODE: <strong>FRIST10</strong> FOR 10% OFF &nbsp; • &nbsp; PREMIUM WALL ART</div>
-</div>
-
-<div class="overlay-bg active" id="promoPopup">
-  <div class="promo-modal">
-    <button class="close-icon" id="closePromoBtn" style="position:absolute; top:15px; right:15px;">×</button>
-    <h2 style="font-family:'Cinzel',serif;margin-bottom:15px;font-size:32px;">Welcome Gift</h2>
-    <p style="color:#666;line-height:1.6;margin-bottom:20px;">Join the Le Tableau family and get 10% off your first purchase.</p>
-    <div class="promo-code-display">Frist10</div>
-    <button class="add-btn" id="startShoppingBtn">Start Shopping</button>
-  </div>
-</div>
-
-<div class="overlay-bg search-overlay" id="searchOverlay" onclick="closeSearch(event)">
-  <div class="search-box" onclick="event.stopPropagation()">
-    <input type="text" class="search-input" id="searchInput" placeholder="Search categories or products..." onkeyup="performSearch()">
-    <div id="searchResults" style="margin-top:20px;max-height:300px;overflow-y:auto;"></div>
-  </div>
-</div>
-
-<div class="checkout-overlay overlay-bg" id="checkoutOverlay" style="display:none;" onclick="document.getElementById('checkoutOverlay').style.display='none'">
-  <div class="checkout-modal" onclick="event.stopPropagation()">
-    <button class="close-icon" style="position:absolute; top:15px; right:15px;" onclick="document.getElementById('checkoutOverlay').style.display='none'">×</button>
-    <h2>Complete Your Order</h2>
-    <form id="checkoutForm">
-      <div class="form-group"><label>Full Name</label><input type="text" id="cName" required placeholder="Ahmed Mohamed"></div>
-      <div class="form-group"><label>Phone Number</label><input type="tel" id="cPhone" required placeholder="01xxxxxxxxx"></div>
-      <div class="form-group"><label>Governorate</label>
-        <select id="cGov"><option>Cairo</option><option>Giza</option><option>Alexandria</option><option>Dakahlia</option><option>Sharkia</option><option>Other</option></select>
-      </div>
-      <div class="form-group"><label>Detailed Address</label><textarea id="cAddress" rows="2" placeholder="Street name, Building no, Apt..." required></textarea></div>
-      <label style="display:block;margin-bottom:10px;font-weight:600;">Payment Method</label>
-      <div class="payment-methods">
-        <div class="pay-option active" onclick="selectPay('COD', this)">Cash on Delivery</div>
-        <div class="pay-option" onclick="selectPay('VF_CASH', this)">Vodafone Cash</div>
-      </div>
-      <button type="button" class="confirm-order-btn" onclick="submitOrder()">Confirm Order (WhatsApp)</button>
-    </form>
-  </div>
-</div>
-
+<div class="announcement-bar"><div class="announcement-content">✨ FREE SHIPPING ON ORDERS OVER 1500 EGP &nbsp; • &nbsp; USE CODE: <strong>FRIST10</strong> FOR 10% OFF &nbsp; • &nbsp; PREMIUM WALL ART</div></div>
+<div class="overlay-bg active" id="promoPopup"><div class="promo-modal"><button class="close-icon" id="closePromoBtn" style="position:absolute; top:15px; right:15px;">×</button><h2 style="font-family:'Cinzel',serif;margin-bottom:15px;font-size:32px;">Welcome Gift</h2><p style="color:#666;line-height:1.6;margin-bottom:20px;">Join the Le Tableau family and get 10% off your first purchase.</p><div class="promo-code-display">Frist10</div><button class="add-btn" id="startShoppingBtn">Start Shopping</button></div></div>
+<div class="overlay-bg search-overlay" id="searchOverlay" onclick="closeSearch(event)"><div class="search-box" onclick="event.stopPropagation()"><input type="text" class="search-input" id="searchInput" placeholder="Search categories or products..." onkeyup="performSearch()"><div id="searchResults" style="margin-top:20px;max-height:300px;overflow-y:auto;"></div></div></div>
+<div class="checkout-overlay overlay-bg" id="checkoutOverlay" style="display:none;" onclick="document.getElementById('checkoutOverlay').style.display='none'"><div class="checkout-modal" onclick="event.stopPropagation()"><button class="close-icon" style="position:absolute; top:15px; right:15px;" onclick="document.getElementById('checkoutOverlay').style.display='none'">×</button><h2>Complete Your Order</h2><form id="checkoutForm"><div class="form-group"><label>Full Name</label><input type="text" id="cName" required placeholder="Ahmed Mohamed"></div><div class="form-group"><label>Phone Number</label><input type="tel" id="cPhone" required placeholder="01xxxxxxxxx"></div><div class="form-group"><label>Governorate</label><select id="cGov"><option>Cairo</option><option>Giza</option><option>Alexandria</option><option>Dakahlia</option><option>Sharkia</option><option>Other</option></select></div><div class="form-group"><label>Detailed Address</label><textarea id="cAddress" rows="2" placeholder="Street name, Building no, Apt..." required></textarea></div><label style="display:block;margin-bottom:10px;font-weight:600;">Payment Method</label><div class="payment-methods"><div class="pay-option active" onclick="selectPay('COD', this)">Cash on Delivery</div><div class="pay-option" onclick="selectPay('VF_CASH', this)">Vodafone Cash</div></div><button type="button" class="confirm-order-btn" onclick="submitOrder()">Confirm Order (WhatsApp)</button></form></div></div>
 <div id="toast">Added to cart successfully</div>
-
-<div class="cart-overlay-bg" id="cartOverlay"></div>
-<div class="cart-drawer" id="cartDrawer">
-  <div class="cart-header"><h3 style="font-family:'Cinzel',serif;">Shopping Cart</h3><span class="close-icon" id="closeCartBtn" style="font-size:24px;">×</span></div>
-  <div class="cart-items" id="cartItemsContainer"><div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your cart is empty.</div></div>
-  <div class="cart-footer">
-    <div class="promo-row"><div class="promo-input-group"><input type="text" id="promoInput" class="promo-input" placeholder="Promo Code"><button id="applyPromoBtn" class="promo-btn">Apply</button></div><div id="promoMessage" class="promo-msg"></div></div>
-    <div class="cart-summary-row"><span>Subtotal</span><span id="cartSubtotal">0 EGP</span></div>
-    <div class="cart-summary-row" id="discountRow" style="display:none; color:#27ae60;"><span>Discount</span><span id="discountValue">-0 EGP</span></div>
-    <div class="cart-summary-row" style="font-weight:700; font-size:18px; border-top:1px solid #ddd; padding-top:15px;"><span>Total</span><span id="finalTotal">0 EGP</span></div>
-    <button class="checkout-btn" id="openCheckoutBtn">PROCEED TO CHECKOUT</button>
-  </div>
-</div>
-
-<nav>
-  <div class="logo" onclick="goHome()">Le Tableau</div>
-  <div class="nav-right">
-    <div class="nav-links">
-      <a onclick="openCollection('Shop All')">SHOP ALL</a>
-      <a onclick="openCollection('Modern')">MODERN</a>
-      <a onclick="openCollection('Islamic')">ISLAMIC</a>
-      <a onclick="openCollection('Games')">GAMING</a>
-      <a onclick="openCollection('Quotes')">QUOTES</a>
-    </div>
-    <div class="cart-wrap" id="cartIcon">
-      <div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
-      <span class="cart-badge" id="cartBadge">0</span>
-    </div>
-  </div>
-</nav>
+<div class="cart-overlay-bg" id="cartOverlay"></div><div class="cart-drawer" id="cartDrawer"><div class="cart-header"><h3 style="font-family:'Cinzel',serif;">Shopping Cart</h3><span class="close-icon" id="closeCartBtn" style="font-size:24px;">×</span></div><div class="cart-items" id="cartItemsContainer"><div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your cart is empty.</div></div><div class="cart-footer"><div class="promo-row"><div class="promo-input-group"><input type="text" id="promoInput" class="promo-input" placeholder="Promo Code"><button id="applyPromoBtn" class="promo-btn">Apply</button></div><div id="promoMessage" class="promo-msg"></div></div><div class="cart-summary-row"><span>Subtotal</span><span id="cartSubtotal">0 EGP</span></div><div class="cart-summary-row" id="discountRow" style="display:none; color:#27ae60;"><span>Discount</span><span id="discountValue">-0 EGP</span></div><div class="cart-summary-row" style="font-weight:700; font-size:18px; border-top:1px solid #ddd; padding-top:15px;"><span>Total</span><span id="finalTotal">0 EGP</span></div><button class="checkout-btn" id="openCheckoutBtn">PROCEED TO CHECKOUT</button></div></div>
+<nav><div class="logo" onclick="goHome()">Le Tableau</div><div class="nav-right"><div class="nav-links"><a onclick="openCollection('Shop All')">SHOP ALL</a><a onclick="openCollection('Modern')">MODERN</a><a onclick="openCollection('Islamic')">ISLAMIC</a><a onclick="openCollection('Games')">GAMING</a><a onclick="openCollection('Quotes')">QUOTES</a></div><div class="cart-wrap" id="cartIcon"><div class="cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><span class="cart-badge" id="cartBadge">0</span></div></div></nav>
 
 <div id="main-page" class="page-section" style="display:block;">
-  <div class="hero">
-    <div class="hero-content">
-      <h1>Art That Speaks</h1>
-      <p>Discover a curated selection of timeless wall art designed to bring calm elegance and character to your refined interiors.</p>
-      <button class="btn" onclick="openCollection('Shop All')">Explore Collections</button>
-    </div>
-  </div>
-
-  <section>
-    <h2>Our Collections</h2>
-    <div class="categories">
-      <div class="cat modern" onclick="openCollection('Modern')"><span>Modern</span></div>
-      <div class="cat islamic" onclick="openCollection('Islamic')"><span>Islamic</span></div>
-      <div class="cat games" onclick="openCollection('Games')"><span>Games & Other</span></div>
-      <div class="cat quotes" onclick="openCollection('Quotes')"><span>Quotes & Posters</span></div>
-    </div>
-  </section>
-
-  <section class="about">
-    <h2>The Philosophy</h2>
-    <p>At Le Tableau, we believe walls are the silent storytellers of a home. We don't just sell frames; we curate emotions. Every piece is crafted with meticulous attention to detail.</p>
-  </section>
-
-  <div class="trust-strip">
-    <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/709/709790.png"><div class="trust-text"><h5>Fast Shipping</h5><p>3-5 Days Delivery</p></div></div>
-    <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/2331/2331923.png"><div class="trust-text"><h5>Secure Payment</h5><p>100% Protected</p></div></div>
-    <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"><div class="trust-text"><h5>Premium Quality</h5><p>Museum Grade Ink</p></div></div>
-  </div>
+  <div class="hero"><div class="hero-content"><h1>Art That Speaks</h1><p>Discover a curated selection of timeless wall art designed to bring calm elegance and character to your refined interiors.</p><button class="btn" onclick="openCollection('Shop All')">Explore Collections</button></div></div>
+  <section><h2>Our Collections</h2><div class="categories"><div class="cat modern" onclick="openCollection('Modern')"><span>Modern</span></div><div class="cat islamic" onclick="openCollection('Islamic')"><span>Islamic</span></div><div class="cat games" onclick="openCollection('Games')"><span>Games & Other</span></div><div class="cat quotes" onclick="openCollection('Quotes')"><span>Quotes & Posters</span></div></div></section>
+  <section class="about"><h2>The Philosophy</h2><p>At Le Tableau, we believe walls are the silent storytellers of a home. We don't just sell frames; we curate emotions.</p></section>
+  <div class="trust-strip"><div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/709/709790.png"><div class="trust-text"><h5>Fast Shipping</h5><p>3-5 Days Delivery</p></div></div><div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/2331/2331923.png"><div class="trust-text"><h5>Secure Payment</h5><p>100% Protected</p></div></div><div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"><div class="trust-text"><h5>Premium Quality</h5><p>Museum Grade Ink</p></div></div></div>
 </div>
 
-<div id="collection-page" class="page-section">
-  <div class="collection-header">
-    <a class="back-btn" onclick="goHome()">← Back to Home</a>
-    <h1 id="collectionTitle">Shop All</h1>
-    <p>Hand-picked pieces for the discerning collector</p>
-  </div>
-  <div class="grid" id="productGrid"></div>
-</div>
+<div id="collection-page" class="page-section"><div class="collection-header"><a class="back-btn" onclick="goHome()">← Back to Home</a><h1 id="collectionTitle">Shop All</h1><p>Hand-picked pieces for the discerning collector</p></div><div class="grid" id="productGrid"></div></div>
 <div id="product-page" class="page-section">
   <div class="product-wrap">
     <div class="product-image"><img id="productImage" src=""></div>
@@ -522,7 +428,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   <h3>Eligibility for Refund:</h3>
   <p>Items must be returned within 30 days of the delivery date. To be eligible for a refund, items must be in their original condition, unused, and in their original packaging.</p>
   <h3>Custom Posters:</h3>
-  <p>Please note that custom posters, including personalized and customized items, are non-refundable, due to the personalized nature of custom prints. Once an order for custom album prints has been placed and production has begun, it cannot be canceled, returned, or refunded. We recommend reviewing custom orders carefully before submitting them.</p>
+  <p>Please note that custom posters, including personalized and customized items, are non-refundable, due to the personalized nature of custom prints and the fact that these prints are individually produced to a specific order. Once an order for custom album prints has been placed and production has begun, it cannot be canceled, returned, or refunded. We recommend reviewing custom orders carefully before submitting them.</p>
   <h3>Returns Process:</h3>
   <p>To initiate a return, please contact our customer support team at support@letableau.com within 30 days of receiving your order. Provide your order number and a brief description of the reason for the return.</p>
   <h3>Return Shipping:</h3>
@@ -622,15 +528,15 @@ window.addEventListener("load",()=>{
   generateSlider();
 });
 
-// --- NAVIGATION & ANIMATION ---
+// --- NAVIGATION & ANIMATION (REFLOW FIX) ---
 function showSection(id) {
-  // Hide all main containers
+  // Hide all sections
   document.querySelectorAll('.page-section, .text-page, #main-page, #collection-page, #product-page').forEach(el => el.style.display = 'none');
   
   const target = document.getElementById(id);
   if(target) {
     target.style.display = 'block';
-    // Trigger Reflow for Animation
+    // Trigger Reflow for Animation to restart
     target.classList.remove('page-enter');
     void target.offsetWidth; 
     target.classList.add('page-enter');
@@ -679,7 +585,7 @@ function openProduct(title, img) {
 
 function openPage(name) { showSection(name + '-page'); }
 
-// --- SELECTION LOGIC (CRITICAL FIX) ---
+// --- SELECTION LOGIC (CRITICAL FIX FOR BLACK HIGHLIGHT) ---
 const sOptions = document.querySelectorAll('.size');
 sOptions.forEach(btn => {
   btn.addEventListener('click', function() {
@@ -703,14 +609,26 @@ function quickAdd(t, i) {
   document.getElementById('toast').className="show"; setTimeout(()=>document.getElementById('toast').className="",3000);
 }
 
+// Add to Cart from Product Page (Grabs Active Selection)
 document.getElementById('addToCartBtn').onclick = () => {
   const t = document.getElementById('productTitle').innerText;
   const i = document.getElementById('productImage').src;
-  const sText = document.querySelector('.size.active').innerText;
-  const fText = document.querySelector('.frame-opt.active').innerText;
+  
+  // Grab active class text
+  const activeSize = document.querySelector('.size.active');
+  const activeFrame = document.querySelector('.frame-opt.active');
+  
+  const sText = activeSize ? activeSize.innerText : "30x40 CM";
+  const fText = activeFrame ? activeFrame.innerText : "No Frame";
+  
   cart.push({title:t, img:i, size:sText, frame:fText, price:450});
   updateCart();
   document.getElementById('toast').className="show"; setTimeout(()=>document.getElementById('toast').className="",3000);
+};
+
+document.getElementById('buyNowBtn').onclick = () => {
+  document.getElementById('addToCartBtn').click();
+  setTimeout(() => { document.getElementById('cartIcon').click(); }, 300);
 };
 
 function updateCart() {
@@ -736,11 +654,6 @@ document.getElementById('cartIcon').onclick = () => { document.getElementById('c
 document.getElementById('closeCartBtn').onclick = () => { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('block-active'); };
 document.getElementById('closePromoBtn').onclick = () => document.getElementById('promoPopup').classList.remove('active');
 document.getElementById('startShoppingBtn').onclick = () => document.getElementById('promoPopup').classList.remove('active');
-
-document.getElementById('buyNowBtn').onclick = () => {
-  document.getElementById('addToCartBtn').click();
-  setTimeout(() => { document.getElementById('cartIcon').click(); }, 300);
-};
 
 // --- SIZE GUIDE (FIXED ID) ---
 document.getElementById('openSizeGuide').onclick = () => {
