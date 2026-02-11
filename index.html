@@ -8,119 +8,320 @@
 
 <style>
 /* =========================================
-   1. CSS RESET & ANIMATIONS (IPHONE SMOOTHNESS)
+   1. CSS RESET & ANIMATIONS (APPLE PHYSICS)
    ========================================= */
 :root { 
   --apple-ease: cubic-bezier(0.25, 1, 0.5, 1); 
   --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-body { background: #fff; color: #111; overflow-x: hidden; padding-top: 32px; }
-
-/* Smooth Transitions for Everything */
-a, button, .btn, .cat, .card, input, select, .size, .frame-opt {
-  transition: all 0.3s var(--apple-ease);
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+  font-family: 'Inter', sans-serif; 
+  -webkit-font-smoothing: antialiased; 
 }
 
-/* Page Transitions */
+body { 
+  background: #fff; 
+  color: #111; 
+  overflow-x: hidden; 
+  padding-top: 32px; 
+}
+
+/* Smooth Transitions for Everything */
+a, button, .btn, .cat, .card, .size, .frame-opt, .nav-link, .footer-menu a, input, select {
+  transition: all 0.3s var(--apple-ease);
+  cursor: pointer;
+}
+
+/* Page Transitions (Fade Up) */
 .page-section, .text-page {
-  animation: fadeUp 0.6s var(--apple-ease) forwards;
+  animation: fadeUp 0.7s var(--apple-ease) forwards;
 }
 
 /* Button & Element Press Effect (iPhone Touch) */
 button:active, .btn:active, .cat:active, .card:active, .size:active, .frame-opt:active, a:active { 
-  transform: scale(0.97); 
+  transform: scale(0.96); 
 }
 
 /* Keyframes */
-@keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes popIn { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-@keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+@keyframes marquee { 
+  0% { transform: translateX(100%); } 
+  100% { transform: translateX(-100%); } 
+}
 
-.reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
-.reveal-on-scroll.visible { opacity: 1; transform: translateY(0); }
+@keyframes fadeUp { 
+  from { opacity: 0; transform: translateY(20px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+@keyframes popIn { 
+  from { transform: scale(0.92); opacity: 0; } 
+  to { transform: scale(1); opacity: 1; } 
+}
+
+@keyframes shake { 
+  0%, 100% {transform: translateX(0);} 
+  25% {transform: translateX(-5px);} 
+  75% {transform: translateX(5px);} 
+}
+
+.reveal-on-scroll { 
+  opacity: 0; 
+  transform: translateY(30px); 
+  transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); 
+}
+.reveal-on-scroll.visible { 
+  opacity: 1; 
+  transform: translateY(0); 
+}
 
 /* =========================================
    2. HEADER & NAVIGATION
    ========================================= */
 /* Announcement Bar */
 .announcement-bar {
-  background-color: #000; color: #fff; font-size: 11px; height: 32px; line-height: 32px;
-  position: fixed; top: 0; left: 0; width: 100%; z-index: 2000; overflow: hidden;
-  white-space: nowrap; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  background-color: #000; 
+  color: #fff; 
+  font-size: 11px; 
+  height: 32px; 
+  line-height: 32px; 
+  position: fixed; 
+  top: 0; left: 0; width: 100%; 
+  z-index: 2000; 
+  overflow: hidden; 
+  white-space: nowrap; 
+  font-weight: 600; 
+  letter-spacing: 1px; 
+  text-transform: uppercase;
 }
-.announcement-content { display: inline-block; animation: marquee 25s linear infinite; padding-left: 100%; }
+
+.announcement-content { 
+  display: inline-block; 
+  animation: marquee 25s linear infinite; 
+  padding-left: 100%; 
+}
 
 /* Navbar (Glassmorphism) */
 nav { 
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 15px 50px; position: fixed; width: 100%; top: 32px;
-  background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  padding: 15px 50px; 
+  position: fixed; 
+  width: 100%; 
+  top: 32px;
+  background: rgba(255,255,255,0.85); 
+  backdrop-filter: blur(20px); 
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1000; 
+  border-bottom: 1px solid rgba(0,0,0,0.05); 
 }
-.logo { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; letter-spacing: 1px; color: #000; cursor: pointer; }
 
-.nav-right { display: flex; align-items: center; gap: 30px; }
-.nav-links { display: flex; gap: 25px; }
+.logo { 
+  font-family: 'Cinzel', serif; 
+  font-size: 24px; 
+  font-weight: 700; 
+  letter-spacing: 1px; 
+  color: #000; 
+  cursor: pointer; 
+}
+
+.nav-right { 
+  display: flex; 
+  align-items: center; 
+  gap: 30px; 
+}
+
+.nav-links { 
+  display: flex; 
+  gap: 25px; 
+}
 
 /* NAV LINKS ANIMATION (Apple Style Underline) */
 .nav-links a { 
-  font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; 
-  color: #111; cursor: pointer; position: relative; padding: 5px 0;
+  font-weight: 600; 
+  font-size: 12px; 
+  text-transform: uppercase; 
+  letter-spacing: 0.5px; 
+  color: #111; 
+  cursor: pointer; 
+  position: relative; 
+  padding: 5px 0;
 }
+
 .nav-links a::after { 
-  content: ''; position: absolute; bottom: 0; left: 50%; width: 0%; height: 2px; 
-  background: #000; transition: all 0.3s var(--apple-ease); transform: translateX(-50%);
+  content: ''; 
+  position: absolute; 
+  bottom: 0; 
+  left: 50%; 
+  width: 0%; 
+  height: 2px; 
+  background: #000; 
+  transition: all 0.3s var(--apple-ease); 
+  transform: translateX(-50%);
 }
-.nav-links a:hover::after { width: 100%; }
+
+.nav-links a:hover::after { 
+  width: 100%; 
+}
 
 /* Cart Icon */
-.cart-wrap { position: relative; cursor: pointer; display: flex; align-items: center; }
-.cart-icon svg { width: 22px; height: 22px; stroke: #000; }
-.cart-badge { 
-  position: absolute; top: -6px; right: -6px; background: #000; color: white; 
-  font-size: 10px; font-weight: bold; height: 16px; width: 16px; 
-  display: flex; justify-content: center; align-items: center; border-radius: 50%; 
-  opacity: 0; transition: 0.3s var(--bounce); transform: scale(0);
+.cart-wrap { 
+  position: relative; 
+  cursor: pointer; 
+  display: flex; 
+  align-items: center; 
 }
-.cart-badge.visible { opacity: 1; transform: scale(1); }
+
+.cart-icon svg { 
+  width: 22px; 
+  height: 22px; 
+  stroke: #000; 
+}
+
+.cart-badge { 
+  position: absolute; 
+  top: -6px; 
+  right: -6px; 
+  background: #000; 
+  color: white; 
+  font-size: 10px; 
+  font-weight: bold; 
+  height: 16px; 
+  width: 16px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  border-radius: 50%; 
+  opacity: 0; 
+  transition: 0.3s var(--bounce); 
+  transform: scale(0);
+}
+
+.cart-badge.visible { 
+  opacity: 1; 
+  transform: scale(1); 
+}
 
 /* =========================================
    3. HOME SECTIONS
    ========================================= */
 /* Hero Section */
 .hero { 
-  min-height: 100vh; background: linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)), url("hero.jpg"); 
-  background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; 
-  text-align: center; position: relative; 
+  min-height: 100vh; 
+  background: linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)), url("hero.jpg"); 
+  background-size: cover; 
+  background-position: center; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+  position: relative; 
 }
-.hero-content { color: #fff; max-width: 800px; padding: 20px; animation: fadeUp 1s var(--apple-ease) forwards; }
-.hero h1 { font-family: 'Cinzel', serif; font-size: 56px; margin-bottom: 20px; font-weight: 400; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-.hero p { font-size: 18px; opacity: 0.95; margin-bottom: 35px; line-height: 1.6; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+
+.hero-content { 
+  color: #fff; 
+  max-width: 800px; 
+  padding: 20px; 
+  animation: fadeUp 1s var(--apple-ease) forwards; 
+}
+
+.hero h1 { 
+  font-family: 'Cinzel', serif; 
+  font-size: 56px; 
+  margin-bottom: 20px; 
+  font-weight: 400; 
+  text-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+}
+
+.hero p { 
+  font-size: 18px; 
+  opacity: 0.95; 
+  margin-bottom: 35px; 
+  line-height: 1.6; 
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5); 
+}
+
 .btn { 
-  padding: 16px 45px; background: #fff; color: #111; 
-  font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; 
-  border: 1px solid #fff; cursor: pointer;
+  padding: 16px 45px; 
+  background: #fff; 
+  color: #111; 
+  font-weight: 700; 
+  font-size: 13px; 
+  text-transform: uppercase; 
+  letter-spacing: 1px; 
+  border: 1px solid #fff; 
+  cursor: pointer;
 }
-.btn:hover { background: transparent; color: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+.btn:hover { 
+  background: transparent; 
+  color: #fff; 
+  transform: translateY(-3px); 
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+}
 
 /* General Sections */
 section { padding: 80px 60px; }
-h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-bottom: 60px; font-weight: 400; }
+
+h2 { 
+  text-align: center; 
+  font-family: 'Cinzel', serif; 
+  font-size: 34px; 
+  margin-bottom: 60px; 
+  font-weight: 400; 
+}
 
 /* Categories Grid */
-.categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-.cat { 
-  height: 350px; background: #f5f5f5; display: flex; justify-content: center; align-items: center; 
-  font-size: 26px; font-family: 'Cinzel', serif; position: relative; overflow: hidden; color: #fff; 
-  cursor: pointer; z-index: 1; border-radius: 4px;
+.categories { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  gap: 30px; 
 }
-.cat::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.25); transition: 0.5s ease; z-index: 1; }
-.cat:hover::before { background: rgba(0,0,0,0.45); }
-.cat:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
-.cat span { position: relative; z-index: 2; letter-spacing: 1px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+.cat { 
+  height: 350px; 
+  background: #f5f5f5; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  font-size: 26px; 
+  font-family: 'Cinzel', serif; 
+  position: relative; 
+  overflow: hidden; 
+  color: #fff; 
+  cursor: pointer; 
+  z-index: 1; 
+  border-radius: 4px;
+}
+
+.cat::before { 
+  content: ""; 
+  position: absolute; 
+  inset: 0; 
+  background: rgba(0,0,0,0.25); 
+  transition: 0.5s ease; 
+  z-index: 1; 
+}
+
+.cat:hover::before { 
+  background: rgba(0,0,0,0.45); 
+}
+
+.cat:hover { 
+  transform: translateY(-5px) scale(1.01); 
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15); 
+}
+
+.cat span { 
+  position: relative; 
+  z-index: 2; 
+  letter-spacing: 1px; 
+  text-shadow: 0 4px 10px rgba(0,0,0,0.5); 
+}
 
 /* Force Center Images */
 .cat.modern { background: url("modern.jpg") no-repeat center center; background-size: cover; }
@@ -128,14 +329,34 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 .cat.games { background: url("games.jpg") no-repeat center center; background-size: cover; }
 .cat.quotes { background: url("post.jpg") no-repeat center center; background-size: cover; }
 
-.about { max-width: 800px; margin: auto; text-align: center; font-size: 17px; color: #444; line-height: 1.9; }
+.about { 
+  max-width: 800px; 
+  margin: auto; 
+  text-align: center; 
+  font-size: 17px; 
+  color: #444; 
+  line-height: 1.9; 
+}
 
 /* Trust Strip */
 .trust-strip { 
-  background: #fff; padding: 60px 20px; border-top: 1px solid #eee; 
-  display: flex; justify-content: center; gap: 80px; flex-wrap: wrap; text-align: left; 
+  background: #fff; 
+  padding: 60px 20px; 
+  border-top: 1px solid #eee; 
+  display: flex; 
+  justify-content: center; 
+  gap: 80px; 
+  flex-wrap: wrap; 
+  text-align: left; 
 }
-.trust-item { display: flex; align-items: center; gap: 15px; max-width: 250px; }
+
+.trust-item { 
+  display: flex; 
+  align-items: center; 
+  gap: 15px; 
+  max-width: 250px; 
+}
+
 .trust-item img { width: 35px; opacity: 0.8; }
 .trust-text h5 { font-size: 13px; text-transform: uppercase; margin-bottom: 4px; font-weight: 700; }
 .trust-text p { font-size: 12px; color: #777; margin: 0; }
@@ -143,32 +364,112 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 /* =========================================
    4. COLLECTION & CARDS
    ========================================= */
-.page-section { display: none; padding-top: 100px; min-height: 100vh; } /* Helper for toggling pages */
-#main-page { padding-top: 0; } /* Exception for Home */
+/* Helper to toggle pages */
+.page-section { display: none; padding-top: 100px; min-height: 100vh; } 
+#main-page { padding-top: 0; } 
 
-.collection-header { padding: 0 60px 60px; text-align: center; }
-.collection-header h1 { font-family: 'Cinzel', serif; font-size: 42px; margin-bottom: 10px; font-weight: 400; }
+.collection-header { 
+  padding: 0 60px 60px; 
+  text-align: center; 
+}
 
-.grid { padding: 0 60px 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; }
+.collection-header h1 { 
+  font-family: 'Cinzel', serif; 
+  font-size: 42px; 
+  margin-bottom: 10px; 
+  font-weight: 400; 
+}
+
+.grid { 
+  padding: 0 60px 60px; 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+  gap: 40px; 
+}
 
 /* Card Styling */
-.card { background: #fff; cursor: pointer; position: relative; border-radius: 4px; overflow: hidden; }
-.card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-.card-badge { position: absolute; top: 12px; left: 12px; background: #000; color: #fff; padding: 6px 10px; font-size: 10px; font-weight: 700; z-index: 2; letter-spacing: 1px; }
+.card { 
+  background: #fff; 
+  cursor: pointer; 
+  position: relative; 
+  border-radius: 4px; 
+  overflow: hidden; 
+}
 
-.card-img-wrap { width: 100%; margin-bottom: 15px; position: relative; aspect-ratio: 3/4; overflow: hidden; background: #f9f9f9; }
-.card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--apple-ease); }
-.card:hover .card-img-wrap img { transform: scale(1.05); }
+.card:hover { 
+  transform: translateY(-8px); 
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
+}
+
+.card-badge { 
+  position: absolute; 
+  top: 12px; 
+  left: 12px; 
+  background: #000; 
+  color: #fff; 
+  padding: 6px 10px; 
+  font-size: 10px; 
+  font-weight: 700; 
+  z-index: 2; 
+  letter-spacing: 1px; 
+}
+
+.card-img-wrap { 
+  width: 100%; 
+  margin-bottom: 15px; 
+  position: relative; 
+  aspect-ratio: 3/4; 
+  overflow: hidden; 
+  background: #f9f9f9; 
+}
+
+.card-img-wrap img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  transition: transform 0.6s var(--apple-ease); 
+}
+
+.card:hover .card-img-wrap img { 
+  transform: scale(1.05); 
+}
 
 /* Quick Add Button */
 .quick-add-btn {
-  position: absolute; bottom: 15px; right: 15px; width: 45px; height: 45px; 
-  background: #000; color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; 
-  opacity: 0; transform: translateY(20px); transition: 0.4s var(--bounce); z-index: 5;
+  position: absolute; 
+  bottom: 15px; 
+  right: 15px; 
+  width: 45px; 
+  height: 45px; 
+  background: #000; 
+  color: #fff; 
+  border-radius: 50%; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  opacity: 0; 
+  transform: translateY(20px); 
+  transition: 0.4s var(--bounce); 
+  z-index: 5;
 }
-.card:hover .quick-add-btn { opacity: 1; transform: translateY(0); }
-.quick-add-btn:hover { background: #333; transform: scale(1.1); }
-.quick-add-btn svg { width: 20px; height: 20px; stroke: #fff; stroke-width: 2; fill: none;}
+
+.card:hover .quick-add-btn { 
+  opacity: 1; 
+  transform: translateY(0); 
+}
+
+.quick-add-btn:hover { 
+  background: #333; 
+  transform: scale(1.1) translateY(0); 
+}
+
+.quick-add-btn svg { 
+  width: 22px; 
+  height: 22px; 
+  stroke: #fff; 
+  stroke-width: 2; 
+  fill: none;
+}
 
 .card-content { padding: 0 10px 15px; }
 .card-content h4 { font-weight: 600; font-size: 16px; margin-bottom: 8px; color: #111; }
@@ -178,11 +479,17 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 /* =========================================
    5. PRODUCT PAGE
    ========================================= */
+.product-page { display: none; padding-top: 120px; }
 .product-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 80px; display: flex; gap: 70px; align-items: flex-start; }
-.product-image { flex: 1.3; } .product-image img { width: 100%; display: block; box-shadow: 0 0 0 1px #eee; }
+.product-image { flex: 1.3; } 
+.product-image img { width: 100%; display: block; box-shadow: 0 0 0 1px #eee; }
 .product-info { flex: 1; padding-top: 5px; }
 
-.back-btn { display: inline-block; margin-bottom: 25px; color: #777; font-size: 13px; font-weight: 500; text-decoration: none; cursor: pointer; }
+.back-btn { 
+  display: inline-block; margin-bottom: 25px; 
+  color: #777; font-size: 13px; font-weight: 500; 
+  text-decoration: none; cursor: pointer;
+}
 .back-btn:hover { color: #000; text-decoration: underline; }
 
 .product-review-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 13px; color: #333; }
@@ -190,33 +497,64 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 .product-info h2 { font-family: 'Cinzel', serif; font-size: 38px; margin-bottom: 15px; font-weight: 700; color: #111; }
 .short-desc { color: #666; line-height: 1.6; margin-bottom: 25px; font-size: 15px; }
 
-.sale-banner-strip { background: #000; color: #fff; padding: 12px 15px; font-weight: 700; text-transform: uppercase; font-size: 13px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; letter-spacing: 0.5px; transform: skewX(-10deg); width: 98%; margin-left: 1%; }
+.sale-banner-strip { 
+  background: #000; color: #fff; padding: 12px 15px; 
+  font-weight: 700; text-transform: uppercase; font-size: 13px; 
+  display: flex; justify-content: space-between; align-items: center; 
+  margin-bottom: 25px; letter-spacing: 0.5px; 
+  transform: skewX(-10deg); width: 98%; margin-left: 1%; 
+}
 .sale-banner-strip span { transform: skewX(10deg); display: block; }
 
 .price-container { margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
 .current-price { font-size: 28px; font-weight: 700; color: #111; }
 .original-price { font-size: 18px; color: #999; text-decoration: line-through; }
 .sale-badge { background: #d32f2f; color: #fff; padding: 5px 10px; font-size: 11px; font-weight: 700; border-radius: 2px; }
-.shipping-estimator { display: flex; align-items: center; gap: 10px; background: #f0fdf4; border: 1px solid #dcfce7; color: #166534; padding: 14px; border-radius: 4px; margin-bottom: 30px; font-size: 13px; font-weight: 600; }
+
+.shipping-estimator { 
+  display: flex; align-items: center; gap: 10px; 
+  background: #f0fdf4; border: 1px solid #dcfce7; color: #166534; 
+  padding: 14px; border-radius: 4px; margin-bottom: 30px; font-size: 13px; font-weight: 600; 
+}
 .green-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 2px #bbf7d0; }
 
 .option-label { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; margin-top: 25px;}
 .sizes, .frames { display: flex; gap: 10px; flex-wrap: wrap; }
 
-/* FIX: SELECTION BUTTONS STYLING */
+/* FIX: SELECTION BUTTONS STYLING & ACTIVE STATE */
 .size, .frame-opt { 
-  padding: 14px 24px; border: 1px solid #ddd; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; cursor: pointer; transition: 0.2s;
+  padding: 14px 24px; border: 1px solid #ddd; font-size: 13px; 
+  text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; 
+  cursor: pointer; transition: 0.2s;
 }
 .size:hover, .frame-opt:hover { border-color: #555; }
-/* Active State: Black Background */
-.size.active, .frame-opt.active { background: #111; color: #fff; border-color: #111; transform: scale(1.05); }
+/* Active State (Crucial: Black Background) */
+.size.active, .frame-opt.active { 
+  background: #111 !important; color: #fff !important; 
+  border-color: #111 !important; transform: scale(1.03); 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
+}
 
-.size-guide-btn { background: none; border: none; text-decoration: underline; cursor: pointer; font-size: 13px; color: #555; margin: 20px 0; display: flex; align-items: center; gap: 8px; }
+.size-guide-btn { 
+  background: none; border: none; text-decoration: underline; 
+  cursor: pointer; font-size: 13px; color: #555; 
+  margin: 20px 0; display: flex; align-items: center; gap: 8px; 
+}
 .size-guide-btn img { width: 18px; opacity: 0.6; }
 
-.add-btn { background: #111; color: #fff; width: 100%; padding: 18px; border: none; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; cursor: pointer; margin-bottom: 12px; border-radius: 4px; }
+.add-btn { 
+  background: #111; color: #fff; width: 100%; padding: 18px; 
+  border: none; text-transform: uppercase; font-weight: 600; 
+  letter-spacing: 1px; cursor: pointer; margin-bottom: 12px; border-radius: 4px; 
+}
 .add-btn:hover { opacity: 0.9; }
-.buy-now-btn { width: 100%; padding: 18px; background: #cba374; color: #fff; border: none; text-transform: uppercase; font-weight: 700; letter-spacing: 2px; cursor: pointer; border-radius: 4px; }
+
+.buy-now-btn { 
+  width: 100%; padding: 18px; background: #cba374; 
+  color: #fff; border: none; text-transform: uppercase; 
+  font-weight: 700; letter-spacing: 2px; cursor: pointer; 
+  border-radius: 4px; 
+}
 .buy-now-btn:hover { background: #b48b5a; transform: translateY(-2px); }
 
 .details-section { max-width: 900px; margin: 0 auto; padding: 80px 40px; border-top: 1px solid #eee; }
@@ -235,7 +573,13 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 .slider-track { display: flex; gap: 30px; transition: transform 0.5s ease-in-out; }
 .slide-card { min-width: 250px; cursor: pointer; flex-shrink: 0; transition: transform 0.3s ease; }
 .slide-card:hover { transform: translateY(-5px); }
-.slide-nav-btn { position: absolute; top: 55%; transform: translateY(-50%); width: 45px; height: 45px; background: #fff; border: 1px solid #eee; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); z-index: 10; transition: 0.3s; }
+.slide-nav-btn { 
+  position: absolute; top: 55%; transform: translateY(-50%); 
+  width: 45px; height: 45px; background: #fff; 
+  border: 1px solid #eee; border-radius: 50%; cursor: pointer; 
+  display: flex; justify-content: center; align-items: center; 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1); z-index: 10; transition: 0.3s; 
+}
 .slide-nav-btn:hover { background: #000; color: #fff; }
 .prev-btn { left: 10px; }
 .next-btn { right: 10px; }
@@ -259,9 +603,10 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .footer-menu ul { list-style: none; padding: 0; }
 .footer-menu li { margin-bottom: 12px; }
 
-/* Footer Link Animation (Same as Nav) */
+/* Footer Link Animation */
 .footer-menu a { 
-  text-decoration: none; color: #555; font-size: 13px; transition: 0.2s; display: block; margin-bottom: 12px; position: relative; width: max-content;
+  text-decoration: none; color: #555; font-size: 13px; transition: 0.2s; 
+  display: block; margin-bottom: 12px; position: relative; width: max-content;
 }
 .footer-menu a::after {
   content: ''; position: absolute; bottom: -2px; left: 0; width: 0%; height: 1px; 
@@ -300,7 +645,6 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .cart-item img { width: 70px; height: 90px; object-fit: cover; border-radius: 4px; }
 .cart-item-info { flex: 1; }
 .remove-item { color: #c00; font-size: 11px; cursor: pointer; text-decoration: underline; margin-top: 5px; display: inline-block; }
-
 .promo-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
 .promo-input-group { display: flex; gap: 5px; }
 .promo-input { flex: 1; padding: 12px; border: 1px solid #ddd; font-family: 'Inter'; }
@@ -308,7 +652,6 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .promo-msg { font-size: 11px; margin-top: 5px; font-weight: 600; display: none; }
 .promo-msg.error { color: #d32f2f; display: block; animation: shake 0.3s; }
 .promo-msg.success { color: #2e7d32; display: block; }
-
 .cart-summary-row { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 10px; }
 .checkout-btn { width: 100%; padding: 16px; background: #111; color: #fff; border: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 15px; }
 
@@ -332,14 +675,14 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .search-result-item { padding: 15px; border-bottom: 1px solid #f5f5f5; cursor: pointer; transition: 0.2s; display: flex; justify-content: space-between; }
 .search-result-item:hover { background: #f9f9f9; padding-left: 20px; }
 
-/* Text Pages (Policy) */
+/* Text Pages */
 .text-page { display: none; padding: 120px 60px 60px; max-width: 900px; margin: 0 auto; min-height: 80vh; }
 .text-page h1 { font-family: 'Cinzel', serif; font-size: 40px; margin-bottom: 30px; text-align: center; }
 .text-page h3 { margin-top: 30px; margin-bottom: 10px; font-size: 18px; font-weight: 700; }
 .text-page p, .text-page li { font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 15px; }
 .text-page ul { list-style: disc; padding-left: 20px; margin-bottom: 20px; }
 
-/* FIXED SIZE MODAL */
+/* Fixed Size Modal */
 .modal-content { background: #fff; width: 90%; max-width: 550px; border-radius: 8px; overflow: hidden; animation: popIn 0.4s var(--apple-ease); position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
 .modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
 .room-container { position: relative; width: 100%; padding-bottom: 75%; background: url('mmm.jpg') no-repeat center center; background-size: cover; background-color: #f5f5f5; }
@@ -496,14 +839,16 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   </div>
   <div class="grid" id="productGrid"></div>
 </div>
-
 <div id="product-page" class="page-section">
   <div class="product-wrap">
     <div class="product-image"><img id="productImage" src=""></div>
     <div class="product-info">
       <a class="back-btn" id="backToCollBtn">← Back to Collection</a>
       
-      <div class="product-review-header"></div> <h2 id="productTitle">Artwork Name</h2>
+      <div class="product-review-header" id="reviewContainer">
+        </div>
+
+      <h2 id="productTitle">Artwork Name</h2>
       <p class="short-desc">This premium artwork is printed on museum-grade paper, ensuring depth and clarity that lasts a lifetime.</p>
       
       <div class="sale-banner-strip"><span>40% OFF SITEWIDE - ENDS IN <span id="timer">15H : 42M : 44S</span></span></div>
@@ -539,7 +884,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
     <h3 class="details-title">The Craftsmanship</h3>
     <div class="details-text-block">
       <h4>Product Description</h4>
-      <p>Enhance Your Walls with Classic Wooden Frames. Our Wooden Frame is crafted from 100% natural wood.</p>
+      <p>Enhance Your Walls with Classic Wooden Frames. Our Wooden Frame is crafted from 100% natural wood, providing a timeless, elegant addition to your decor. The frame’s glass front offers lasting protection for your artwork or photos, and the sturdy engineered wood back ensures stability and durability.</p>
     </div>
     <div class="features-grid">
       <div class="feature-box"><span class="feature-icon">🪵</span><h4>Solid Wood</h4><p>Premium natural wood.</p></div>
@@ -557,9 +902,66 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   </div>
 </div>
 
-<div id="privacy-page" class="text-page page-section"><h1>Privacy Policy</h1><p>Last updated: December 2024. This Privacy Policy describes how Le Tableau collects...</p><p>Full privacy text here as requested...</p></div>
-<div id="refund-page" class="text-page page-section"><h1>Refund Policy</h1><p>At Le Tableau, we strive to ensure that you are completely satisfied...</p><p>Full refund text here as requested...</p></div>
-<div id="shipping-page" class="text-page page-section"><h1>Shipping Policy</h1><p>At Le Tableau, every poster is made to order using premium materials...</p><p>Full shipping text here as requested...</p></div>
+<div id="privacy-page" class="text-page page-section">
+  <h1>Privacy Policy</h1>
+  <p>Last updated: December 2024</p>
+  <p>This Privacy Policy describes how Le Tableau (the "Site", "we", "us", or "our") collects, uses, and discloses your personal information when you visit, use our services, or make a purchase from letableau.com (the "Site") or otherwise communicate with us (collectively, the "Services"). For purposes of this Privacy Policy, "you" and "your" means you as the user of the Services, whether you are a customer, website visitor, or another individual whose information we have collected pursuant to this Privacy Policy.</p>
+  <p>Please read this Privacy Policy carefully. By using and accessing any of the Services, you agree to the collection, use, and disclosure of your information as described in this Privacy Policy. If you do not agree to this Privacy Policy, please do not use or access any of the Services.</p>
+  <h3>Changes to This Privacy Policy</h3>
+  <p>We may update this Privacy Policy from time to time, including to reflect changes to our practices or for other operational, legal, or regulatory reasons. We will post the revised Privacy Policy on the Site, update the "Last updated" date and take any other steps required by applicable law.</p>
+  <h3>How We Collect and Use Your Personal Information</h3>
+  <p>To provide the Services, we collect and have collected over the past 12 months personal information about you from a variety of sources, as set out below. The information that we collect and use varies depending on how you interact with us.</p>
+  <h3>Information We Collect Directly from You</h3>
+  <p>Information that you directly submit to us through our Services may include: Basic contact details including your name, address, phone number, email. Order information including your name, billing address, shipping address, payment confirmation, email address, phone number. Account information including your username, password, security questions.</p>
+  <h3>Security and Fraud Prevention</h3>
+  <p>We use your personal information to detect, investigate or take action regarding possible fraudulent, illegal or malicious activity. If you choose to use the Services and register an account, you are responsible for keeping your account credentials safe. We highly recommend that you do not share your username, password, or other access details with anyone else. If you believe your account has been compromised, please contact us immediately.</p>
+  <h3>Contact</h3>
+  <p>Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to exercise any of the rights available to you, please email us at support@letableau.com</p>
+</div>
+
+<div id="refund-page" class="text-page page-section">
+  <h1>Refund Policy</h1>
+  <p>At Le Tableau, we strive to ensure that you are completely satisfied with your purchase. Please read our refund policy carefully to understand your options in case you need to return an item.</p>
+  <h3>Eligibility for Refund:</h3>
+  <p>Items must be returned within 30 days of the delivery date. To be eligible for a refund, items must be in their original condition, unused, and in their original packaging.</p>
+  <h3>Custom Posters:</h3>
+  <p>Please note that custom posters, including personalized and customized items, are non-refundable, due to the personalized nature of custom prints and the fact that these prints are individually produced to a specific order. Once an order for custom album prints has been placed and production has begun, it cannot be canceled, returned, or refunded. We recommend reviewing custom orders carefully before submitting them.</p>
+  <h3>Returns Process:</h3>
+  <p>To initiate a return, please contact our customer support team at support@letableau.com within 30 days of receiving your order. Provide your order number and a brief description of the reason for the return.</p>
+  <h3>Return Shipping:</h3>
+  <p>Customers are responsible for the cost of return shipping unless the return is due to an error on our part or a defective item. We recommend using a trackable shipping method and retaining proof of postage for your records.</p>
+  <h3>Refund Processing:</h3>
+  <p>Once we receive the returned item(s) and inspect their condition, we will process the refund. Refunds will be issued to the original payment method used for the purchase. Please allow a reasonable processing time for the refund to appear in your account.</p>
+  <h3>Exchanges:</h3>
+  <p>We do not offer direct exchanges. If you wish to exchange an item, you will need to return the original item for a refund and place a new order for the desired item.</p>
+  <h3>Contact Us:</h3>
+  <p>If you have any questions or need assistance with a return or refund, please reach out to our customer support team at support@letableau.com. We are here to help.</p>
+  <p>Le Tableau reserves the right to amend this refund policy as needed. Last Updated: February 2026</p>
+</div>
+
+<div id="shipping-page" class="text-page page-section">
+  <h1>Shipping Policy</h1>
+  <p>At Le Tableau, every poster is made to order using premium materials and shipped with care. Below is our full shipping policy so you know exactly what to expect when ordering from us.</p>
+  <p>Holiday Shipping Notice: While we do our best to deliver orders as quickly as possible, orders placed after February 14, 2026 may not arrive before holidays due to increased courier demand.</p>
+  <h3>Order Processing</h3>
+  <p>All orders are processed within 24 hours. Once your order is printed, framed (if selected), and packaged, you will receive a tracking link via email.</p>
+  <h3>Shipping Times</h3>
+  <p>We ship inside Egypt. Estimated delivery windows:</p>
+  <ul>
+    <li>Cairo & Alexandria: 2–3 business days</li>
+    <li>Delta & Canal Cities: 3–4 business days</li>
+    <li>Upper Egypt: 5–7 business days</li>
+    <li>Rest of Governorates: 6–12 business days</li>
+  </ul>
+  <h3>Shipping Costs</h3>
+  <p>Shipping costs are calculated at checkout based on your region and the products in your cart. Free-shipping promotions (when applicable) will be clearly displayed on the site.</p>
+  <h3>Incorrect Address Policy</h3>
+  <p>Le Tableau is not responsible for orders shipped to an address entered incorrectly at checkout. If you made a mistake, please contact us within 24 hours of placing your order.</p>
+  <h3>Damaged or Lost Orders</h3>
+  <p>If your order arrives damaged or is lost in transit, we will replace it free of charge. Please email us with: Your order number, Photos of the damage (if applicable), A brief description of the issue.</p>
+  <h3>Questions?</h3>
+  <p>If you need support with your order, tracking, or anything else, contact us anytime at: support@letableau.com</p>
+</div>
 
 <div class="overlay-bg" id="sizeModal" onclick="document.getElementById('sizeModal').style.display='none'">
   <div class="modal-content" onclick="event.stopPropagation()">
@@ -579,7 +981,11 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
       <span class="footer-logo">Le Tableau.</span>
       <div class="stay-title">Stay in Touch</div>
       <p class="stay-text">Subscribe to our newsletter for exclusive offers and promotions.</p>
-      <div class="newsletter-form"><input type="email" id="newsEmail" class="newsletter-input" placeholder="E-mail"><button id="newsBtn" class="newsletter-btn">Subscribe</button><div id="newsMsg" class="news-success-msg"></div></div>
+      <div class="newsletter-form">
+        <input type="email" id="newsEmail" class="newsletter-input" placeholder="E-mail">
+        <button id="newsBtn" class="newsletter-btn">Subscribe</button>
+        <div id="newsMsg" class="news-success-msg"></div>
+      </div>
     </div>
     <div class="footer-right">
       <div class="footer-menu"><h4>Main Menu</h4><ul><li><a onclick="openCollection('Shop All')">Shop All</a></li><li><a onclick="openCollection('Modern')">Modern</a></li><li><a onclick="openCollection('Islamic')">Islamic</a></li><li><a onclick="openCollection('Games')">Gaming</a></li><li><a onclick="openCollection('Quotes')">Quotes</a></li></ul></div>
@@ -621,15 +1027,9 @@ window.addEventListener("load",()=>{
 
 // --- NAVIGATION & ANIMATION ---
 function showSection(id) {
-  // 1. Hide everything
-  document.querySelectorAll('.page-section').forEach(el => el.style.display = 'none');
-  
-  // 2. Show target
+  document.querySelectorAll('.page-section, .text-page, #main-page, #collection-page, #product-page').forEach(el => el.style.display = 'none');
   const target = document.getElementById(id);
-  if(target) {
-    target.style.display = 'block';
-    window.scrollTo(0,0);
-  }
+  if(target) { target.style.display = 'block'; window.scrollTo(0,0); }
 }
 
 function goHome() { showSection('main-page'); }
@@ -641,7 +1041,7 @@ function openCollection(name) {
   grid.innerHTML = "";
   let list = name === 'Shop All' ? products : products.filter(p=>p.c === name);
   if(list.length === 0) list = products; 
-  while(list.length < 12) list = list.concat(list);
+  while(list.length < 12) list = list.concat(list); // Duplicate to fill
   list = list.slice(0, 12);
 
   list.forEach(p => {
@@ -662,18 +1062,15 @@ function openCollection(name) {
 function openProduct(title, img) {
   document.getElementById('productTitle').innerText = title;
   document.getElementById('productImage').src = img;
-  
-  // Random Reviews
   const rating = (Math.random() * (5.0 - 4.1) + 4.1).toFixed(1);
   const count = Math.floor(Math.random() * (900 - 120) + 120);
-  document.querySelector('.product-review-header').innerHTML = `<div class="stars">★★★★★</div><span>Rated ${rating} | ${count} Reviews</span>`;
-
+  document.getElementById('reviewContainer').innerHTML = `<div class="stars">★★★★★</div><span>Rated ${rating} | ${count} Reviews</span>`;
   showSection('product-page');
 }
 
 function openPage(name) { showSection(name + '-page'); }
 
-// --- SELECTION LOGIC (FIXED) ---
+// --- SELECTION LOGIC ---
 const sOptions = document.querySelectorAll('.size');
 sOptions.forEach(btn => {
   btn.addEventListener('click', function() {
@@ -700,11 +1097,8 @@ function quickAdd(t, i) {
 document.getElementById('addToCartBtn').onclick = () => {
   const t = document.getElementById('productTitle').innerText;
   const i = document.getElementById('productImage').src;
-  
-  // Grab active
   const sText = document.querySelector('.size.active').innerText;
   const fText = document.querySelector('.frame-opt.active').innerText;
-  
   cart.push({title:t, img:i, size:sText, frame:fText, price:450});
   updateCart();
   document.getElementById('toast').className="show"; setTimeout(()=>document.getElementById('toast').className="",3000);
@@ -733,16 +1127,8 @@ document.getElementById('cartIcon').onclick = () => { document.getElementById('c
 document.getElementById('closeCartBtn').onclick = () => { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('block-active'); };
 document.getElementById('closePromoBtn').onclick = () => document.getElementById('promoPopup').classList.remove('active');
 document.getElementById('startShoppingBtn').onclick = () => document.getElementById('promoPopup').classList.remove('active');
-
-document.getElementById('buyNowBtn').onclick = () => {
-  document.getElementById('addToCartBtn').click();
-  setTimeout(() => { document.getElementById('cartIcon').click(); }, 300);
-};
-
-// --- SIZE GUIDE (FIXED ID) ---
-document.getElementById('openSizeGuide').onclick = () => {
-  document.getElementById('sizeModal').style.display = 'flex';
-};
+document.getElementById('buyNowBtn').onclick = () => { document.getElementById('addToCartBtn').click(); setTimeout(() => { document.getElementById('cartIcon').click(); }, 300); };
+document.getElementById('openSizeGuide').onclick = () => { document.getElementById('sizeModal').style.display = 'flex'; };
 
 window.updateFrame = (s, btn) => {
   document.querySelectorAll('.s-btn').forEach(b => b.classList.remove('active'));
