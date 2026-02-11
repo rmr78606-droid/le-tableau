@@ -18,16 +18,20 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 body { background: #fff; color: #111; overflow-x: hidden; padding-top: 32px; }
 
-/* Smooth Page Transitions */
-.page-container, #main-page, .text-page {
-  animation: fadeUp 0.6s var(--apple-ease) forwards;
-}
-
-/* Button & Link Hover Effects */
+/* Smooth Transitions for Everything */
 a, button, .btn, .cat, .card, input, select {
   transition: all 0.3s var(--apple-ease);
 }
-button:active, .btn:active { transform: scale(0.96); }
+
+/* Page Fade In Effect */
+.page-container, #main-page, .text-page {
+  animation: fadeUp 0.7s var(--apple-ease) forwards;
+}
+
+/* Button Press Effect */
+button:active, .btn:active, .cat:active, .card:active { 
+  transform: scale(0.97); 
+}
 
 /* Keyframes */
 @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
@@ -59,12 +63,8 @@ nav {
 .logo { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; letter-spacing: 1px; color: #000; cursor: pointer; }
 .nav-right { display: flex; align-items: center; gap: 30px; }
 .nav-links { display: flex; gap: 20px; }
-.nav-links a { 
-  font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #111; cursor: pointer; position: relative; padding: 5px 0;
-}
-.nav-links a::after { 
-  content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 2px; background: #000; transition: width 0.3s var(--apple-ease); 
-}
+.nav-links a { font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #111; cursor: pointer; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 1px; background: #000; transition: 0.3s var(--apple-ease); }
 .nav-links a:hover::after { width: 100%; }
 
 /* Cart Icon */
