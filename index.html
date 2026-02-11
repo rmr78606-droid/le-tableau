@@ -21,10 +21,10 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
 body { background: var(--secondary); color: var(--primary); overflow-x: hidden; padding-top: 32px; }
 
-/* Smooth Transitions */
-a, button, .btn, .cat, .card, input, select, .size, .frame-opt, .nav-link {
+/* FIX CURSOR ISSUES */
+a, button, .btn, .cat, .card, .size, .frame-opt, .nav-link, .logo, .cart-wrap, .close-icon {
   transition: all 0.3s var(--apple-ease);
-  cursor: pointer;
+  cursor: pointer !important; /* Force pointer cursor */
 }
 
 /* Page Animations */
@@ -32,15 +32,19 @@ a, button, .btn, .cat, .card, input, select, .size, .frame-opt, .nav-link {
   animation: fadeUp 0.7s var(--apple-ease) forwards;
 }
 
+/* Re-trigger animation class */
+.animate-enter {
+  animation: fadeUp 0.6s var(--apple-ease) forwards;
+}
+
 /* Touch Feedback */
 button:active, .btn:active, .cat:active, .card:active, .size:active, .frame-opt:active, a:active { 
   transform: scale(0.96); 
 }
 
-@keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes popIn { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-@keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
 
 /* =========================================
    2. HEADER & NAVIGATION
@@ -243,10 +247,9 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .newsletter-btn { padding: 14px; background: var(--primary); color: var(--secondary); border: none; font-weight: 600; text-transform: uppercase; font-size: 12px; cursor: pointer; letter-spacing: 1px; width: 100%; }
 .news-success-msg { color: #2e7d32; font-weight: 600; font-size: 12px; margin-top: 10px; display: none; line-height: 1.6; animation: fadeUp 0.5s; }
 
-/* The 15% Badge Style */
-.discount-badge-lg {
-  display: inline-block; background: var(--accent); color: #fff; padding: 5px 12px; 
-  font-weight: 800; border-radius: 4px; margin-top: 5px; font-size: 14px;
+/* 15% OFF Green Text */
+.green-discount-text {
+  color: #166534; font-weight: 800; font-size: 14px;
 }
 
 .footer-right { display: flex; gap: 80px; flex-wrap: wrap; }
@@ -259,7 +262,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .footer-bottom { border-top: 1px solid #eee; margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; color: #777; font-size: 12px; }
 
 /* =========================================
-   7. MODALS & DRAWERS
+   7. MODALS, DRAWERS & OVERLAYS
    ========================================= */
 .overlay-bg, .cart-overlay-bg, .modal-overlay, .promo-modal-overlay, .search-overlay, .checkout-overlay { 
   position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
@@ -280,7 +283,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .promo-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
 .promo-input-group { display: flex; gap: 5px; }
 .promo-input { flex: 1; padding: 12px; border: 1px solid #ddd; font-family: 'Inter'; }
-.promo-btn { padding: 0 20px; background: #222; color: #fff; border: none; font-size: 12px; text-transform: uppercase; }
+.promo-btn { padding: 0 20px; background: #222; color: #fff; border: none; font-size: 12px; cursor: pointer; text-transform: uppercase; }
 .promo-msg { font-size: 11px; margin-top: 5px; font-weight: 600; display: none; }
 .promo-msg.error { color: #d32f2f; display: block; animation: shake 0.3s; }
 .promo-msg.success { color: #2e7d32; display: block; }
@@ -288,8 +291,11 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .checkout-btn { width: 100%; padding: 16px; background: #111; color: #fff; border: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 15px; }
 
 .checkout-modal { background: #fff; width: 95%; max-width: 600px; padding: 30px; border-radius: 8px; position: relative; max-height: 90vh; overflow-y: auto; animation: popIn 0.5s var(--apple-ease); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+.checkout-modal h2 { font-family: 'Cinzel', serif; margin-bottom: 20px; text-align: center; font-size: 24px; }
 .form-group { margin-bottom: 15px; }
-.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; font-family: 'Inter'; font-size: 14px; border-radius: 4px; }
+.form-group label { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; font-family: 'Inter', sans-serif; font-size: 14px; transition: border 0.3s; border-radius: 4px; }
+.form-group input:focus { border-color: #000; outline: none; }
 .payment-methods { display: flex; gap: 10px; margin-bottom: 20px; }
 .pay-option { flex: 1; padding: 15px; border: 1px solid #ddd; text-align: center; cursor: pointer; font-size: 13px; font-weight: 600; transition: 0.2s; border-radius: 4px; }
 .pay-option.active { border-color: #000; background: #f9f9f9; transform: scale(1.02); }
@@ -297,14 +303,14 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 
 .search-overlay { align-items: flex-start; padding-top: 100px; z-index: 3002; }
 .search-box { background: #fff; width: 600px; max-width: 90%; padding: 30px; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); animation: fadeUp 0.5s var(--apple-ease); }
-.search-input { width: 100%; padding: 15px; font-size: 18px; border: none; border-bottom: 2px solid #eee; outline: none; font-family: 'Inter'; }
+.search-input { width: 100%; padding: 15px; font-size: 18px; border: none; border-bottom: 2px solid #eee; outline: none; font-family: 'Inter', sans-serif; }
 .search-results { margin-top: 20px; max-height: 300px; overflow-y: auto; }
 .search-result-item { padding: 15px; border-bottom: 1px solid #f5f5f5; cursor: pointer; transition: 0.2s; display: flex; justify-content: space-between; }
 .search-result-item:hover { background: #f9f9f9; padding-left: 20px; }
 
-/* Text Pages */
 .text-page { display: none; padding: 120px 60px 60px; max-width: 900px; margin: 0 auto; min-height: 80vh; }
 .text-page h1 { font-family: 'Cinzel', serif; font-size: 40px; margin-bottom: 30px; text-align: center; }
+.text-page h3 { margin-top: 30px; margin-bottom: 10px; font-size: 18px; font-weight: 700; }
 .text-page p, .text-page li { font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 15px; }
 .text-page ul { list-style: disc; padding-left: 20px; margin-bottom: 20px; }
 
@@ -341,10 +347,11 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 
 <div class="overlay-bg active" id="promoPopup">
   <div class="promo-modal">
-    <button class="close-icon" onclick="document.getElementById('promoPopup').classList.remove('active')">×</button>
+    <button class="close-icon" style="position:absolute; top:15px; right:15px;" onclick="document.getElementById('promoPopup').classList.remove('active')">×</button>
     <h2 style="font-family:'Cinzel',serif;margin-bottom:15px;font-size:32px;">Welcome Gift</h2>
     <p style="color:#666;line-height:1.6;margin-bottom:20px;">Join the Le Tableau family and get 10% off your first purchase.</p>
     <div class="promo-code-display">Frist10</div>
+    <p style="font-size:12px; color:#777; margin-top:10px;">Want more? Subscribe to our newsletter below for 15% OFF!</p>
     <button class="add-btn" onclick="document.getElementById('promoPopup').classList.remove('active')">Start Shopping</button>
   </div>
 </div>
@@ -363,11 +370,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
     <form id="checkoutForm">
       <div class="form-group"><label>Full Name</label><input type="text" id="cName" required placeholder="Ahmed Mohamed"></div>
       <div class="form-group"><label>Phone Number</label><input type="tel" id="cPhone" required placeholder="01xxxxxxxxx"></div>
-      <div class="form-group"><label>Governorate</label>
-        <select id="cGov">
-          <option>Cairo</option><option>Giza</option><option>Alexandria</option><option>Dakahlia</option><option>Sharkia</option><option>Other</option>
-        </select>
-      </div>
+      <div class="form-group"><label>Governorate</label><select id="cGov"><option>Cairo</option><option>Giza</option><option>Alexandria</option><option>Dakahlia</option><option>Sharkia</option><option>Other</option></select></div>
       <div class="form-group"><label>Detailed Address</label><textarea id="cAddress" rows="2" placeholder="Street name, Building no, Apt..." required></textarea></div>
       <label style="display:block;margin-bottom:10px;font-weight:600;">Payment Method</label>
       <div class="payment-methods">
@@ -383,18 +386,10 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 
 <div class="cart-overlay-bg" id="cartOverlay"></div>
 <div class="cart-drawer" id="cartDrawer">
-  <div class="cart-header">
-    <h3 style="font-family:'Cinzel',serif;">Shopping Cart</h3>
-    <span class="close-icon" id="closeCartBtn" style="font-size:24px;">×</span>
-  </div>
-  <div class="cart-items" id="cartItemsContainer">
-    <div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your cart is empty.</div>
-  </div>
+  <div class="cart-header"><h3 style="font-family:'Cinzel',serif;">Shopping Cart</h3><span class="close-icon" id="closeCartBtn" style="font-size:24px;">×</span></div>
+  <div class="cart-items" id="cartItemsContainer"><div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your cart is empty.</div></div>
   <div class="cart-footer">
-    <div class="promo-row">
-      <div class="promo-input-group"><input type="text" id="promoInput" class="promo-input" placeholder="Promo Code"><button id="applyPromoBtn" class="promo-btn">Apply</button></div>
-      <div id="promoMessage" class="promo-msg"></div>
-    </div>
+    <div class="promo-row"><div class="promo-input-group"><input type="text" id="promoInput" class="promo-input" placeholder="Promo Code"><button id="applyPromoBtn" class="promo-btn">Apply</button></div><div id="promoMessage" class="promo-msg"></div></div>
     <div class="cart-summary-row"><span>Subtotal</span><span id="cartSubtotal">0 EGP</span></div>
     <div class="cart-summary-row" id="discountRow" style="display:none; color:#27ae60;"><span>Discount</span><span id="discountValue">-0 EGP</span></div>
     <div class="cart-summary-row" style="font-weight:700; font-size:18px; border-top:1px solid #ddd; padding-top:15px;"><span>Total</span><span id="finalTotal">0 EGP</span></div>
@@ -520,7 +515,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   </div>
 </div>
 
-<div id="privacy-page" class="text-page">
+<div id="privacy-page" class="text-page page-section">
   <h1>Privacy Policy</h1>
   <p>Last updated: December 2024</p>
   <p>This Privacy Policy describes how Le Tableau (the "Site", "we", "us", or "our") collects, uses, and discloses your personal information when you visit, use our services, or make a purchase from letableau.com (the "Site") or otherwise communicate with us (collectively, the "Services"). For purposes of this Privacy Policy, "you" and "your" means you as the user of the Services, whether you are a customer, website visitor, or another individual whose information we have collected pursuant to this Privacy Policy.</p>
@@ -547,7 +542,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   <p>Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to exercise any of the rights available to you, please email us at support@letableau.com</p>
 </div>
 
-<div id="refund-page" class="text-page">
+<div id="refund-page" class="text-page page-section">
   <h1>Refund Policy</h1>
   <p>At Le Tableau, we strive to ensure that you are completely satisfied with your purchase. Please read our refund policy carefully to understand your options in case you need to return an item.</p>
   <h3>Eligibility for Refund:</h3>
@@ -558,33 +553,26 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   <h3>Custom Posters:</h3>
   <p>Please note that custom posters, including personalized and customized items, are non-refundable, due to the personalized nature of custom prints. Once an order for custom album prints has been placed and production has begun, it cannot be canceled, returned, or refunded. We recommend reviewing custom orders carefully before submitting them.</p>
   <h3>Returns Process:</h3>
-  <p>To initiate a return, please contact our customer support team at support@letableau.com within 30 days of receiving your order.</p>
-  <p>Provide your order number and a brief description of the reason for the return.</p>
+  <p>To initiate a return, please contact our customer support team at support@letableau.com within 30 days of receiving your order. Provide your order number and a brief description of the reason for the return.</p>
   <p>Our customer support team will provide you with instructions on how to return the item(s).</p>
   <h3>Return Shipping:</h3>
-  <p>Customers are responsible for the cost of return shipping unless the return is due to an error on our part or a defective item.</p>
-  <p>We recommend using a trackable shipping method and retaining proof of postage for your records.</p>
+  <p>Customers are responsible for the cost of return shipping unless the return is due to an error on our part or a defective item. We recommend using a trackable shipping method and retaining proof of postage for your records.</p>
   <h3>Refund Processing:</h3>
-  <p>Once we receive the returned item(s) and inspect their condition, we will process the refund.</p>
-  <p>Refunds will be issued to the original payment method used for the purchase.</p>
-  <p>Please allow a reasonable processing time for the refund to appear in your account.</p>
+  <p>Once we receive the returned item(s) and inspect their condition, we will process the refund. Refunds will be issued to the original payment method used for the purchase. Please allow a reasonable processing time for the refund to appear in your account.</p>
   <h3>Exchanges:</h3>
   <p>We do not offer direct exchanges. If you wish to exchange an item, you will need to return the original item for a refund and place a new order for the desired item.</p>
-  <h3>Damaged or Defective Items:</h3>
-  <p>If you receive a damaged or defective item, please contact us immediately with photos of the item and packaging. We will arrange for a replacement. Please note that orders arriving damaged are eligible for a free replacement only. Refunds are not provided for damaged items.</p>
   <h3>Contact Us:</h3>
   <p>If you have any questions or need assistance with a return or refund, please reach out to our customer support team at support@letableau.com. We are here to help.</p>
   <p>Le Tableau reserves the right to amend this refund policy as needed. We recommend reviewing our refund policy periodically for any updates or changes.</p>
   <p>Last Updated: February 2026</p>
 </div>
 
-<div id="shipping-page" class="text-page">
+<div id="shipping-page" class="text-page page-section">
   <h1>Shipping Policy</h1>
   <p>At Le Tableau, every poster is made to order using premium materials and shipped with care. Below is our full shipping policy so you know exactly what to expect when ordering from us.</p>
   <p>Holiday Shipping Notice: While we do our best to deliver orders as quickly as possible, orders placed after February 14, 2026 may not arrive before holidays due to increased courier demand.</p>
   <h3>Order Processing</h3>
-  <p>All orders are processed within 24 hours.</p>
-  <p>Once your order is printed, framed (if selected), and packaged, you will receive a tracking link via email.</p>
+  <p>All orders are processed within 24 hours. Once your order is printed, framed (if selected), and packaged, you will receive a tracking link via email.</p>
   <p>Please note: Orders placed during high-volume periods (Black Friday, Holidays, etc.) may require slightly more time to process.</p>
   <h3>Shipping Times</h3>
   <p>We ship inside Egypt. Estimated delivery windows:</p>
@@ -594,26 +582,12 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
     <li>Upper Egypt: 5–7 business days</li>
     <li>Rest of Governorates: 6–12 business days</li>
   </ul>
-  <p>Timeframes may vary slightly based on destination and local carrier delays.</p>
   <h3>Shipping Costs</h3>
   <p>Shipping costs are calculated at checkout based on your region and the products in your cart. Free-shipping promotions (when applicable) will be clearly displayed on the site.</p>
-  <h3>Order Tracking</h3>
-  <p>As soon as your order ships, you will receive a tracking email. Tracking may take 24–48 hours to update depending on the carrier. If your tracking shows no updates after 3 business days, feel free to contact us.</p>
   <h3>Incorrect Address Policy</h3>
-  <p>Le Tableau is not responsible for orders shipped to an address entered incorrectly at checkout. If you made a mistake, please contact us within 24 hours of placing your order so we can attempt to correct it before production begins.</p>
+  <p>Le Tableau is not responsible for orders shipped to an address entered incorrectly at checkout. If you made a mistake, please contact us within 24 hours of placing your order.</p>
   <h3>Damaged or Lost Orders</h3>
-  <p>If your order arrives damaged or is lost in transit, we will replace it free of charge.</p>
-  <p>Please email us with:</p>
-  <ul>
-    <li>Your order number</li>
-    <li>Photos of the damage (if applicable)</li>
-    <li>A brief description of the issue</li>
-  </ul>
-  <p>We will resolve it as quickly as possible.</p>
-  <h3>Returns & Exchanges</h3>
-  <p>All orders placed during the holiday season are eligible for returns until January 15.</p>
-  <p>Standard return policy: Returns accepted within 30 days of delivery for unused, unopened items.</p>
-  <p>(Custom prints are not eligible for return unless damaged.)</p>
+  <p>If your order arrives damaged or is lost in transit, we will replace it free of charge. Please email us with: Your order number, Photos of the damage (if applicable), A brief description of the issue.</p>
   <h3>Questions?</h3>
   <p>If you need support with your order, tracking, or anything else, contact us anytime at: support@letableau.com</p>
 </div>
@@ -684,6 +658,7 @@ window.addEventListener("load",()=>{
 function showSection(id) {
   // Hide all sections
   document.querySelectorAll('.page-section, .text-page, #main-page, #collection-page, #product-page').forEach(el => el.style.display = 'none');
+  
   const target = document.getElementById(id);
   if(target) {
     target.style.display = 'block';
@@ -705,6 +680,7 @@ function openCollection(name) {
   if(list.length === 0) list = products; 
   while(list.length < 12) list = list.concat(list);
   list = list.slice(0, 12);
+
   list.forEach(p => {
     const card = document.createElement('div');
     card.className = "card";
