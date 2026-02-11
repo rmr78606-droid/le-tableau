@@ -2,44 +2,57 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Le Tableau</title>
+<title>Le Tableau | Premium Wall Art</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================
-   1. CSS RESET & ANIMATIONS (IPHONE SMOOTHNESS)
+   1. CORE ANIMATIONS & VARIABLES
    ========================================= */
 :root { 
   --apple-ease: cubic-bezier(0.25, 1, 0.5, 1); 
   --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --primary: #111;
+  --secondary: #fff;
+  --accent: #cba374;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-body { background: #fff; color: #111; overflow-x: hidden; padding-top: 32px; }
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+  font-family: 'Inter', sans-serif; 
+  -webkit-font-smoothing: antialiased; 
+}
 
-/* Smooth Transitions (The Apple Feel) */
-a, button, .btn, .cat, .card, .size, .frame-opt, .nav-link, input, select {
+body { 
+  background: var(--secondary); 
+  color: var(--primary); 
+  overflow-x: hidden; 
+  padding-top: 32px; 
+}
+
+/* Smooth Transitions for Everything */
+a, button, .btn, .cat, .card, input, select, .size, .frame-opt, .nav-link {
   transition: all 0.3s var(--apple-ease);
   cursor: pointer;
 }
 
-/* Page & Grid Entry Animation */
-.page-enter {
-  animation: fadeUp 0.6s var(--apple-ease) forwards;
+/* Page Transitions */
+.page-section, .text-page {
+  animation: fadeUp 0.7s var(--apple-ease) forwards;
 }
 
-/* Touch Feedback */
+/* Button & Element Press Effect */
 button:active, .btn:active, .cat:active, .card:active, .size:active, .frame-opt:active, a:active { 
   transform: scale(0.96); 
 }
 
-@keyframes fadeUp { 
-  from { opacity: 0; transform: translateY(20px); } 
-  to { opacity: 1; transform: translateY(0); } 
-}
-@keyframes popIn { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+/* Keyframes */
 @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes popIn { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
 
 .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -49,41 +62,46 @@ button:active, .btn:active, .cat:active, .card:active, .size:active, .frame-opt:
    2. HEADER & NAVIGATION
    ========================================= */
 .announcement-bar {
-  background-color: #000; color: #fff; font-size: 11px; height: 32px; line-height: 32px;
-  position: fixed; top: 0; left: 0; width: 100%; z-index: 2000; overflow: hidden;
+  background-color: var(--primary); 
+  color: var(--secondary); 
+  font-size: 11px; 
+  height: 32px; 
+  line-height: 32px; 
+  position: fixed; top: 0; left: 0; width: 100%; 
+  z-index: 2000; overflow: hidden; 
   white-space: nowrap; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
 }
 .announcement-content { display: inline-block; animation: marquee 25s linear infinite; padding-left: 100%; }
 
-/* Glass Navbar */
 nav { 
   display: flex; justify-content: space-between; align-items: center;
   padding: 15px 50px; position: fixed; width: 100%; top: 32px;
   background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); 
 }
-.logo { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; letter-spacing: 1px; color: #000; cursor: pointer; }
+.logo { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; letter-spacing: 1px; color: var(--primary); cursor: pointer; }
+
 .nav-right { display: flex; align-items: center; gap: 30px; }
 .nav-links { display: flex; gap: 25px; }
 
-/* Animated Underline for Links */
+/* Nav Links Animation */
 .nav-links a { 
   font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; 
-  color: #111; position: relative; padding: 5px 0;
+  color: var(--primary); cursor: pointer; position: relative; padding: 5px 0;
 }
 .nav-links a::after { 
   content: ''; position: absolute; bottom: 0; left: 50%; width: 0%; height: 2px; 
-  background: #000; transition: all 0.3s var(--apple-ease); transform: translateX(-50%);
+  background: var(--primary); transition: all 0.3s var(--apple-ease); transform: translateX(-50%);
 }
 .nav-links a:hover::after { width: 100%; }
 
-.cart-wrap { position: relative; display: flex; align-items: center; }
-.cart-icon svg { width: 22px; height: 22px; stroke: #000; }
+.cart-wrap { position: relative; cursor: pointer; display: flex; align-items: center; }
+.cart-icon svg { width: 22px; height: 22px; stroke: var(--primary); }
 .cart-badge { 
-  position: absolute; top: -6px; right: -6px; background: #000; color: white; 
+  position: absolute; top: -6px; right: -6px; background: var(--primary); color: var(--secondary); 
   font-size: 10px; font-weight: bold; height: 16px; width: 16px; 
   display: flex; justify-content: center; align-items: center; border-radius: 50%; 
-  opacity: 0; transform: scale(0); transition: 0.4s var(--bounce); 
+  opacity: 0; transform: scale(0); transition: 0.3s var(--bounce); 
 }
 .cart-badge.visible { opacity: 1; transform: scale(1); }
 
@@ -98,13 +116,13 @@ nav {
   background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; 
   text-align: center; position: relative; 
 }
-.hero-content { color: #fff; max-width: 800px; padding: 20px; animation: fadeUp 1s var(--apple-ease) 0.2s forwards; opacity: 0; }
+.hero-content { color: #fff; max-width: 800px; padding: 20px; animation: fadeUp 1s var(--apple-ease) forwards; }
 .hero h1 { font-family: 'Cinzel', serif; font-size: 56px; margin-bottom: 20px; font-weight: 400; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 .hero p { font-size: 18px; opacity: 0.95; margin-bottom: 35px; line-height: 1.6; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
 .btn { 
   padding: 16px 45px; background: #fff; color: #111; 
   font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; 
-  border: 1px solid #fff; 
+  border: 1px solid #fff; cursor: pointer;
 }
 .btn:hover { background: transparent; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(-3px); }
 
@@ -115,13 +133,14 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 .cat { 
   height: 350px; background: #f5f5f5; display: flex; justify-content: center; align-items: center; 
   font-size: 26px; font-family: 'Cinzel', serif; position: relative; overflow: hidden; color: #fff; 
-  z-index: 1; border-radius: 4px;
+  cursor: pointer; z-index: 1; border-radius: 4px;
 }
 .cat::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.25); transition: 0.5s ease; z-index: 1; }
 .cat:hover::before { background: rgba(0,0,0,0.45); }
-.cat:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+.cat:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
 .cat span { position: relative; z-index: 2; letter-spacing: 1px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-.cat.modern { background: url("modern.jpg") center/cover; } .cat.islamic { background: url("islamic.jpg") center/cover; } .cat.games { background: url("games.jpg") center/cover; } .cat.quotes { background: url("post.jpg") center/cover; }
+.cat.modern { background: url("modern.jpg") center/cover; } .cat.islamic { background: url("islamic.jpg") center/cover; } 
+.cat.games { background: url("games.jpg") center/cover; } .cat.quotes { background: url("post.jpg") center/cover; }
 
 .about { max-width: 800px; margin: auto; text-align: center; font-size: 17px; color: #444; line-height: 1.9; }
 .trust-strip { background: #fff; padding: 60px 20px; border-top: 1px solid #eee; display: flex; justify-content: center; gap: 80px; flex-wrap: wrap; text-align: left; }
@@ -166,7 +185,7 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 .product-image { flex: 1.3; } .product-image img { width: 100%; display: block; box-shadow: 0 0 0 1px #eee; }
 .product-info { flex: 1; padding-top: 5px; }
 
-.back-btn { display: inline-block; margin-bottom: 25px; color: #777; font-size: 13px; font-weight: 500; text-decoration: none; }
+.back-btn { display: inline-block; margin-bottom: 25px; color: #777; font-size: 13px; font-weight: 500; text-decoration: none; cursor: pointer; }
 .back-btn:hover { color: #000; text-decoration: underline; }
 
 .product-review-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 13px; color: #333; }
@@ -187,13 +206,20 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 .option-label { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; margin-top: 25px;}
 .sizes, .frames { display: flex; gap: 10px; flex-wrap: wrap; }
 
-/* FIX: SELECTION ACTIVE STATE */
+/* FIX: SELECTION ACTIVE STATES (VERY IMPORTANT) */
 .size, .frame-opt { 
   padding: 14px 24px; border: 1px solid #ddd; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; cursor: pointer; transition: 0.2s;
 }
 .size:hover, .frame-opt:hover { border-color: #555; }
-/* IMPORTANT: Active class visual feedback */
-.size.active, .frame-opt.active { background: #111 !important; color: #fff !important; border-color: #111 !important; transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
+
+/* The Active Class that makes it BLACK */
+.size.active, .frame-opt.active { 
+  background-color: #111 !important; 
+  color: #fff !important; 
+  border-color: #111 !important; 
+  transform: scale(1.05); 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
+}
 
 .size-guide-btn { background: none; border: none; text-decoration: underline; cursor: pointer; font-size: 13px; color: #555; margin: 20px 0; display: flex; align-items: center; gap: 8px; }
 .size-guide-btn img { width: 18px; opacity: 0.6; }
@@ -234,7 +260,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .newsletter-form { display: flex; flex-direction: column; gap: 10px; }
 .newsletter-input { padding: 12px; border: 1px solid #eee; background: #f9f9f9; width: 100%; outline: none; transition: 0.3s; }
 .newsletter-input:focus { background: #fff; border-color: #000; }
-.newsletter-btn { padding: 14px; background: #111; color: #fff; border: none; font-weight: 600; text-transform: uppercase; font-size: 12px; width: 100%; }
+.newsletter-btn { padding: 14px; background: #111; color: #fff; border: none; font-weight: 600; text-transform: uppercase; font-size: 12px; cursor: pointer; letter-spacing: 1px; width: 100%; }
 .news-success-msg { color: #2e7d32; font-weight: 600; font-size: 12px; margin-top: 10px; display: none; line-height: 1.6; animation: fadeUp 0.5s; }
 
 .footer-right { display: flex; gap: 80px; flex-wrap: wrap; }
@@ -328,7 +354,22 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 <body>
 
 <div class="announcement-bar"><div class="announcement-content">✨ FREE SHIPPING ON ORDERS OVER 1500 EGP &nbsp; • &nbsp; USE CODE: <strong>FRIST10</strong> FOR 10% OFF &nbsp; • &nbsp; PREMIUM WALL ART</div></div>
-<div class="overlay-bg active" id="promoPopup"><div class="promo-modal"><button class="close-icon" id="closePromoBtn" style="position:absolute; top:15px; right:15px;">×</button><h2 style="font-family:'Cinzel',serif;margin-bottom:15px;font-size:32px;">Welcome Gift</h2><p style="color:#666;line-height:1.6;margin-bottom:20px;">Join the Le Tableau family and get 10% off your first purchase.</p><div class="promo-code-display">Frist10</div><button class="add-btn" id="startShoppingBtn">Start Shopping</button></div></div>
+
+<div class="overlay-bg active" id="promoPopup">
+  <div class="promo-modal">
+    <button class="close-icon" id="closePromoBtn" style="position:absolute; top:15px; right:15px;">×</button>
+    <h2 style="font-family:'Cinzel',serif;margin-bottom:15px;font-size:28px;">Subscribe & Save</h2>
+    <p style="color:#666;line-height:1.6;margin-bottom:20px;">Join the Le Tableau family newsletter and get a special discount code!</p>
+    
+    <div style="font-size: 48px; font-weight: 800; color: #000; margin: 10px 0; letter-spacing: -2px;">15% OFF</div>
+    
+    <div style="margin-bottom: 20px; color: #555; font-size: 13px;">Use code below at checkout:</div>
+    <div class="promo-code-display" style="font-size: 28px;">Sham15</div>
+    
+    <button class="add-btn" id="startShoppingBtn">Start Shopping Now</button>
+  </div>
+</div>
+
 <div class="overlay-bg search-overlay" id="searchOverlay" onclick="closeSearch(event)"><div class="search-box" onclick="event.stopPropagation()"><input type="text" class="search-input" id="searchInput" placeholder="Search categories or products..." onkeyup="performSearch()"><div id="searchResults" style="margin-top:20px;max-height:300px;overflow-y:auto;"></div></div></div>
 <div class="checkout-overlay overlay-bg" id="checkoutOverlay" style="display:none;" onclick="document.getElementById('checkoutOverlay').style.display='none'"><div class="checkout-modal" onclick="event.stopPropagation()"><button class="close-icon" style="position:absolute; top:15px; right:15px;" onclick="document.getElementById('checkoutOverlay').style.display='none'">×</button><h2>Complete Your Order</h2><form id="checkoutForm"><div class="form-group"><label>Full Name</label><input type="text" id="cName" required placeholder="Ahmed Mohamed"></div><div class="form-group"><label>Phone Number</label><input type="tel" id="cPhone" required placeholder="01xxxxxxxxx"></div><div class="form-group"><label>Governorate</label><select id="cGov"><option>Cairo</option><option>Giza</option><option>Alexandria</option><option>Dakahlia</option><option>Sharkia</option><option>Other</option></select></div><div class="form-group"><label>Detailed Address</label><textarea id="cAddress" rows="2" placeholder="Street name, Building no, Apt..." required></textarea></div><label style="display:block;margin-bottom:10px;font-weight:600;">Payment Method</label><div class="payment-methods"><div class="pay-option active" onclick="selectPay('COD', this)">Cash on Delivery</div><div class="pay-option" onclick="selectPay('VF_CASH', this)">Vodafone Cash</div></div><button type="button" class="confirm-order-btn" onclick="submitOrder()">Confirm Order (WhatsApp)</button></form></div></div>
 <div id="toast">Added to cart successfully</div>
@@ -405,7 +446,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   </div>
 </div>
 
-<div id="privacy-page" class="text-page">
+<div id="privacy-page" class="text-page page-section">
   <h1>Privacy Policy</h1>
   <p>Last updated: December 2024</p>
   <p>This Privacy Policy describes how Le Tableau (the "Site", "we", "us", or "our") collects, uses, and discloses your personal information when you visit, use our services, or make a purchase from letableau.com (the "Site") or otherwise communicate with us (collectively, the "Services"). For purposes of this Privacy Policy, "you" and "your" means you as the user of the Services, whether you are a customer, website visitor, or another individual whose information we have collected pursuant to this Privacy Policy.</p>
@@ -422,7 +463,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   <p>Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to exercise any of the rights available to you, please email us at support@letableau.com</p>
 </div>
 
-<div id="refund-page" class="text-page">
+<div id="refund-page" class="text-page page-section">
   <h1>Refund Policy</h1>
   <p>At Le Tableau, we strive to ensure that you are completely satisfied with your purchase. Please read our refund policy carefully to understand your options in case you need to return an item.</p>
   <h3>Eligibility for Refund:</h3>
@@ -442,7 +483,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   <p>Le Tableau reserves the right to amend this refund policy as needed. Last Updated: February 2026</p>
 </div>
 
-<div id="shipping-page" class="text-page">
+<div id="shipping-page" class="text-page page-section">
   <h1>Shipping Policy</h1>
   <p>At Le Tableau, every poster is made to order using premium materials and shipped with care. Below is our full shipping policy so you know exactly what to expect when ordering from us.</p>
   <p>Holiday Shipping Notice: While we do our best to deliver orders as quickly as possible, orders placed after February 14, 2026 may not arrive before holidays due to increased courier demand.</p>
