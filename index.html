@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Le Tableau | Art & Soul</title>
+<title>Le Tableau | Premium Wall Art</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================
-   1. CORE VARIABLES & RESET
+   1. CORE ANIMATIONS & VARIABLES
    ========================================= */
 :root { 
   --apple-ease: cubic-bezier(0.25, 1, 0.5, 1); 
@@ -16,372 +16,134 @@
   --primary: #111;
   --secondary: #fff;
   --accent: #cba374;
-  --gray-light: #f5f5f5;
-  --border: #e5e5e5;
 }
 
-* { 
-  margin: 0; 
-  padding: 0; 
-  box-sizing: border-box; 
-  font-family: 'Inter', sans-serif; 
-  -webkit-font-smoothing: antialiased; 
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+body { background: var(--secondary); color: var(--primary); overflow-x: hidden; padding-top: 32px; }
 
-body { 
-  background: var(--secondary); 
-  color: var(--primary); 
-  overflow-x: hidden; 
-  padding-top: 32px; /* For Announcement Bar */
-}
-
-/* =========================================
-   2. GLOBAL ANIMATIONS (IPHONE FEEL)
-   ========================================= */
-/* Smooth Transitions for Interactive Elements */
+/* Smooth Transitions */
 a, button, .btn, .cat, .card, input, select, .size, .frame-opt, .nav-link {
   transition: all 0.3s var(--apple-ease);
   cursor: pointer;
 }
 
-/* Page Entry Animation */
+/* Page Animations */
 .page-section, .text-page {
   animation: fadeUp 0.7s var(--apple-ease) forwards;
 }
 
-/* Click/Touch Feedback */
+/* Touch Feedback */
 button:active, .btn:active, .cat:active, .card:active, .size:active, .frame-opt:active, a:active { 
   transform: scale(0.96); 
 }
 
-/* Keyframes Definitions */
-@keyframes marquee { 
-  0% { transform: translateX(100%); } 
-  100% { transform: translateX(-100%); } 
-}
-
-@keyframes fadeUp { 
-  from { opacity: 0; transform: translateY(25px); } 
-  to { opacity: 1; transform: translateY(0); } 
-}
-
-@keyframes popIn { 
-  from { transform: scale(0.92); opacity: 0; } 
-  to { transform: scale(1); opacity: 1; } 
-}
-
-@keyframes shake { 
-  0%, 100% {transform: translateX(0);} 
-  25% {transform: translateX(-5px);} 
-  75% {transform: translateX(5px);} 
-}
-
-@keyframes glow {
-  0% { box-shadow: 0 0 5px #cba374; }
-  50% { box-shadow: 0 0 20px #cba374; }
-  100% { box-shadow: 0 0 5px #cba374; }
-}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes popIn { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+@keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
 
 /* =========================================
-   3. ANNOUNCEMENT BAR & NAV
+   2. HEADER & NAVIGATION
    ========================================= */
 .announcement-bar {
-  background-color: var(--primary); 
-  color: var(--secondary); 
-  font-size: 11px; 
-  height: 32px; 
-  line-height: 32px; 
-  position: fixed; 
-  top: 0; left: 0; width: 100%; 
-  z-index: 2000; 
-  overflow: hidden; 
-  white-space: nowrap; 
-  font-weight: 600; 
-  letter-spacing: 1px; 
-  text-transform: uppercase;
+  background-color: var(--primary); color: var(--secondary); font-size: 11px; height: 32px; line-height: 32px;
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 2000; overflow: hidden;
+  white-space: nowrap; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
 }
-.announcement-content { 
-  display: inline-block; 
-  animation: marquee 30s linear infinite; 
-  padding-left: 100%; 
-}
+.announcement-content { display: inline-block; animation: marquee 25s linear infinite; padding-left: 100%; }
 
-/* Glassmorphism Navigation */
 nav { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center;
-  padding: 15px 50px; 
-  position: fixed; 
-  width: 100%; 
-  top: 32px;
-  background: rgba(255,255,255,0.85); 
-  backdrop-filter: blur(20px); 
-  -webkit-backdrop-filter: blur(20px);
-  z-index: 1000; 
-  border-bottom: 1px solid rgba(0,0,0,0.05); 
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 15px 50px; position: fixed; width: 100%; top: 32px;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); 
 }
+.logo { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; letter-spacing: 1px; color: var(--primary); }
 
-.logo { 
-  font-family: 'Cinzel', serif; 
-  font-size: 26px; 
-  font-weight: 700; 
-  letter-spacing: 1px; 
-  color: var(--primary); 
-  cursor: pointer; 
-}
+.nav-right { display: flex; align-items: center; gap: 30px; }
+.nav-links { display: flex; gap: 25px; }
 
-.nav-right { 
-  display: flex; 
-  align-items: center; 
-  gap: 30px; 
-}
-
-.nav-links { 
-  display: flex; 
-  gap: 25px; 
-}
-
-/* Nav Links Underline Effect */
 .nav-links a { 
-  font-weight: 600; 
-  font-size: 12px; 
-  text-transform: uppercase; 
-  letter-spacing: 0.5px; 
-  color: var(--primary); 
-  cursor: pointer; 
-  position: relative; 
-  padding: 5px 0;
+  font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; 
+  color: var(--primary); position: relative; padding: 5px 0;
 }
 .nav-links a::after { 
-  content: ''; 
-  position: absolute; 
-  bottom: 0; 
-  left: 50%; 
-  width: 0%; 
-  height: 2px; 
-  background: var(--primary); 
-  transition: all 0.3s var(--apple-ease); 
-  transform: translateX(-50%);
+  content: ''; position: absolute; bottom: 0; left: 50%; width: 0%; height: 2px; 
+  background: var(--primary); transition: all 0.3s var(--apple-ease); transform: translateX(-50%);
 }
 .nav-links a:hover::after { width: 100%; }
 
-/* Cart Icon */
-.cart-wrap { 
-  position: relative; 
-  cursor: pointer; 
-  display: flex; 
-  align-items: center; 
-}
+.cart-wrap { position: relative; display: flex; align-items: center; }
 .cart-icon svg { width: 22px; height: 22px; stroke: var(--primary); }
 .cart-badge { 
-  position: absolute; 
-  top: -6px; 
-  right: -6px; 
-  background: var(--primary); 
-  color: var(--secondary); 
-  font-size: 10px; 
-  font-weight: bold; 
-  height: 16px; 
-  width: 16px; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  border-radius: 50%; 
-  opacity: 0; 
-  transform: scale(0); 
-  transition: 0.3s var(--bounce); 
+  position: absolute; top: -6px; right: -6px; background: var(--primary); color: var(--secondary); 
+  font-size: 10px; font-weight: bold; height: 16px; width: 16px; 
+  display: flex; justify-content: center; align-items: center; border-radius: 50%; 
+  opacity: 0; transform: scale(0); transition: 0.3s var(--bounce); 
 }
 .cart-badge.visible { opacity: 1; transform: scale(1); }
 
 /* =========================================
-   4. HERO & HOME SECTIONS
+   3. SECTIONS
    ========================================= */
-.page-section { 
-  display: none; /* All pages hidden by default */
-  padding-top: 100px; 
-  min-height: 100vh; 
-}
-#main-page { padding-top: 0; } /* Except Home */
+.page-section { display: none; padding-top: 100px; min-height: 100vh; }
+#main-page { padding-top: 0; }
 
 .hero { 
-  min-height: 100vh; 
-  background: linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)), url("hero.jpg"); 
-  background-size: cover; 
-  background-position: center; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  text-align: center; 
-  position: relative; 
+  min-height: 100vh; background: linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)), url("hero.jpg"); 
+  background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; 
+  text-align: center; position: relative; 
 }
-
-.hero-content { 
-  color: var(--secondary); 
-  max-width: 800px; 
-  padding: 20px; 
-  animation: fadeUp 1s var(--apple-ease) 0.2s forwards; 
-  opacity: 0; 
-}
-
-.hero h1 { 
-  font-family: 'Cinzel', serif; 
-  font-size: 56px; 
-  margin-bottom: 20px; 
-  font-weight: 400; 
-  text-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-}
-
-.hero p { 
-  font-size: 18px; 
-  opacity: 0.95; 
-  margin-bottom: 35px; 
-  line-height: 1.6; 
-  text-shadow: 0 2px 5px rgba(0,0,0,0.5); 
-}
-
+.hero-content { color: #fff; max-width: 800px; padding: 20px; animation: fadeUp 1s var(--apple-ease) forwards; }
+.hero h1 { font-family: 'Cinzel', serif; font-size: 56px; margin-bottom: 20px; font-weight: 400; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+.hero p { font-size: 18px; opacity: 0.95; margin-bottom: 35px; line-height: 1.6; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
 .btn { 
-  padding: 16px 45px; 
-  background: var(--secondary); 
-  color: var(--primary); 
-  font-weight: 700; 
-  font-size: 13px; 
-  text-transform: uppercase; 
-  letter-spacing: 1px; 
+  padding: 16px 45px; background: var(--secondary); color: var(--primary); 
+  font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; 
   border: 1px solid var(--secondary); 
-  cursor: pointer;
 }
-.btn:hover { 
-  background: transparent; 
-  color: var(--secondary); 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
-  transform: translateY(-3px); 
-}
+.btn:hover { background: transparent; color: var(--secondary); transform: translateY(-3px); }
 
 section { padding: 80px 60px; }
-h2 { 
-  text-align: center; 
-  font-family: 'Cinzel', serif; 
-  font-size: 34px; 
-  margin-bottom: 60px; 
-  font-weight: 400; 
-}
+h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-bottom: 60px; font-weight: 400; }
 
-.categories { 
-  display: grid; 
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-  gap: 30px; 
-}
-
+.categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
 .cat { 
-  height: 350px; 
-  background: var(--gray-light); 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  font-size: 26px; 
-  font-family: 'Cinzel', serif; 
-  position: relative; 
-  overflow: hidden; 
-  color: var(--secondary); 
-  cursor: pointer; 
-  z-index: 1; 
-  border-radius: 4px;
+  height: 350px; background: #f5f5f5; display: flex; justify-content: center; align-items: center; 
+  font-size: 26px; font-family: 'Cinzel', serif; position: relative; overflow: hidden; color: #fff; 
+  z-index: 1; border-radius: 4px;
 }
-
-.cat::before { 
-  content: ""; 
-  position: absolute; 
-  inset: 0; 
-  background: rgba(0,0,0,0.25); 
-  transition: 0.5s ease; 
-  z-index: 1; 
-}
+.cat::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.25); transition: 0.5s ease; z-index: 1; }
 .cat:hover::before { background: rgba(0,0,0,0.45); }
-.cat:hover { 
-  transform: translateY(-5px) scale(1.01); 
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15); 
-}
-.cat span { 
-  position: relative; 
-  z-index: 2; 
-  letter-spacing: 1px; 
-  text-shadow: 0 4px 10px rgba(0,0,0,0.5); 
-}
+.cat:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+.cat span { position: relative; z-index: 2; letter-spacing: 1px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+.cat.modern { background: url("modern.jpg") center/cover; } .cat.islamic { background: url("islamic.jpg") center/cover; } 
+.cat.games { background: url("games.jpg") center/cover; } .cat.quotes { background: url("post.jpg") center/cover; }
 
-/* Background Images for Categories */
-.cat.modern { background: url("modern.jpg") no-repeat center center; background-size: cover; }
-.cat.islamic { background: url("islamic.jpg") no-repeat center center; background-size: cover; }
-.cat.games { background: url("games.jpg") no-repeat center center; background-size: cover; }
-.cat.quotes { background: url("post.jpg") no-repeat center center; background-size: cover; }
-
-.about { 
-  max-width: 800px; 
-  margin: auto; 
-  text-align: center; 
-  font-size: 17px; 
-  color: #444; 
-  line-height: 1.9; 
-}
-
-.trust-strip { 
-  background: var(--secondary); 
-  padding: 60px 20px; 
-  border-top: 1px solid var(--border); 
-  display: flex; 
-  justify-content: center; 
-  gap: 80px; 
-  flex-wrap: wrap; 
-  text-align: left; 
-}
+.about { max-width: 800px; margin: auto; text-align: center; font-size: 17px; color: #444; line-height: 1.9; }
+.trust-strip { background: var(--secondary); padding: 60px 20px; border-top: 1px solid #eee; display: flex; justify-content: center; gap: 80px; flex-wrap: wrap; text-align: left; }
 .trust-item { display: flex; align-items: center; gap: 15px; max-width: 250px; }
 .trust-item img { width: 35px; opacity: 0.8; }
 .trust-text h5 { font-size: 13px; text-transform: uppercase; margin-bottom: 4px; font-weight: 700; }
 .trust-text p { font-size: 12px; color: #777; margin: 0; }
 
 /* =========================================
-   5. COLLECTION & PRODUCT CARD
+   4. COLLECTION & CARDS
    ========================================= */
 .collection-header { padding: 0 60px 60px; text-align: center; }
 .collection-header h1 { font-family: 'Cinzel', serif; font-size: 42px; margin-bottom: 10px; font-weight: 400; }
-.grid { 
-  padding: 0 60px 60px; 
-  display: grid; 
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-  gap: 40px; 
-}
+.grid { padding: 0 60px 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; }
 
-.card { 
-  background: var(--secondary); 
-  cursor: pointer; 
-  position: relative; 
-  border-radius: 4px; 
-  overflow: hidden; 
-}
-.card:hover { 
-  transform: translateY(-8px); 
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
-}
-.card-badge { 
-  position: absolute; top: 12px; left: 12px; 
-  background: var(--primary); color: var(--secondary); 
-  padding: 6px 10px; font-size: 10px; font-weight: 700; 
-  z-index: 2; letter-spacing: 1px; 
-}
-.card-img-wrap { 
-  width: 100%; margin-bottom: 15px; position: relative; 
-  aspect-ratio: 3/4; overflow: hidden; background: var(--gray-light); 
-}
-.card-img-wrap img { 
-  width: 100%; height: 100%; object-fit: cover; 
-  transition: transform 0.6s var(--apple-ease); 
-}
+.card { background: var(--secondary); cursor: pointer; position: relative; border-radius: 4px; overflow: hidden; }
+.card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+.card-badge { position: absolute; top: 12px; left: 12px; background: var(--primary); color: var(--secondary); padding: 6px 10px; font-size: 10px; font-weight: 700; z-index: 2; letter-spacing: 1px; }
+.card-img-wrap { width: 100%; margin-bottom: 15px; position: relative; aspect-ratio: 3/4; overflow: hidden; background: #f9f9f9; }
+.card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--apple-ease); }
 .card:hover .card-img-wrap img { transform: scale(1.05); }
 
 .quick-add-btn {
   position: absolute; bottom: 15px; right: 15px; width: 45px; height: 45px; 
-  background: var(--primary); color: var(--secondary); 
-  border-radius: 50%; display: flex; justify-content: center; align-items: center; 
+  background: var(--primary); color: var(--secondary); border-radius: 50%; display: flex; justify-content: center; align-items: center; 
   opacity: 0; transform: translateY(20px); transition: 0.4s var(--bounce); z-index: 5;
 }
 .card:hover .quick-add-btn { opacity: 1; transform: translateY(0); }
@@ -394,21 +156,13 @@ h2 {
 .old { color: #999; text-decoration: line-through; margin-left: 8px; font-size: 12px; font-weight: 400; }
 
 /* =========================================
-   6. PRODUCT PAGE DETAILED
+   5. PRODUCT PAGE
    ========================================= */
-.product-wrap { 
-  max-width: 1200px; margin: 0 auto; padding: 0 40px 80px; 
-  display: flex; gap: 70px; align-items: flex-start; 
-}
-.product-image { flex: 1.3; } 
-.product-image img { width: 100%; display: block; box-shadow: 0 0 0 1px #eee; }
+.product-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 80px; display: flex; gap: 70px; align-items: flex-start; }
+.product-image { flex: 1.3; } .product-image img { width: 100%; display: block; box-shadow: 0 0 0 1px #eee; }
 .product-info { flex: 1; padding-top: 5px; }
 
-.back-btn { 
-  display: inline-block; margin-bottom: 25px; 
-  color: #777; font-size: 13px; font-weight: 500; 
-  text-decoration: none; cursor: pointer;
-}
+.back-btn { display: inline-block; margin-bottom: 25px; color: #777; font-size: 13px; font-weight: 500; text-decoration: none; cursor: pointer; }
 .back-btn:hover { color: var(--primary); text-decoration: underline; }
 
 .product-review-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 13px; color: #333; }
@@ -420,8 +174,7 @@ h2 {
   background: var(--primary); color: var(--secondary); padding: 12px 15px; 
   font-weight: 700; text-transform: uppercase; font-size: 13px; 
   display: flex; justify-content: space-between; align-items: center; 
-  margin-bottom: 25px; letter-spacing: 0.5px; 
-  transform: skewX(-10deg); width: 98%; margin-left: 1%; 
+  margin-bottom: 25px; letter-spacing: 0.5px; transform: skewX(-10deg); width: 98%; margin-left: 1%; 
 }
 .sale-banner-strip span { transform: skewX(10deg); display: block; }
 
@@ -430,51 +183,30 @@ h2 {
 .original-price { font-size: 18px; color: #999; text-decoration: line-through; }
 .sale-badge { background: #d32f2f; color: #fff; padding: 5px 10px; font-size: 11px; font-weight: 700; border-radius: 2px; }
 
-.shipping-estimator { 
-  display: flex; align-items: center; gap: 10px; 
-  background: #f0fdf4; border: 1px solid #dcfce7; color: #166534; 
-  padding: 14px; border-radius: 4px; margin-bottom: 30px; font-size: 13px; font-weight: 600; 
-}
+.shipping-estimator { display: flex; align-items: center; gap: 10px; background: #f0fdf4; border: 1px solid #dcfce7; color: #166534; padding: 14px; border-radius: 4px; margin-bottom: 30px; font-size: 13px; font-weight: 600; }
 .green-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 2px #bbf7d0; }
 
 .option-label { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; margin-top: 25px;}
 .sizes, .frames { display: flex; gap: 10px; flex-wrap: wrap; }
 
-/* --- FIX: SELECTION ACTIVE STATES --- */
+/* FIX: SELECTION STYLES */
 .size, .frame-opt { 
   padding: 14px 24px; border: 1px solid #ddd; font-size: 13px; 
-  text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; 
-  cursor: pointer; transition: 0.2s;
+  text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; cursor: pointer; transition: 0.2s;
 }
 .size:hover, .frame-opt:hover { border-color: #555; }
-/* IMPORTANT: The active class must have high specificity */
+/* IMPORTANT: Active State Black */
 .size.active, .frame-opt.active { 
-  background: #111 !important; 
-  color: #fff !important; 
-  border-color: #111 !important; 
-  transform: scale(1.05); 
-  box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
+  background: var(--primary) !important; color: var(--secondary) !important; 
+  border-color: var(--primary) !important; transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
 }
 
-.size-guide-btn { 
-  background: none; border: none; text-decoration: underline; 
-  cursor: pointer; font-size: 13px; color: #555; 
-  margin: 20px 0; display: flex; align-items: center; gap: 8px; 
-}
+.size-guide-btn { background: none; border: none; text-decoration: underline; cursor: pointer; font-size: 13px; color: #555; margin: 20px 0; display: flex; align-items: center; gap: 8px; }
 .size-guide-btn img { width: 18px; opacity: 0.6; }
 
-.add-btn { 
-  background: var(--primary); color: var(--secondary); width: 100%; padding: 18px; 
-  border: none; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; 
-  cursor: pointer; margin-bottom: 12px; border-radius: 4px; 
-}
+.add-btn { background: var(--primary); color: var(--secondary); width: 100%; padding: 18px; border: none; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; cursor: pointer; margin-bottom: 12px; border-radius: 4px; }
 .add-btn:hover { opacity: 0.9; }
-
-.buy-now-btn { 
-  width: 100%; padding: 18px; background: var(--accent); 
-  color: #fff; border: none; text-transform: uppercase; 
-  font-weight: 700; letter-spacing: 2px; cursor: pointer; border-radius: 4px; 
-}
+.buy-now-btn { width: 100%; padding: 18px; background: var(--accent); color: #fff; border: none; text-transform: uppercase; font-weight: 700; letter-spacing: 2px; cursor: pointer; border-radius: 4px; }
 .buy-now-btn:hover { background: #b48b5a; transform: translateY(-2px); }
 
 .details-section { max-width: 900px; margin: 0 auto; padding: 80px 40px; border-top: 1px solid #eee; }
@@ -508,36 +240,22 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .newsletter-form { display: flex; flex-direction: column; gap: 10px; }
 .newsletter-input { padding: 12px; border: 1px solid #eee; background: #f9f9f9; width: 100%; outline: none; transition: 0.3s; }
 .newsletter-input:focus { background: #fff; border-color: #000; }
-.newsletter-btn { padding: 14px; background: #111; color: #fff; border: none; font-weight: 600; text-transform: uppercase; font-size: 12px; width: 100%; cursor: pointer; }
+.newsletter-btn { padding: 14px; background: var(--primary); color: var(--secondary); border: none; font-weight: 600; text-transform: uppercase; font-size: 12px; cursor: pointer; letter-spacing: 1px; width: 100%; }
 .news-success-msg { color: #2e7d32; font-weight: 600; font-size: 12px; margin-top: 10px; display: none; line-height: 1.6; animation: fadeUp 0.5s; }
 
-/* The 15% OFF Badge style for Newsletter */
+/* The 15% Badge Style */
 .discount-badge-lg {
-  display: inline-block;
-  background: var(--accent);
-  color: #fff;
-  padding: 5px 10px;
-  font-weight: 800;
-  border-radius: 4px;
-  margin-top: 5px;
+  display: inline-block; background: var(--accent); color: #fff; padding: 5px 12px; 
+  font-weight: 800; border-radius: 4px; margin-top: 5px; font-size: 14px;
 }
 
 .footer-right { display: flex; gap: 80px; flex-wrap: wrap; }
 .footer-menu h4 { font-weight: 600; text-transform: uppercase; font-size: 12px; margin-bottom: 20px; letter-spacing: 0.5px; }
 .footer-menu ul { list-style: none; padding: 0; }
 .footer-menu li { margin-bottom: 12px; }
-
-/* Footer Links Animation */
-.footer-menu a { 
-  text-decoration: none; color: #555; font-size: 13px; transition: 0.2s; 
-  display: block; margin-bottom: 12px; position: relative; width: max-content;
-}
-.footer-menu a::after {
-  content: ''; position: absolute; bottom: -2px; left: 0; width: 0%; height: 1px; 
-  background: #000; transition: all 0.3s var(--apple-ease);
-}
+.footer-menu a { text-decoration: none; color: #555; font-size: 13px; transition: 0.2s; display: block; margin-bottom: 12px; position: relative; width: max-content; }
+.footer-menu a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0%; height: 1px; background: #000; transition: all 0.3s var(--apple-ease); }
 .footer-menu a:hover::after { width: 100%; }
-
 .footer-bottom { border-top: 1px solid #eee; margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; color: #777; font-size: 12px; }
 
 /* =========================================
@@ -545,21 +263,13 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
    ========================================= */
 .overlay-bg, .cart-overlay-bg, .modal-overlay, .promo-modal-overlay, .search-overlay, .checkout-overlay { 
   position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-  background: rgba(0,0,0,0.6); z-index: 3000; 
-  display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); 
+  background: rgba(0,0,0,0.6); z-index: 3000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); 
   opacity: 0; transition: opacity 0.4s var(--apple-ease);
 }
 .overlay-bg.active, .cart-overlay-bg.open, .checkout-overlay.active { display: flex; opacity: 1; }
 .cart-overlay-bg.block-active { display: block; opacity: 1; }
 
-/* Cart Drawer */
-.cart-drawer { 
-  position: fixed; top: 0; right: -450px; width: 450px; height: 100%; 
-  background: #fff; z-index: 3001; 
-  box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
-  transition: 0.6s var(--apple-ease); 
-  display: flex; flex-direction: column; 
-}
+.cart-drawer { position: fixed; top: 0; right: -450px; width: 450px; height: 100%; background: #fff; z-index: 3001; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: 0.6s var(--apple-ease); display: flex; flex-direction: column; }
 .cart-drawer.open { right: 0; }
 .cart-header { padding: 25px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
 .cart-items { flex: 1; overflow-y: auto; padding: 25px; }
@@ -567,17 +277,24 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .cart-item { display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; animation: fadeUp 0.4s var(--apple-ease); }
 .cart-item img { width: 70px; height: 90px; object-fit: cover; border-radius: 4px; }
 .remove-item { color: #c00; font-size: 11px; cursor: pointer; text-decoration: underline; margin-top: 5px; display: inline-block; }
+.promo-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.promo-input-group { display: flex; gap: 5px; }
+.promo-input { flex: 1; padding: 12px; border: 1px solid #ddd; font-family: 'Inter'; }
+.promo-btn { padding: 0 20px; background: #222; color: #fff; border: none; font-size: 12px; text-transform: uppercase; }
+.promo-msg { font-size: 11px; margin-top: 5px; font-weight: 600; display: none; }
+.promo-msg.error { color: #d32f2f; display: block; animation: shake 0.3s; }
+.promo-msg.success { color: #2e7d32; display: block; }
+.cart-summary-row { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 10px; }
+.checkout-btn { width: 100%; padding: 16px; background: #111; color: #fff; border: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 15px; }
 
-/* Checkout Modal */
 .checkout-modal { background: #fff; width: 95%; max-width: 600px; padding: 30px; border-radius: 8px; position: relative; max-height: 90vh; overflow-y: auto; animation: popIn 0.5s var(--apple-ease); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
 .form-group { margin-bottom: 15px; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; font-family: 'Inter'; font-size: 14px; border-radius: 4px; }
 .payment-methods { display: flex; gap: 10px; margin-bottom: 20px; }
-.pay-option { flex: 1; padding: 15px; border: 1px solid #ddd; text-align: center; cursor: pointer; font-size: 13px; font-weight: 600; border-radius: 4px; }
+.pay-option { flex: 1; padding: 15px; border: 1px solid #ddd; text-align: center; cursor: pointer; font-size: 13px; font-weight: 600; transition: 0.2s; border-radius: 4px; }
 .pay-option.active { border-color: #000; background: #f9f9f9; transform: scale(1.02); }
-.confirm-order-btn { width: 100%; padding: 16px; background: #27ae60; color: #fff; border: none; font-weight: 700; text-transform: uppercase; border-radius: 4px; cursor: pointer; }
+.confirm-order-btn { width: 100%; padding: 16px; background: #27ae60; color: #fff; border: none; font-weight: 700; text-transform: uppercase; border-radius: 4px; }
 
-/* Search Box */
 .search-overlay { align-items: flex-start; padding-top: 100px; z-index: 3002; }
 .search-box { background: #fff; width: 600px; max-width: 90%; padding: 30px; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); animation: fadeUp 0.5s var(--apple-ease); }
 .search-input { width: 100%; padding: 15px; font-size: 18px; border: none; border-bottom: 2px solid #eee; outline: none; font-family: 'Inter'; }
@@ -589,15 +306,15 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 .text-page { display: none; padding: 120px 60px 60px; max-width: 900px; margin: 0 auto; min-height: 80vh; }
 .text-page h1 { font-family: 'Cinzel', serif; font-size: 40px; margin-bottom: 30px; text-align: center; }
 .text-page p, .text-page li { font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 15px; }
+.text-page ul { list-style: disc; padding-left: 20px; margin-bottom: 20px; }
 
-/* Fixed Size Modal */
-.modal-content { background: #fff; width: 90%; max-width: 550px; border-radius: 8px; overflow: hidden; animation: popIn 0.4s var(--apple-ease); position: relative; }
+.modal-content { background: #fff; width: 90%; max-width: 550px; border-radius: 8px; overflow: hidden; animation: popIn 0.4s var(--apple-ease); position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+.modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
 .room-container { position: relative; width: 100%; padding-bottom: 75%; background: url('mmm.jpg') no-repeat center center; background-size: cover; background-color: #f5f5f5; }
 .frame-preview { position: absolute; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.4); top: 25%; left: 50%; transform: translate(-50%, -50%); border: 4px solid #222; width: 12%; aspect-ratio: 3/4; transition: all 0.6s var(--apple-ease); }
 .frame-preview.s30x40 { width: 12%; } .frame-preview.s40x60 { width: 18%; aspect-ratio: 2/3; } .frame-preview.s60x90 { width: 25%; aspect-ratio: 2/3; }
 .modal-controls { padding: 20px; text-align: center; background: #fff; }
 
-/* WELCOME POPUP */
 .promo-modal { background: #fff; padding: 50px 40px; text-align: center; max-width: 450px; position: relative; border-radius: 8px; animation: popIn 0.6s var(--apple-ease); box-shadow: 0 30px 60px rgba(0,0,0,0.25); }
 .promo-code-display { background: #f4f4f4; border: 1px dashed #333; color: var(--accent); padding: 15px; font-size: 24px; font-weight: 700; letter-spacing: 2px; margin: 25px 0; display: inline-block; width: 100%; border-radius: 4px; }
 .close-icon { font-size: 28px; cursor: pointer; color: #999; border: none; background: none; transition: 0.3s; }
@@ -622,14 +339,13 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 
 <div class="announcement-bar"><div class="announcement-content">✨ FREE SHIPPING ON ORDERS OVER 1500 EGP &nbsp; • &nbsp; USE CODE: <strong>FRIST10</strong> FOR 10% OFF &nbsp; • &nbsp; PREMIUM WALL ART</div></div>
 
-<div class="overlay-bg active" id="welcomePopup">
+<div class="overlay-bg active" id="promoPopup">
   <div class="promo-modal">
-    <button class="close-icon" onclick="document.getElementById('welcomePopup').classList.remove('active')">×</button>
+    <button class="close-icon" onclick="document.getElementById('promoPopup').classList.remove('active')">×</button>
     <h2 style="font-family:'Cinzel',serif;margin-bottom:15px;font-size:32px;">Welcome Gift</h2>
     <p style="color:#666;line-height:1.6;margin-bottom:20px;">Join the Le Tableau family and get 10% off your first purchase.</p>
     <div class="promo-code-display">Frist10</div>
-    <p style="font-size:12px; color:#777; margin-top:10px;">Want more? Subscribe to our newsletter below for 15% OFF!</p>
-    <button class="add-btn" onclick="document.getElementById('welcomePopup').classList.remove('active')">Start Shopping</button>
+    <button class="add-btn" onclick="document.getElementById('promoPopup').classList.remove('active')">Start Shopping</button>
   </div>
 </div>
 
@@ -667,8 +383,13 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
 
 <div class="cart-overlay-bg" id="cartOverlay"></div>
 <div class="cart-drawer" id="cartDrawer">
-  <div class="cart-header"><h3 style="font-family:'Cinzel',serif;">Shopping Cart</h3><span class="close-icon" id="closeCartBtn" style="font-size:24px;">×</span></div>
-  <div class="cart-items" id="cartItemsContainer"><div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your cart is empty.</div></div>
+  <div class="cart-header">
+    <h3 style="font-family:'Cinzel',serif;">Shopping Cart</h3>
+    <span class="close-icon" id="closeCartBtn" style="font-size:24px;">×</span>
+  </div>
+  <div class="cart-items" id="cartItemsContainer">
+    <div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your cart is empty.</div>
+  </div>
   <div class="cart-footer">
     <div class="promo-row">
       <div class="promo-input-group"><input type="text" id="promoInput" class="promo-input" placeholder="Promo Code"><button id="applyPromoBtn" class="promo-btn">Apply</button></div>
@@ -706,13 +427,35 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
       <button class="btn" onclick="openCollection('Shop All')">Explore Collections</button>
     </div>
   </div>
-  <section><h2>Our Collections</h2><div class="categories"><div class="cat modern" onclick="openCollection('Modern')"><span>Modern</span></div><div class="cat islamic" onclick="openCollection('Islamic')"><span>Islamic</span></div><div class="cat games" onclick="openCollection('Games')"><span>Games & Other</span></div><div class="cat quotes" onclick="openCollection('Quotes')"><span>Quotes & Posters</span></div></div></section>
-  <section class="about"><h2>The Philosophy</h2><p>At Le Tableau, we believe walls are the silent storytellers of a home. We don't just sell frames; we curate emotions.</p></section>
-  <div class="trust-strip"><div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/709/709790.png"><div class="trust-text"><h5>Fast Shipping</h5><p>3-5 Days Delivery</p></div></div><div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/2331/2331923.png"><div class="trust-text"><h5>Secure Payment</h5><p>100% Protected</p></div></div><div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"><div class="trust-text"><h5>Premium Quality</h5><p>Museum Grade Ink</p></div></div></div>
+
+  <section>
+    <h2>Our Collections</h2>
+    <div class="categories">
+      <div class="cat modern" onclick="openCollection('Modern')"><span>Modern</span></div>
+      <div class="cat islamic" onclick="openCollection('Islamic')"><span>Islamic</span></div>
+      <div class="cat games" onclick="openCollection('Games')"><span>Games & Other</span></div>
+      <div class="cat quotes" onclick="openCollection('Quotes')"><span>Quotes & Posters</span></div>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2>The Philosophy</h2>
+    <p>At Le Tableau, we believe walls are the silent storytellers of a home. We don't just sell frames; we curate emotions. Every piece is crafted with meticulous attention to detail.</p>
+  </section>
+
+  <div class="trust-strip">
+    <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/709/709790.png"><div class="trust-text"><h5>Fast Shipping</h5><p>3-5 Days Delivery</p></div></div>
+    <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/2331/2331923.png"><div class="trust-text"><h5>Secure Payment</h5><p>100% Protected</p></div></div>
+    <div class="trust-item"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"><div class="trust-text"><h5>Premium Quality</h5><p>Museum Grade Ink</p></div></div>
+  </div>
 </div>
 
 <div id="collection-page" class="page-section">
-  <div class="collection-header"><a class="back-btn" onclick="goHome()">← Back to Home</a><h1 id="collectionTitle">Shop All</h1><p>Hand-picked pieces for the discerning collector</p></div>
+  <div class="collection-header">
+    <a class="back-btn" onclick="goHome()">← Back to Home</a>
+    <h1 id="collectionTitle">Shop All</h1>
+    <p>Hand-picked pieces for the discerning collector</p>
+  </div>
   <div class="grid" id="productGrid"></div>
 </div>
 <div id="product-page" class="page-section">
@@ -720,32 +463,41 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
     <div class="product-image"><img id="productImage" src=""></div>
     <div class="product-info">
       <a class="back-btn" id="backToCollBtn">← Back to Collection</a>
+      
       <div class="product-review-header" id="reviewContainer"></div>
+
       <h2 id="productTitle">Artwork Name</h2>
       <p class="short-desc">This premium artwork is printed on museum-grade paper, ensuring depth and clarity that lasts a lifetime.</p>
+      
       <div class="sale-banner-strip"><span>40% OFF SITEWIDE - ENDS IN <span id="timer">15H : 42M : 44S</span></span></div>
+      
       <div class="price-container">
         <span class="current-price">Starts from 450 EGP</span>
         <span class="original-price">650 EGP</span>
         <span class="sale-badge">SALE - 30% OFF</span>
       </div>
+      
       <div class="shipping-estimator"><span class="green-dot"></span> <span id="deliveryDateText">Order Today & Get It By...</span></div>
+      
       <span class="option-label">Select Size</span>
       <div class="sizes">
         <div class="size active" onclick="selectSize(this)">30x40 CM</div>
         <div class="size" onclick="selectSize(this)">40x60 CM</div>
         <div class="size" onclick="selectSize(this)">60x90 CM</div>
       </div>
+
       <span class="option-label">Frame Option</span>
       <div class="frames">
         <div class="frame-opt active" onclick="selectFrame(this)">No Frame</div>
         <div class="frame-opt" onclick="selectFrame(this)">Frame</div>
       </div>
+      
       <button id="openSizeGuide" class="size-guide-btn"><img src="https://cdn-icons-png.flaticon.com/512/3300/3300959.png">View Size Guide (In Room)</button>
       <button id="addToCartBtn" class="add-btn">Add to Cart</button>
       <button id="buyNowBtn" class="buy-now-btn">Buy It Now</button>
     </div>
   </div>
+
   <div class="details-section">
     <h3 class="details-title">The Craftsmanship</h3>
     <div class="details-text-block">
@@ -759,6 +511,7 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
       <div class="feature-box"><span class="feature-icon">🛡️</span><h4>Warranty</h4><p>1 Year.</p></div>
     </div>
   </div>
+  
   <div class="rec-container">
     <div class="rec-header"><h3>Curated For You</h3></div>
     <button class="slide-nav-btn prev-btn" onclick="moveSlide(-1)">&#10094;</button>
@@ -767,28 +520,102 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   </div>
 </div>
 
-<div id="privacy-page" class="text-page page-section">
+<div id="privacy-page" class="text-page">
   <h1>Privacy Policy</h1>
   <p>Last updated: December 2024</p>
-  <p>This Privacy Policy describes how Le Tableau collects, uses, and discloses your personal information when you visit, use our services, or make a purchase from letableau.com or otherwise communicate with us.</p>
+  <p>This Privacy Policy describes how Le Tableau (the "Site", "we", "us", or "our") collects, uses, and discloses your personal information when you visit, use our services, or make a purchase from letableau.com (the "Site") or otherwise communicate with us (collectively, the "Services"). For purposes of this Privacy Policy, "you" and "your" means you as the user of the Services, whether you are a customer, website visitor, or another individual whose information we have collected pursuant to this Privacy Policy.</p>
+  <p>Please read this Privacy Policy carefully. By using and accessing any of the Services, you agree to the collection, use, and disclosure of your information as described in this Privacy Policy. If you do not agree to this Privacy Policy, please do not use or access any of the Services.</p>
+  <h3>Changes to This Privacy Policy</h3>
+  <p>We may update this Privacy Policy from time to time, including to reflect changes to our practices or for other operational, legal, or regulatory reasons. We will post the revised Privacy Policy on the Site, update the "Last updated" date and take any other steps required by applicable law.</p>
+  <h3>How We Collect and Use Your Personal Information</h3>
+  <p>To provide the Services, we collect and have collected over the past 12 months personal information about you from a variety of sources, as set out below. The information that we collect and use varies depending on how you interact with us.</p>
+  <p>In addition to the specific uses set out below, we may use information we collect about you to communicate with you, provide the Services, comply with any applicable legal obligations, enforce any applicable terms of service, and to protect or defend the Services, our rights, and the rights of our users or others.</p>
+  <h3>What Personal Information We Collect</h3>
+  <p>The types of personal information we obtain about you depends on how you interact with our Site and use our Services. When we use the term "personal information", we are referring to information that identifies, relates to, describes or can be associated with you. The following sections describe the categories and specific types of personal information we collect.</p>
+  <h3>Information We Collect Directly from You</h3>
+  <p>Information that you directly submit to us through our Services may include:</p>
+  <ul>
+    <li>Basic contact details including your name, address, phone number, email.</li>
+    <li>Order information including your name, billing address, shipping address, payment confirmation, email address, phone number.</li>
+    <li>Account information including your username, password, security questions.</li>
+    <li>Shopping information including the items you view, put in your cart or add to your wishlist.</li>
+    <li>Customer support information including the information you choose to include in communications with us, for example, when sending a message through the Services.</li>
+  </ul>
   <h3>Security and Fraud Prevention</h3>
-  <p>We use your personal information to detect, investigate or take action regarding possible fraudulent, illegal or malicious activity. If you choose to use the Services and register an account, you are responsible for keeping your account credentials safe.</p>
+  <p>We use your personal information to detect, investigate or take action regarding possible fraudulent, illegal or malicious activity. If you choose to use the Services and register an account, you are responsible for keeping your account credentials safe. We highly recommend that you do not share your username, password, or other access details with anyone else. If you believe your account has been compromised, please contact us immediately.</p>
   <h3>Contact</h3>
-  <p>Should you have any questions about our privacy practices or this Privacy Policy, please email us at support@letableau.com</p>
+  <p>Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to exercise any of the rights available to you, please email us at support@letableau.com</p>
 </div>
 
-<div id="refund-page" class="text-page page-section">
+<div id="refund-page" class="text-page">
   <h1>Refund Policy</h1>
-  <p>Items must be returned within 30 days of the delivery date. To be eligible for a refund, items must be in their original condition, unused, and in their original packaging.</p>
-  <h3>Custom Posters</h3>
-  <p>Please note that custom posters are non-refundable, due to the personalized nature of custom prints. Once an order for custom album prints has been placed and production has begun, it cannot be canceled.</p>
+  <p>At Le Tableau, we strive to ensure that you are completely satisfied with your purchase. Please read our refund policy carefully to understand your options in case you need to return an item.</p>
+  <h3>Eligibility for Refund:</h3>
+  <ul>
+    <li>Items must be returned within 30 days of the delivery date.</li>
+    <li>To be eligible for a refund, items must be in their original condition, unused, and in their original packaging.</li>
+  </ul>
+  <h3>Custom Posters:</h3>
+  <p>Please note that custom posters, including personalized and customized items, are non-refundable, due to the personalized nature of custom prints. Once an order for custom album prints has been placed and production has begun, it cannot be canceled, returned, or refunded. We recommend reviewing custom orders carefully before submitting them.</p>
+  <h3>Returns Process:</h3>
+  <p>To initiate a return, please contact our customer support team at support@letableau.com within 30 days of receiving your order.</p>
+  <p>Provide your order number and a brief description of the reason for the return.</p>
+  <p>Our customer support team will provide you with instructions on how to return the item(s).</p>
+  <h3>Return Shipping:</h3>
+  <p>Customers are responsible for the cost of return shipping unless the return is due to an error on our part or a defective item.</p>
+  <p>We recommend using a trackable shipping method and retaining proof of postage for your records.</p>
+  <h3>Refund Processing:</h3>
+  <p>Once we receive the returned item(s) and inspect their condition, we will process the refund.</p>
+  <p>Refunds will be issued to the original payment method used for the purchase.</p>
+  <p>Please allow a reasonable processing time for the refund to appear in your account.</p>
+  <h3>Exchanges:</h3>
+  <p>We do not offer direct exchanges. If you wish to exchange an item, you will need to return the original item for a refund and place a new order for the desired item.</p>
+  <h3>Damaged or Defective Items:</h3>
+  <p>If you receive a damaged or defective item, please contact us immediately with photos of the item and packaging. We will arrange for a replacement. Please note that orders arriving damaged are eligible for a free replacement only. Refunds are not provided for damaged items.</p>
+  <h3>Contact Us:</h3>
+  <p>If you have any questions or need assistance with a return or refund, please reach out to our customer support team at support@letableau.com. We are here to help.</p>
+  <p>Le Tableau reserves the right to amend this refund policy as needed. We recommend reviewing our refund policy periodically for any updates or changes.</p>
+  <p>Last Updated: February 2026</p>
 </div>
 
-<div id="shipping-page" class="text-page page-section">
+<div id="shipping-page" class="text-page">
   <h1>Shipping Policy</h1>
-  <p>Cairo & Alexandria: 2–3 business days. Delta & Canal Cities: 3–4 business days. Upper Egypt: 5–7 business days. Rest of Governorates: 6–12 business days.</p>
+  <p>At Le Tableau, every poster is made to order using premium materials and shipped with care. Below is our full shipping policy so you know exactly what to expect when ordering from us.</p>
+  <p>Holiday Shipping Notice: While we do our best to deliver orders as quickly as possible, orders placed after February 14, 2026 may not arrive before holidays due to increased courier demand.</p>
+  <h3>Order Processing</h3>
+  <p>All orders are processed within 24 hours.</p>
+  <p>Once your order is printed, framed (if selected), and packaged, you will receive a tracking link via email.</p>
+  <p>Please note: Orders placed during high-volume periods (Black Friday, Holidays, etc.) may require slightly more time to process.</p>
+  <h3>Shipping Times</h3>
+  <p>We ship inside Egypt. Estimated delivery windows:</p>
+  <ul>
+    <li>Cairo & Alexandria: 2–3 business days</li>
+    <li>Delta & Canal Cities: 3–4 business days</li>
+    <li>Upper Egypt: 5–7 business days</li>
+    <li>Rest of Governorates: 6–12 business days</li>
+  </ul>
+  <p>Timeframes may vary slightly based on destination and local carrier delays.</p>
+  <h3>Shipping Costs</h3>
+  <p>Shipping costs are calculated at checkout based on your region and the products in your cart. Free-shipping promotions (when applicable) will be clearly displayed on the site.</p>
+  <h3>Order Tracking</h3>
+  <p>As soon as your order ships, you will receive a tracking email. Tracking may take 24–48 hours to update depending on the carrier. If your tracking shows no updates after 3 business days, feel free to contact us.</p>
+  <h3>Incorrect Address Policy</h3>
+  <p>Le Tableau is not responsible for orders shipped to an address entered incorrectly at checkout. If you made a mistake, please contact us within 24 hours of placing your order so we can attempt to correct it before production begins.</p>
   <h3>Damaged or Lost Orders</h3>
-  <p>If your order arrives damaged or is lost in transit, we will replace it free of charge. Please email us with your order number and photos.</p>
+  <p>If your order arrives damaged or is lost in transit, we will replace it free of charge.</p>
+  <p>Please email us with:</p>
+  <ul>
+    <li>Your order number</li>
+    <li>Photos of the damage (if applicable)</li>
+    <li>A brief description of the issue</li>
+  </ul>
+  <p>We will resolve it as quickly as possible.</p>
+  <h3>Returns & Exchanges</h3>
+  <p>All orders placed during the holiday season are eligible for returns until January 15.</p>
+  <p>Standard return policy: Returns accepted within 30 days of delivery for unused, unopened items.</p>
+  <p>(Custom prints are not eligible for return unless damaged.)</p>
+  <h3>Questions?</h3>
+  <p>If you need support with your order, tracking, or anything else, contact us anytime at: support@letableau.com</p>
 </div>
 
 <div class="overlay-bg" id="sizeModal" onclick="document.getElementById('sizeModal').style.display='none'">
@@ -849,12 +676,13 @@ let selectedPayment = 'COD';
 // --- INIT ---
 window.addEventListener("load",()=>{ 
   const hero=document.querySelector(".hero-content"); if(hero) hero.style.opacity = '1';
-  setTimeout(() => { document.getElementById('welcomePopup').classList.add('active'); }, 3500); 
+  setTimeout(() => { document.getElementById('promoPopup').classList.add('active'); }, 3500); 
   generateSlider();
 });
 
 // --- NAVIGATION & ANIMATION (REFLOW) ---
 function showSection(id) {
+  // Hide all sections
   document.querySelectorAll('.page-section, .text-page, #main-page, #collection-page, #product-page').forEach(el => el.style.display = 'none');
   const target = document.getElementById(id);
   if(target) {
@@ -880,7 +708,7 @@ function openCollection(name) {
   list.forEach(p => {
     const card = document.createElement('div');
     card.className = "card";
-    card.innerHTML = `<div class="card-badge">30% OFF</div><div class="card-img-wrap"><img src="${p.i}" onclick="openProduct('${p.t}', '${p.i}')"><div class="quick-add-btn" onclick="event.stopPropagation(); quickAdd('${p.t}', '${p.i}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div></div><div class="card-content"><h4>${p.t}</h4><div class="price">Starts from 450 EGP <span class="old">650 EGP</span></div></div>`;
+    card.innerHTML = `<div class="card-badge">30% OFF</div><div class="card-img-wrap"><img src="${p.i}" onclick="openProduct('${p.t}', '${p.i}')"><div class="quick-add-btn" onclick="event.stopPropagation(); quickAdd('${p.t}', '${p.i}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div></div><div class="card-content"><h4>${p.t}</h4><div class="price">Starts from 450 EGP <span class="old">650 EGP</span></div></div>`;
     grid.appendChild(card);
   });
   showSection('collection-page');
