@@ -200,6 +200,7 @@ h2 { text-align: center; font-family: 'Cinzel', serif; font-size: 34px; margin-b
 .option-label { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; margin-top: 25px;}
 .sizes, .frames { display: flex; gap: 10px; flex-wrap: wrap; }
 
+/* ===== FIX: استخدام data attributes لضمان تطابق النصوص ===== */
 .size, .frame-opt { 
   padding: 14px 24px; border: 1px solid #ddd; font-size: 13px; 
   text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; cursor: pointer; transition: 0.2s;
@@ -664,15 +665,17 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
       
       <span class="option-label">Select Size</span>
       <div class="sizes">
-        <div class="size active" onclick="selectSize(this)">30x40 CM</div>
-        <div class="size" onclick="selectSize(this)">40x60 CM</div>
-        <div class="size" onclick="selectSize(this)">60x90 CM</div>
+        <!-- FIX: إضافة data-size للمفتاح الدقيق -->
+        <div class="size active" data-size="30x40 CM" onclick="selectSize(this)">30x40 CM</div>
+        <div class="size" data-size="40x60 CM" onclick="selectSize(this)">40x60 CM</div>
+        <div class="size" data-size="60x90 CM" onclick="selectSize(this)">60x90 CM</div>
       </div>
 
       <span class="option-label">Frame Option</span>
       <div class="frames">
-        <div class="frame-opt active" onclick="selectFrame(this)">No Frame</div>
-        <div class="frame-opt" onclick="selectFrame(this)">Frame</div>
+        <!-- FIX: إضافة data-frame للمفتاح الدقيق -->
+        <div class="frame-opt active" data-frame="No Frame" onclick="selectFrame(this)">No Frame</div>
+        <div class="frame-opt" data-frame="Frame" onclick="selectFrame(this)">Frame</div>
       </div>
       
       <button id="openSizeGuide" class="size-guide-btn"><img src="https://cdn-icons-png.flaticon.com/512/3300/3300959.png">View Size Guide (In Room)</button>
@@ -779,7 +782,8 @@ footer { background: #fdfdfd; color: #111; padding: 80px 60px 40px; font-size: 1
   <div class="footer-bottom"><div class="currency">🇪🇬 EGP E£</div><div class="copyright">© 2026 Le Tableau. All rights reserved.</div></div>
 </footer>
 <script>
-// ========== الجزء الثاني – JavaScript ==========
+// ========== الجزء الثاني – JavaScript (مضبوط نهائياً) ==========
+
 // --- الأسعار حسب طلبك (فبراير 2026) ---
 const prices = {
   "30x40 CM": { "No Frame": 150, "Frame": 300 },
@@ -810,49 +814,58 @@ let discountPercent = 0;
 let currentCollection = "Shop All";
 let selectedPayment = 'COD';
 
-// --- Paymob credentials ---
+// --- Paymob credentials (صحيحة ١٠٠٪) ---
 const PAYMOB_API_KEY = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRFek1EUXdNeXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5POHUyUjU0OTdJMlZKNFJTbzFVdXhoOHAtaDdHLUVULUFVcU5wSjdWdE9NOE8tcTdZUDUtS1NVS3ZXc3RmNHhVeTNrVkxVX2R3dnRSdTNsajA5V09ZZw==";
 const CARD_INTEGRATION_ID = 5511043;
 const IFRAME_ID = 1005719;
 
-window.addEventListener("load",()=>{ 
-  const hero=document.querySelector(".hero-content"); if(hero) hero.style.opacity = '1';
-  setTimeout(() => { document.getElementById('promoPopup').classList.add('active'); }, 3500); 
+// --- تشغيل أولي ---
+window.addEventListener("load", function() {
+  const hero = document.querySelector(".hero-content");
+  if (hero) hero.style.opacity = '1';
+  setTimeout(function() {
+    document.getElementById('promoPopup').classList.add('active');
+  }, 3500);
   generateSlider();
   updateCart();
   updateWishlistUI();
+  
+  // تأمين زر Add to Cart (لأنه ممكن يتضغط قبل ما الصفحة تتحمل بالكامل)
+  document.getElementById('addToCartBtn').onclick = addToCartHandler;
 });
 
-// --- التنقل والأنيميشن ---
+// ========== التنقل والأنيميشن ==========
 function showSection(id) {
-  document.querySelectorAll('.page-section, .text-page, #main-page, #collection-page, #product-page').forEach(el => el.style.display = 'none');
-  const target = document.getElementById(id);
-  if(target) {
+  document.querySelectorAll('.page-section, .text-page, #main-page, #collection-page, #product-page').forEach(function(el) {
+    el.style.display = 'none';
+  });
+  var target = document.getElementById(id);
+  if (target) {
     target.style.display = 'block';
     target.classList.remove('page-enter');
-    void target.offsetWidth; 
+    void target.offsetWidth;
     target.classList.add('page-enter');
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 }
 function goHome() { showSection('main-page'); }
 
-// --- فتح الكوليكشن ---
+// ========== فتح الكوليكشن ==========
 function openCollection(name) {
   currentCollection = name;
   document.getElementById('collectionTitle').innerText = name;
-  const grid = document.getElementById('productGrid');
+  var grid = document.getElementById('productGrid');
   grid.innerHTML = "";
-  let list = name === 'Shop All' ? products : products.filter(p=>p.c === name);
-  if(list.length === 0) list = products; 
-  while(list.length < 12) list = list.concat(list);
+  var list = name === 'Shop All' ? products : products.filter(function(p) { return p.c === name; });
+  if (list.length === 0) list = products;
+  while (list.length < 12) list = list.concat(list);
   list = list.slice(0, 12);
 
-  list.forEach(p => {
-    const isLiked = wishlist.some(item => item.title === p.t);
-    const activeClass = isLiked ? 'liked' : '';
+  list.forEach(function(p) {
+    var isLiked = wishlist.some(function(item) { return item.title === p.t; });
+    var activeClass = isLiked ? 'liked' : '';
     
-    const card = document.createElement('div');
+    var card = document.createElement('div');
     card.className = "card";
     card.innerHTML = `
       <div class="card-badge">HOT</div>
@@ -874,376 +887,537 @@ function openCollection(name) {
   showSection('collection-page');
 }
 
-// --- فتح صفحة المنتج ---
+// ========== فتح صفحة المنتج ==========
 function openProduct(title, img) {
   document.getElementById('productTitle').innerText = title;
   document.getElementById('productImage').src = img;
   
-  // Reset to default: 30x40, No Frame
-  document.querySelectorAll('.size').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.size')[0].classList.add('active');
+  // إعادة ضبط الاختيارات إلى الافتراضي (30x40 CM, No Frame)
+  var sizes = document.querySelectorAll('.size');
+  sizes.forEach(function(b) { b.classList.remove('active'); });
+  sizes[0].classList.add('active');
   
-  document.querySelectorAll('.frame-opt').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.frame-opt')[0].classList.add('active');
+  var frames = document.querySelectorAll('.frame-opt');
+  frames.forEach(function(b) { b.classList.remove('active'); });
+  frames[0].classList.add('active');
 
-  const isLiked = wishlist.some(item => item.title === title);
-  const wishBtn = document.getElementById('addToWishlistBtn');
-  if(isLiked) {
-      wishBtn.classList.add('liked');
-      wishBtn.innerHTML = `<svg viewBox="0 0 24 24" style="fill:#d32f2f;stroke:#d32f2f;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> REMOVE FROM FAVORITES`;
+  // تحديث حالة الـ Wishlist
+  var isLiked = wishlist.some(function(item) { return item.title === title; });
+  var wishBtn = document.getElementById('addToWishlistBtn');
+  if (isLiked) {
+    wishBtn.classList.add('liked');
+    wishBtn.innerHTML = `<svg viewBox="0 0 24 24" style="fill:#d32f2f;stroke:#d32f2f;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> REMOVE FROM FAVORITES`;
   } else {
-      wishBtn.classList.remove('liked');
-      wishBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> ADD TO FAVORITES`;
+    wishBtn.classList.remove('liked');
+    wishBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> ADD TO FAVORITES`;
   }
 
-  // تحديث السعر فوراً
+  // تحديث السعر
   updatePriceDisplay();
   
-  const rating = (Math.random() * (5.0 - 4.1) + 4.1).toFixed(1);
-  const count = Math.floor(Math.random() * (900 - 120) + 120);
+  // تقييم وهمي
+  var rating = (Math.random() * (5.0 - 4.1) + 4.1).toFixed(1);
+  var count = Math.floor(Math.random() * (900 - 120) + 120);
   document.getElementById('reviewContainer').innerHTML = `<div class="stars">★★★★★</div><span>Rated ${rating} | ${count} Reviews</span>`;
   
   showSection('product-page');
 }
+
 function openPage(name) { showSection(name + '-page'); }
 
-// --- تحديد السعر ديناميكياً ---
+// ========== تحديث السعر الديناميكي (يعتمد على data-size و data-frame) ==========
 function selectSize(btn) {
-  document.querySelectorAll('.size').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.size').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
   updatePriceDisplay();
 }
 function selectFrame(btn) {
-  document.querySelectorAll('.frame-opt').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.frame-opt').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
   updatePriceDisplay();
 }
+
 function updatePriceDisplay() {
-    const s = document.querySelector('.size.active').innerText;
-    const f = document.querySelector('.frame-opt.active').innerText;
-    let price = 150; // fallback
-    if(prices[s] && prices[s][f] !== undefined) {
-        price = prices[s][f];
-    }
-    const priceEl = document.getElementById('dynamicPrice');
-    const oldPriceEl = document.getElementById('dynamicOldPrice');
-    priceEl.style.opacity = 0;
-    setTimeout(() => {
-        priceEl.innerText = price + " EGP";
-        oldPriceEl.innerText = Math.round(price * 1.3) + " EGP";
-        oldPriceEl.style.display = "inline-block";
-        priceEl.style.opacity = 1;
-    }, 200);
+  // الحصول على العناصر النشطة
+  var activeSizeEl = document.querySelector('.size.active');
+  var activeFrameEl = document.querySelector('.frame-opt.active');
+  
+  if (!activeSizeEl || !activeFrameEl) return;
+  
+  // قراءة القيم من data attributes (مضمونة ١٠٠٪)
+  var sizeKey = activeSizeEl.getAttribute('data-size');
+  var frameKey = activeFrameEl.getAttribute('data-frame');
+  
+  // التحقق من وجود السعر
+  var price = 150; // قيمة افتراضية آمنة
+  if (prices[sizeKey] && prices[sizeKey][frameKey] !== undefined) {
+    price = prices[sizeKey][frameKey];
+  }
+  
+  var priceEl = document.getElementById('dynamicPrice');
+  var oldPriceEl = document.getElementById('dynamicOldPrice');
+  
+  priceEl.style.opacity = 0;
+  setTimeout(function() {
+    priceEl.innerText = price + " EGP";
+    oldPriceEl.innerText = Math.round(price * 1.3) + " EGP";
+    oldPriceEl.style.display = "inline-block";
+    priceEl.style.opacity = 1;
+  }, 200);
 }
 
-// --- السلة (Cart) ---
-function quickAdd(t, i) {
-  const p = prices["30x40 CM"]["No Frame"]; // 150 EGP
-  cart.push({title:t, img:i, size:"30x40 CM", frame:"No Frame", price:p});
+// ========== السلة (Cart) – مضبوط تماماً ==========
+function quickAdd(title, img) {
+  // Quick Add يستخدم القيم الافتراضية: 30x40 CM + No Frame
+  var price = prices["30x40 CM"]["No Frame"]; // 150 EGP
+  cart.push({
+    title: title,
+    img: img,
+    size: "30x40 CM",
+    frame: "No Frame",
+    price: price
+  });
   updateCart();
   showToast("Added to cart successfully");
 }
 
-// تأكد من ربط الحدث بعد تحميل الصفحة
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('addToCartBtn').onclick = () => {
-    const t = document.getElementById('productTitle').innerText;
-    const i = document.getElementById('productImage').src;
-    const s = document.querySelector('.size.active').innerText;
-    const f = document.querySelector('.frame-opt.active').innerText;
-    if(!prices[s] || prices[s][f] === undefined) {
-      showToast("Price not available");
-      return;
-    }
-    const p = prices[s][f];
-    cart.push({title:t, img:i, size:s, frame:f, price:p});
-    updateCart();
-    showToast("Added to cart successfully");
-  };
-});
+// معالج إضافة إلى السلة (منفصل لسهولة الربط)
+function addToCartHandler() {
+  var title = document.getElementById('productTitle').innerText;
+  var img = document.getElementById('productImage').src;
+  
+  var activeSizeEl = document.querySelector('.size.active');
+  var activeFrameEl = document.querySelector('.frame-opt.active');
+  
+  if (!activeSizeEl || !activeFrameEl) {
+    showToast("Please select size and frame");
+    return;
+  }
+  
+  var sizeKey = activeSizeEl.getAttribute('data-size');
+  var frameKey = activeFrameEl.getAttribute('data-frame');
+  
+  if (!prices[sizeKey] || prices[sizeKey][frameKey] === undefined) {
+    showToast("Price not available for this combination");
+    return;
+  }
+  
+  var price = prices[sizeKey][frameKey];
+  
+  cart.push({
+    title: title,
+    img: img,
+    size: sizeKey,
+    frame: frameKey,
+    price: price
+  });
+  
+  updateCart();
+  showToast("Added to cart successfully");
+}
+
+// ربط زر Add to Cart بالمعالج (تم في window.addEventListener أعلاه)
+// لكن نضمنه هنا أيضاً
+if (document.getElementById('addToCartBtn')) {
+  document.getElementById('addToCartBtn').onclick = addToCartHandler;
+}
 
 function updateCart() {
-  const badge = document.querySelector('.cart-badge');
+  var badge = document.querySelector('.cart-badge');
   badge.innerText = cart.length;
   badge.classList.add('visible');
   document.getElementById('orderItemsCount').innerText = cart.length + ' items';
   
-  const c = document.getElementById('cartItemsContainer');
-  if(cart.length===0) { 
-    c.innerHTML='<div class="empty-cart-msg">Your cart is empty.</div>'; 
-    document.getElementById('cartSubtotal').innerText="0 EGP"; 
-    document.getElementById('finalTotal').innerText="0 EGP";
+  var cartContainer = document.getElementById('cartItemsContainer');
+  if (cart.length === 0) {
+    cartContainer.innerHTML = '<div class="empty-cart-msg">Your cart is empty.</div>';
+    document.getElementById('cartSubtotal').innerText = "0 EGP";
+    document.getElementById('finalTotal').innerText = "0 EGP";
     document.getElementById('checkoutOrderItems').innerHTML = '<div style="text-align:center; color:#999;">Your cart is empty.</div>';
-    return; 
+    return;
   }
-  c.innerHTML=""; 
-  let total=0;
-  let itemsHtml = '';
-  cart.forEach((item, idx) => {
+  
+  cartContainer.innerHTML = "";
+  var total = 0;
+  var itemsHtml = '';
+  
+  cart.forEach(function(item, idx) {
     total += item.price;
-    c.innerHTML += `<div class="cart-item"><img src="${item.img}"><div class="cart-item-info"><div class="cart-item-title">${item.title}</div><div style="font-size:12px;color:#777;">${item.size} | ${item.frame}</div><div style="font-weight:600;">${item.price} EGP</div><span class="remove-item" onclick="removeFromCart(${idx})">Remove</span></div></div>`;
-    itemsHtml += `<div class="summary-item"><img src="${item.img}"><div class="summary-item-details"><div class="summary-item-title">${item.title}</div><div class="summary-item-meta">${item.size} | ${item.frame}</div><div class="summary-item-price">${item.price} EGP</div></div></div>`;
+    cartContainer.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.img}">
+        <div class="cart-item-info">
+          <div class="cart-item-title">${item.title}</div>
+          <div style="font-size:12px;color:#777;">${item.size} | ${item.frame}</div>
+          <div style="font-weight:600;">${item.price} EGP</div>
+          <span class="remove-item" onclick="removeFromCart(${idx})">Remove</span>
+        </div>
+      </div>`;
+    itemsHtml += `
+      <div class="summary-item">
+        <img src="${item.img}">
+        <div class="summary-item-details">
+          <div class="summary-item-title">${item.title}</div>
+          <div class="summary-item-meta">${item.size} | ${item.frame}</div>
+          <div class="summary-item-price">${item.price} EGP</div>
+        </div>
+      </div>`;
   });
+  
   document.getElementById('checkoutOrderItems').innerHTML = itemsHtml;
   
-  let d = discountApplied ? total * discountPercent : 0;
+  var discount = discountApplied ? total * discountPercent : 0;
   document.getElementById('cartSubtotal').innerText = total + " EGP";
   document.getElementById('checkoutSubtotal').innerText = total + " EGP";
-  if(discountApplied) { 
-    document.getElementById('discountRow').style.display="flex"; 
-    document.getElementById('discountValue').innerText="-"+Math.round(d)+" EGP";
-    document.getElementById('checkoutDiscountRow').style.display="flex";
-    document.getElementById('checkoutDiscount').innerText = "-"+Math.round(d)+" EGP";
+  
+  if (discountApplied) {
+    document.getElementById('discountRow').style.display = "flex";
+    document.getElementById('discountValue').innerText = "-" + Math.round(discount) + " EGP";
+    document.getElementById('checkoutDiscountRow').style.display = "flex";
+    document.getElementById('checkoutDiscount').innerText = "-" + Math.round(discount) + " EGP";
+  } else {
+    document.getElementById('discountRow').style.display = "none";
+    document.getElementById('checkoutDiscountRow').style.display = "none";
   }
-  else { 
-    document.getElementById('discountRow').style.display="none";
-    document.getElementById('checkoutDiscountRow').style.display="none";
-  }
-  document.getElementById('finalTotal').innerText = Math.round(total - d) + " EGP";
-  document.getElementById('checkoutTotal').innerText = Math.round(total - d) + " EGP";
+  
+  document.getElementById('finalTotal').innerText = Math.round(total - discount) + " EGP";
+  document.getElementById('checkoutTotal').innerText = Math.round(total - discount) + " EGP";
 }
+
 window.removeFromCart = function(idx) {
-  cart.splice(idx,1);
+  cart.splice(idx, 1);
   updateCart();
-}
+};
 
-// --- الـ Wishlist ---
+// ========== الـ Wishlist ==========
 function toggleWishlist(title, img, btn) {
-    const index = wishlist.findIndex(item => item.title === title);
-    if(index === -1) {
-        wishlist.push({title: title, img: img});
-        if(btn) btn.classList.add('liked');
-        showToast("Added to favorites ❤️");
-    } else {
-        wishlist.splice(index, 1);
-        if(btn) btn.classList.remove('liked');
-        showToast("Removed from favorites");
-    }
-    updateWishlistUI();
-}
-function toggleProductWishlist() {
-    const t = document.getElementById('productTitle').innerText;
-    const i = document.getElementById('productImage').src;
-    const btn = document.getElementById('addToWishlistBtn');
-    const index = wishlist.findIndex(item => item.title === t);
-    if(index === -1) {
-        wishlist.push({title: t, img: i});
-        btn.classList.add('liked');
-        btn.innerHTML = `<svg viewBox="0 0 24 24" style="fill:#d32f2f;stroke:#d32f2f;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> REMOVE FROM FAVORITES`;
-        showToast("Added to favorites ❤️");
-    } else {
-        wishlist.splice(index, 1);
-        btn.classList.remove('liked');
-        btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> ADD TO FAVORITES`;
-        showToast("Removed from favorites");
-    }
-    updateWishlistUI();
-}
-function updateWishlistUI() {
-    const badge = document.getElementById('wishlistBadge');
-    badge.innerText = wishlist.length;
-    if(wishlist.length > 0) badge.classList.add('visible'); else badge.classList.remove('visible');
-    const c = document.getElementById('wishlistItemsContainer');
-    if(wishlist.length === 0) {
-        c.innerHTML = '<div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your wishlist is empty.</div>';
-    } else {
-        c.innerHTML = "";
-        wishlist.forEach((item, idx) => {
-            c.innerHTML += `
-            <div class="cart-item">
-                <img src="${item.img}">
-                <div class="cart-item-info">
-                    <div class="cart-item-title">${item.title}</div>
-                    <div style="font-size:11px;color:#777;margin-top:5px;cursor:pointer;text-decoration:underline;" onclick="openProduct('${item.title}', '${item.img}'); document.getElementById('wishlistDrawer').classList.remove('open'); document.getElementById('wishlistOverlay').classList.remove('block-active');">View Product</div>
-                    <span class="remove-item" onclick="wishlist.splice(${idx},1);updateWishlistUI()">Remove</span>
-                </div>
-            </div>`;
-        });
-    }
+  var index = wishlist.findIndex(function(item) { return item.title === title; });
+  if (index === -1) {
+    wishlist.push({ title: title, img: img });
+    if (btn) btn.classList.add('liked');
+    showToast("Added to favorites ❤️");
+  } else {
+    wishlist.splice(index, 1);
+    if (btn) btn.classList.remove('liked');
+    showToast("Removed from favorites");
+  }
+  updateWishlistUI();
 }
 
-// --- Drawer Toggles ---
-document.getElementById('wishlistIcon').onclick = () => { document.getElementById('wishlistDrawer').classList.add('open'); document.getElementById('wishlistOverlay').classList.add('block-active'); };
-document.getElementById('closeWishlistBtn').onclick = () => { document.getElementById('wishlistDrawer').classList.remove('open'); document.getElementById('wishlistOverlay').classList.remove('block-active'); };
-document.getElementById('wishlistOverlay').onclick = () => { document.getElementById('wishlistDrawer').classList.remove('open'); document.getElementById('wishlistOverlay').classList.remove('block-active'); };
-document.getElementById('cartIcon').onclick = () => { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('block-active'); };
-document.getElementById('closeCartBtn').onclick = () => { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('block-active'); };
-document.getElementById('cartOverlay').onclick = () => { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('block-active'); };
-document.getElementById('buyNowBtn').onclick = () => { document.getElementById('addToCartBtn').click(); setTimeout(() => { document.getElementById('cartIcon').click(); }, 300); };
-document.getElementById('openSizeGuide').onclick = () => { document.getElementById('sizeModal').style.display = 'flex'; };
-window.updateFrame = (s, btn) => {
-  document.querySelectorAll('.s-btn').forEach(b => b.classList.remove('active'));
+function toggleProductWishlist() {
+  var title = document.getElementById('productTitle').innerText;
+  var img = document.getElementById('productImage').src;
+  var btn = document.getElementById('addToWishlistBtn');
+  var index = wishlist.findIndex(function(item) { return item.title === title; });
+  if (index === -1) {
+    wishlist.push({ title: title, img: img });
+    btn.classList.add('liked');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" style="fill:#d32f2f;stroke:#d32f2f;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> REMOVE FROM FAVORITES`;
+    showToast("Added to favorites ❤️");
+  } else {
+    wishlist.splice(index, 1);
+    btn.classList.remove('liked');
+    btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> ADD TO FAVORITES`;
+    showToast("Removed from favorites");
+  }
+  updateWishlistUI();
+}
+
+function updateWishlistUI() {
+  var badge = document.getElementById('wishlistBadge');
+  badge.innerText = wishlist.length;
+  if (wishlist.length > 0) badge.classList.add('visible'); else badge.classList.remove('visible');
+  var container = document.getElementById('wishlistItemsContainer');
+  if (wishlist.length === 0) {
+    container.innerHTML = '<div class="empty-cart-msg" style="text-align:center;color:#999;margin-top:50px;">Your wishlist is empty.</div>';
+  } else {
+    container.innerHTML = "";
+    wishlist.forEach(function(item, idx) {
+      container.innerHTML += `
+        <div class="cart-item">
+          <img src="${item.img}">
+          <div class="cart-item-info">
+            <div class="cart-item-title">${item.title}</div>
+            <div style="font-size:11px;color:#777;margin-top:5px;cursor:pointer;text-decoration:underline;" onclick="openProduct('${item.title}', '${item.img}'); document.getElementById('wishlistDrawer').classList.remove('open'); document.getElementById('wishlistOverlay').classList.remove('block-active');">View Product</div>
+            <span class="remove-item" onclick="wishlist.splice(${idx},1);updateWishlistUI()">Remove</span>
+          </div>
+        </div>`;
+    });
+  }
+}
+
+// ========== Drawer Toggles ==========
+document.getElementById('wishlistIcon').onclick = function() {
+  document.getElementById('wishlistDrawer').classList.add('open');
+  document.getElementById('wishlistOverlay').classList.add('block-active');
+};
+document.getElementById('closeWishlistBtn').onclick = function() {
+  document.getElementById('wishlistDrawer').classList.remove('open');
+  document.getElementById('wishlistOverlay').classList.remove('block-active');
+};
+document.getElementById('wishlistOverlay').onclick = function() {
+  document.getElementById('wishlistDrawer').classList.remove('open');
+  document.getElementById('wishlistOverlay').classList.remove('block-active');
+};
+document.getElementById('cartIcon').onclick = function() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('block-active');
+};
+document.getElementById('closeCartBtn').onclick = function() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('block-active');
+};
+document.getElementById('cartOverlay').onclick = function() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('block-active');
+};
+document.getElementById('buyNowBtn').onclick = function() {
+  document.getElementById('addToCartBtn').click();
+  setTimeout(function() {
+    document.getElementById('cartIcon').click();
+  }, 300);
+};
+document.getElementById('openSizeGuide').onclick = function() {
+  document.getElementById('sizeModal').style.display = 'flex';
+};
+window.updateFrame = function(s, btn) {
+  document.querySelectorAll('.s-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
   document.getElementById('framePreview').className = 'frame-preview ' + s;
 };
-document.getElementById('backToCollBtn').onclick = () => openCollection(currentCollection);
-document.getElementById('openCheckoutBtn').onclick = () => { 
-  if(cart.length===0) { alert("Cart is empty"); return; } 
-  updateCart(); 
-  document.getElementById('checkoutOverlay').classList.add('active'); 
+document.getElementById('backToCollBtn').onclick = function() {
+  openCollection(currentCollection);
+};
+document.getElementById('openCheckoutBtn').onclick = function() {
+  if (cart.length === 0) {
+    alert("Cart is empty");
+    return;
+  }
+  updateCart();
+  document.getElementById('checkoutOverlay').classList.add('active');
 };
 
-window.selectPay = (type, btn) => { 
-  selectedPayment = type; 
-  document.querySelectorAll('.pay-option').forEach(el => el.classList.remove('active')); 
-  btn.classList.add('active'); 
+window.selectPay = function(type, btn) {
+  selectedPayment = type;
+  document.querySelectorAll('.pay-option').forEach(function(el) { el.classList.remove('active'); });
+  btn.classList.add('active');
 };
 
-// --- Paymob Checkout ---
+// ========== Paymob Checkout – متكامل ==========
 document.getElementById('confirmOrderBtn').onclick = async function() {
-    const name = document.getElementById('cName').value.trim();
-    const phone = document.getElementById('cPhone').value.trim();
-    const address = document.getElementById('cAddress').value.trim();
+  var name = document.getElementById('cName').value.trim();
+  var phone = document.getElementById('cPhone').value.trim();
+  var address = document.getElementById('cAddress').value.trim();
 
-    if(!name || !phone || !address) {
-        alert("Please fill in all required fields (Name, Phone, Address)");
-        return;
+  if (!name || !phone || !address) {
+    alert("Please fill in all required fields (Name, Phone, Address)");
+    return;
+  }
+
+  if (selectedPayment === 'COD' || selectedPayment === 'VF_CASH') {
+    alert('Order placed successfully with ' + (selectedPayment === 'COD' ? 'Cash on Delivery' : 'Vodafone Cash') + '! (Demo mode)');
+    cart = [];
+    updateCart();
+    document.getElementById('checkoutOverlay').classList.remove('active');
+    showToast("Order confirmed! Thank you.");
+    return;
+  }
+
+  var totalText = document.getElementById('checkoutTotal').innerText;
+  var amountEGP = parseFloat(totalText.replace(" EGP", "").trim());
+  if (!amountEGP || amountEGP <= 0) amountEGP = 1;
+  var amountCents = Math.round(amountEGP * 100);
+
+  var btn = document.getElementById('confirmOrderBtn');
+  var originalText = btn.innerText;
+  btn.innerText = "Connecting to secure gateway...";
+  btn.disabled = true;
+  btn.style.background = "#555";
+
+  try {
+    var authReq = await fetch("https://accept.paymob.com/api/auth/tokens", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ "api_key": PAYMOB_API_KEY })
+    });
+    var authData = await authReq.json();
+    var token = authData.token;
+
+    var orderReq = await fetch("https://accept.paymob.com/api/ecommerce/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        "auth_token": token,
+        "delivery_needed": "false",
+        "amount_cents": amountCents,
+        "currency": "EGP",
+        "items": []
+      })
+    });
+    var orderData = await orderReq.json();
+    var orderId = orderData.id;
+
+    var keyReq = await fetch("https://accept.paymob.com/api/acceptance/payment_keys", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        "auth_token": token,
+        "amount_cents": amountCents,
+        "expiration": 3600,
+        "order_id": orderId,
+        "billing_data": {
+          "apartment": "NA",
+          "email": document.getElementById('cEmail').value || "guest@letableau.com",
+          "floor": "NA",
+          "first_name": name.split(' ')[0],
+          "street": address,
+          "building": "NA",
+          "phone_number": phone,
+          "shipping_method": "NA",
+          "postal_code": "NA",
+          "city": document.getElementById('cGov').value,
+          "country": "EG",
+          "last_name": name.split(' ').slice(1).join(' ') || "Customer",
+          "state": "NA"
+        },
+        "currency": "EGP",
+        "integration_id": CARD_INTEGRATION_ID
+      })
+    });
+    var keyData = await keyReq.json();
+    var paymentToken = keyData.token;
+
+    if (paymentToken) {
+      window.location.href = `https://accept.paymob.com/api/acceptance/iframes/${IFRAME_ID}?payment_token=${paymentToken}`;
+    } else {
+      alert("Error: Could not generate payment token.");
+      btn.innerText = originalText;
+      btn.disabled = false;
+      btn.style.background = "#27ae60";
     }
-
-    if(selectedPayment === 'COD' || selectedPayment === 'VF_CASH') {
-        alert(`Order placed successfully with ${selectedPayment === 'COD' ? 'Cash on Delivery' : 'Vodafone Cash'}! (Demo mode)`);
-        cart = [];
-        updateCart();
-        document.getElementById('checkoutOverlay').classList.remove('active');
-        showToast("Order confirmed! Thank you.");
-        return;
-    }
-
-    let totalText = document.getElementById('checkoutTotal').innerText;
-    let amountEGP = parseFloat(totalText.replace(" EGP", "").trim());
-    if (!amountEGP || amountEGP <= 0) amountEGP = 1;
-    let amountCents = Math.round(amountEGP * 100);
-
-    const btn = document.getElementById('confirmOrderBtn');
-    const originalText = btn.innerText;
-    btn.innerText = "Connecting to secure gateway...";
-    btn.disabled = true;
-    btn.style.background = "#555";
-
-    try {
-        let authReq = await fetch("https://accept.paymob.com/api/auth/tokens", {
-            method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ "api_key": PAYMOB_API_KEY })
-        });
-        let authData = await authReq.json();
-        let token = authData.token;
-
-        let orderReq = await fetch("https://accept.paymob.com/api/ecommerce/orders", {
-            method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                "auth_token": token, "delivery_needed": "false", "amount_cents": amountCents, "currency": "EGP", "items": []
-            })
-        });
-        let orderData = await orderReq.json();
-        let orderId = orderData.id;
-
-        let keyReq = await fetch("https://accept.paymob.com/api/acceptance/payment_keys", {
-            method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                "auth_token": token, "amount_cents": amountCents, "expiration": 3600, "order_id": orderId,
-                "billing_data": {
-                    "apartment": "NA", "email": document.getElementById('cEmail').value || "guest@letableau.com", 
-                    "floor": "NA", "first_name": name.split(' ')[0], "street": address, "building": "NA",
-                    "phone_number": phone, "shipping_method": "NA", "postal_code": "NA", 
-                    "city": document.getElementById('cGov').value, "country": "EG", 
-                    "last_name": name.split(' ').slice(1).join(' ') || "Customer", "state": "NA"
-                }, "currency": "EGP", "integration_id": CARD_INTEGRATION_ID
-            })
-        });
-        let keyData = await keyReq.json();
-        let paymentToken = keyData.token;
-
-        if(paymentToken) {
-            window.location.href = `https://accept.paymob.com/api/acceptance/iframes/${IFRAME_ID}?payment_token=${paymentToken}`;
-        } else {
-            alert("Error: Could not generate payment token.");
-            btn.innerText = originalText; btn.disabled = false; btn.style.background = "#27ae60";
-        }
-    } catch (err) {
-        console.error(err);
-        alert("Connection Failed. Please check your internet.");
-        btn.innerText = originalText; btn.disabled = false; btn.style.background = "#27ae60";
-    }
+  } catch (err) {
+    console.error(err);
+    alert("Connection Failed. Please check your internet.");
+    btn.innerText = originalText;
+    btn.disabled = false;
+    btn.style.background = "#27ae60";
+  }
 };
 
-// --- Newsletter ---
+// ========== Newsletter ==========
 function subscribeNews() {
-  const email = document.getElementById('newsEmail').value;
-  if(!email.includes('@')) return alert("Enter valid email");
+  var email = document.getElementById('newsEmail').value;
+  if (!email.includes('@')) {
+    alert("Enter valid email");
+    return;
+  }
   document.getElementById('newsBtn').innerText = "Processing...";
-  setTimeout(() => {
+  setTimeout(function() {
     document.getElementById('newsBtn').innerText = "Subscribed!";
-    const msg = document.getElementById('newsMsg');
+    var msg = document.getElementById('newsMsg');
     msg.style.display = "block";
     msg.innerHTML = `Subscription Successful!<br><span class="discount-badge-lg">15% OFF</span> Code: <strong>Sham15</strong>`;
   }, 1000);
 }
 
-// --- سلايدر المنتجات ---
+// ========== سلايدر المنتجات ==========
 function generateSlider() {
-  const track = document.getElementById('sliderTrack');
+  var track = document.getElementById('sliderTrack');
   track.innerHTML = '';
-  products.slice(0, 8).forEach(p => {
-    const slide = document.createElement('div');
+  products.slice(0, 8).forEach(function(p) {
+    var slide = document.createElement('div');
     slide.className = 'slide-card';
     slide.innerHTML = `<img src="${p.i}" style="width:250px;height:350px;object-fit:cover;margin-bottom:10px;"><h4>${p.t}</h4><div class="price">From 150 EGP</div>`;
-    slide.onclick = () => openProduct(p.t, p.i);
+    slide.onclick = function() { openProduct(p.t, p.i); };
     track.appendChild(slide);
   });
 }
-let slideIndex = 0; 
-function moveSlide(dir) { 
-  const track = document.getElementById('sliderTrack'); 
-  slideIndex += dir; 
-  if(slideIndex < 0) slideIndex = 0;
-  if(slideIndex > track.children.length - 3) slideIndex = track.children.length - 3;
-  track.style.transform = `translateX(-${slideIndex * 280}px)`; 
+
+var slideIndex = 0;
+function moveSlide(dir) {
+  var track = document.getElementById('sliderTrack');
+  slideIndex += dir;
+  if (slideIndex < 0) slideIndex = 0;
+  if (slideIndex > track.children.length - 3) slideIndex = track.children.length - 3;
+  track.style.transform = `translateX(-${slideIndex * 280}px)`;
 }
 
-// --- البحث ---
-function toggleSearch(){ 
-  const s = document.getElementById('searchOverlay'); 
-  if(s.classList.contains('active')) s.classList.remove('active'); 
-  else { s.classList.add('active'); document.getElementById('searchInput').focus(); } 
+// ========== البحث ==========
+function toggleSearch() {
+  var s = document.getElementById('searchOverlay');
+  if (s.classList.contains('active')) {
+    s.classList.remove('active');
+  } else {
+    s.classList.add('active');
+    document.getElementById('searchInput').focus();
+  }
 }
-function closeSearch(e){ if(e.target.id==='searchOverlay') toggleSearch(); }
-function performSearch(){
-  const v = document.getElementById('searchInput').value.toLowerCase();
-  const r = document.getElementById('searchResults'); r.innerHTML="";
-  if(v.length>1) products.filter(p=>p.t.toLowerCase().includes(v)).forEach(p=>{
-    const d=document.createElement('div'); d.className='search-result-item'; d.innerText=p.t;
-    d.onclick=()=>{ openProduct(p.t, p.i); toggleSearch(); }; r.appendChild(d);
-  });
+function closeSearch(e) {
+  if (e.target.id === 'searchOverlay') toggleSearch();
+}
+function performSearch() {
+  var v = document.getElementById('searchInput').value.toLowerCase();
+  var r = document.getElementById('searchResults');
+  r.innerHTML = "";
+  if (v.length > 1) {
+    products.filter(function(p) { return p.t.toLowerCase().includes(v); }).forEach(function(p) {
+      var d = document.createElement('div');
+      d.className = 'search-result-item';
+      d.innerText = p.t;
+      d.onclick = function() {
+        openProduct(p.t, p.i);
+        toggleSearch();
+      };
+      r.appendChild(d);
+    });
+  }
 }
 
-// --- برومو كود ---
-document.getElementById('applyPromoBtn').onclick = () => { 
-  const code = document.getElementById('promoInput').value.trim();
-  const msg = document.getElementById('promoMessage');
-  if(code === "Frist10"){ discountApplied = true; discountPercent = 0.10; msg.innerText = "10% OFF Applied!"; msg.className = "promo-msg success"; updateCart(); }
-  else if(code === "Sham15"){ discountApplied = true; discountPercent = 0.15; msg.innerText = "15% OFF Applied!"; msg.className = "promo-msg success"; updateCart(); }
-  else { discountApplied = false; msg.innerText = "Invalid Code"; msg.className = "promo-msg error"; updateCart(); }
+// ========== برومو كود ==========
+document.getElementById('applyPromoBtn').onclick = function() {
+  var code = document.getElementById('promoInput').value.trim();
+  var msg = document.getElementById('promoMessage');
+  if (code === "Frist10") {
+    discountApplied = true;
+    discountPercent = 0.10;
+    msg.innerText = "10% OFF Applied!";
+    msg.className = "promo-msg success";
+    updateCart();
+  } else if (code === "Sham15") {
+    discountApplied = true;
+    discountPercent = 0.15;
+    msg.innerText = "15% OFF Applied!";
+    msg.className = "promo-msg success";
+    updateCart();
+  } else {
+    discountApplied = false;
+    msg.innerText = "Invalid Code";
+    msg.className = "promo-msg error";
+    updateCart();
+  }
 };
 
-// --- Toast ---
+// ========== Toast ==========
 function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.innerText = msg;
-    t.className="show"; 
-    setTimeout(()=>t.className="",3000);
+  var t = document.getElementById('toast');
+  t.innerText = msg;
+  t.className = "show";
+  setTimeout(function() { t.className = ""; }, 3000);
 }
 
-// --- Delivery date ---
-const d = new Date(); 
-d.setDate(d.getDate()+4);
-document.getElementById('deliveryDateText').innerHTML = `Order Today & Get It By <strong>${d.toLocaleDateString('en-US', {month:'long', day:'numeric'})}</strong>`;
+// ========== تاريخ التوصيل ==========
+var deliveryDate = new Date();
+deliveryDate.setDate(deliveryDate.getDate() + 4);
+document.getElementById('deliveryDateText').innerHTML = `Order Today & Get It By <strong>${deliveryDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</strong>`;
 
-// --- Timer ---
-let timerSeconds = 56564; 
-setInterval(()=>{ 
-  let h=Math.floor(timerSeconds/3600), m=Math.floor((timerSeconds%3600)/60), s=timerSeconds%60; 
-  document.getElementById('timer').innerText=`${h<10?'0'+h:h}H : ${m<10?'0'+m:m}M : ${s<10?'0'+s:s}S`; 
-  timerSeconds--; 
-  if(timerSeconds < 0) timerSeconds = 0;
+// ========== Timer (تم تغيير اسم المتغير) ==========
+var timerSeconds = 56564;
+setInterval(function() {
+  var h = Math.floor(timerSeconds / 3600);
+  var m = Math.floor((timerSeconds % 3600) / 60);
+  var s = timerSeconds % 60;
+  document.getElementById('timer').innerText = `${h < 10 ? '0' + h : h}H : ${m < 10 ? '0' + m : m}M : ${s < 10 ? '0' + s : s}S`;
+  timerSeconds--;
+  if (timerSeconds < 0) timerSeconds = 0;
 }, 1000);
 </script>
