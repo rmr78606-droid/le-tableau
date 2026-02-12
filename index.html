@@ -761,10 +761,116 @@ window.updateFrame = (s, btn) => {
 document.getElementById('openCheckoutBtn').onclick = () => { if(cart.length===0)return alert("Cart Empty"); document.getElementById('checkoutOverlay').classList.add('active'); }
 window.selectPay = (type, btn) => { selectedPayment = type; document.querySelectorAll('.pay-option').forEach(el => el.classList.remove('active')); btn.classList.add('active'); }
 window.submitOrder = () => {
-  const name = document.getElementById('cName').value;
-  if(!name) return alert("Fill details");
-  let msg = `*NEW ORDER*%0aName: ${name}%0aTotal: ${document.getElementById('finalTotal').innerText}`;
-  window.open(`https://wa.me/201000000000?text=${msg}`, '_blank');
+// ============================================
+// PAYMOB INTEGRATION (بياناتك الحقيقية)
+// ============================================
+
+// 1. المفاتيح السرية بتاعتك
+const PAYMOB_API_KEY = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRFek1EUXdNeXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5POHUyUjU0OTdJMlZKNFJTbzFVdXhoOHAtaDdHLUVULUFVcU5wSjdWdE9NOE8tcTdZUDUtS1NVS3ZXc3RmNHhVeTNrVkxVX2R3dnRSdTNsajA5V09ZZw==";
+const CARD_INTEGRATION_ID = 5511043; // Online Card ID
+const IFRAME_ID = 1005719; // شكل الشباك
+
+// 2. دالة الدفع (هتمسح القديمة وتحط دي مكانها)
+window.submitOrder = async function() {
+    const btn = document.querySelector('.confirm-order-btn'); // زرار التأكيد
+    
+    // بيانات العميل من الفورم
+    const name = document.getElementById('cName').value;
+    const phone = document.getElementById('cPhone').value;
+    const address = document.getElementById('cAddress').value;
+
+    // التأكد إن البيانات موجودة
+    if(!name || !phone || !address) {
+        alert("من فضلك أكمل جميع البيانات (الاسم، الهاتف، العنوان)");
+        return;
+    }
+
+    // حساب السعر وتحويله لقروش (عشان البنك بيحسب بالقرش)
+    let totalText = document.getElementById('finalTotal').innerText;
+    let amountEGP = parseFloat(totalText.replace(" EGP", "").trim());
+    let amountCents = amountEGP * 100; 
+
+    try {
+        // نغير شكل الزرار عشان العميل يعرف إنه بيحمل
+        let originalText = btn.innerText;
+        btn.innerText = "جاري الاتصال بالبنك...";
+        btn.disabled = true;
+        btn.style.background = "#555";
+
+        // --- الخطوة 1: تسجيل الدخول (Authentication) ---
+        let authReq = await fetch("https://accept.paymob.com/api/auth/tokens", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "api_key": PAYMOB_API_KEY })
+        });
+        let authData = await authReq.json();
+        let token = authData.token;
+
+        // --- الخطوة 2: تسجيل الطلب (Order Registration) ---
+        let orderReq = await fetch("https://accept.paymob.com/api/ecommerce/orders", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "auth_token": token,
+                "delivery_needed": "false",
+                "amount_cents": amountCents,
+                "currency": "EGP",
+                "items": [] 
+            })
+        });
+        let orderData = await orderReq.json();
+        let orderId = orderData.id;
+
+        // --- الخطوة 3: طلب مفتاح الدفع (Payment Key) ---
+        let keyReq = await fetch("https://accept.paymob.com/api/acceptance/payment_keys", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "auth_token": token,
+                "amount_cents": amountCents,
+                "expiration": 3600,
+                "order_id": orderId,
+                "billing_data": {
+                    "apartment": "NA", 
+                    "email": "customer@test.com", 
+                    "floor": "NA", 
+                    "first_name": name, 
+                    "street": address, 
+                    "building": "NA", 
+                    "phone_number": phone, 
+                    "shipping_method": "NA", 
+                    "postal_code": "NA", 
+                    "city": "Cairo", 
+                    "country": "EG", 
+                    "last_name": "Customer", 
+                    "state": "NA"
+                },
+                "currency": "EGP",
+                "integration_id": CARD_INTEGRATION_ID
+            })
+        });
+        let keyData = await keyReq.json();
+        let paymentToken = keyData.token;
+
+        // --- الخطوة 4: فتح صفحة الدفع (Iframe) ---
+        if(paymentToken) {
+            // توجيه العميل لصفحة الدفع فوراً
+            window.location.href = `https://accept.paymob.com/api/acceptance/iframes/${IFRAME_ID}?payment_token=${paymentToken}`;
+        } else {
+            alert("حدث خطأ في الاتصال بالبنك. تأكد من البيانات.");
+            btn.innerText = originalText;
+            btn.disabled = false;
+            btn.style.background = "#27ae60"; // رجع اللون الأخضر
+        }
+
+    } catch (err) {
+        console.error(err);
+        alert("فشل الاتصال! تأكد من الإنترنت وحاول مرة أخرى.");
+        btn.innerText = "تأكيد الطلب";
+        btn.disabled = false;
+        btn.style.background = "#27ae60";
+    }
+};
 }
 
 // --- NEWSLETTER (STICKER EFFECT) ---
