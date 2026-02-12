@@ -7,280 +7,188 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* =========================================
-   1. CORE & RESET
-   ========================================= */
-:root { --p: #111; --s: #fff; --acc: #cba374; --border: #e5e5e5; --ease: cubic-bezier(0.25, 1, 0.5, 1); }
+/* 1. SETUP */
+:root { --p: #111; --s: #fff; --acc: #cba374; --ease: cubic-bezier(0.25, 1, 0.5, 1); }
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-body { background: var(--s); color: var(--p); overflow-x: hidden; padding-top: 32px; }
+body { background: var(--s); color: var(--p); padding-top: 32px; overflow-x: hidden; }
 
-/* FIX ALL CURSORS */
-a, button, .btn, .card, .size, .frame-opt, .nav-link, .logo, .cart-wrap, .wishlist-wrap, .close-icon, .payment-option, .heart-btn {
+/* 2. CURSOR & INTERACTION FIXES */
+a, button, .btn, .card, .payment-option, .size, .frame-opt, .nav-icon-wrap, .close-icon, .heart-btn {
   cursor: pointer !important; transition: all 0.3s var(--ease);
 }
 button:active, .btn:active { transform: scale(0.96); }
 
-/* ANIMATIONS */
+/* 3. ANIMATIONS */
 .page-section { display: none; padding-top: 80px; min-height: 100vh; animation: fadeUp 0.6s var(--ease) forwards; }
 #main-page { padding-top: 0; display: block; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-@keyframes heartPulse { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
-@keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+@keyframes heartBeat { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
 
-/* =========================================
-   2. HEADER & NAV
-   ========================================= */
-.announcement-bar { background: var(--p); color: var(--s); font-size: 11px; height: 32px; line-height: 32px; position: fixed; top: 0; width: 100%; z-index: 2000; overflow: hidden; white-space: nowrap; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-.announcement-content { display: inline-block; animation: marquee 25s linear infinite; padding-left: 100%; }
+/* 4. HEADER */
+.announcement-bar { background: var(--p); color: var(--s); font-size: 11px; height: 32px; line-height: 32px; position: fixed; top: 0; width: 100%; z-index: 2000; text-align: center; font-weight: 700; letter-spacing: 1px; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; position: fixed; width: 100%; top: 32px; background: rgba(255,255,255,0.95); z-index: 1000; border-bottom: 1px solid #eee; }
+.logo { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; }
+.nav-links a { margin: 0 15px; font-weight: 600; font-size: 12px; text-transform: uppercase; color: var(--p); }
+.nav-icons { display: flex; gap: 20px; align-items: center; }
+.nav-icon-wrap { position: relative; }
+.badge { position: absolute; top: -5px; right: -8px; background: var(--p); color: var(--s); font-size: 9px; width: 16px; height: 16px; border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; }
+.badge.visible { opacity: 1; }
+svg { width: 24px; height: 24px; fill: none; stroke: var(--p); stroke-width: 2; }
 
-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; position: fixed; width: 100%; top: 32px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
-.logo { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; letter-spacing: 1px; }
-.nav-links { display: flex; gap: 25px; }
-.nav-links a { font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; position: relative; padding: 5px 0; }
-.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 2px; background: var(--p); transition: 0.3s; }
-.nav-links a:hover::after { width: 100%; }
-
-/* ICONS (CART & WISHLIST) */
-.nav-icons { display: flex; align-items: center; gap: 20px; }
-.icon-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
-.icon-wrap svg { width: 24px; height: 24px; fill: none; stroke: var(--p); stroke-width: 2; }
-.badge { position: absolute; top: -6px; right: -8px; background: var(--p); color: var(--s); font-size: 10px; font-weight: bold; height: 16px; width: 16px; display: flex; justify-content: center; align-items: center; border-radius: 50%; opacity: 0; transform: scale(0); transition: 0.3s; }
-.badge.visible { opacity: 1; transform: scale(1); }
-
-/* =========================================
-   3. DRAWERS (CART & WISHLIST)
-   ========================================= */
-.overlay-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; display: none; backdrop-filter: blur(5px); opacity: 0; transition: 0.3s; }
-.overlay-bg.active { display: block; opacity: 1; }
-
-.drawer { position: fixed; top: 0; right: -450px; width: 450px; height: 100%; background: #fff; z-index: 3001; transition: 0.5s var(--ease); display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.1); }
+/* 5. DRAWERS (CART & WISHLIST) */
+.overlay-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; display: none; backdrop-filter: blur(4px); }
+.overlay-bg.active { display: block; }
+.drawer { position: fixed; top: 0; right: -450px; width: 450px; height: 100%; background: #fff; z-index: 3001; transition: 0.5s var(--ease); display: flex; flex-direction: column; box-shadow: -5px 0 30px rgba(0,0,0,0.1); }
 .drawer.open { right: 0; }
-.drawer-header { padding: 25px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-.drawer-header h3 { font-family: 'Cinzel'; font-size: 20px; }
-.drawer-items { flex: 1; overflow-y: auto; padding: 25px; }
-.drawer-footer { padding: 25px; background: #f9f9f9; border-top: 1px solid var(--border); }
-
-/* Cart/Wishlist Item Style */
-.d-item { display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; animation: fadeUp 0.4s; }
+.drawer-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+.drawer-body { flex: 1; overflow-y: auto; padding: 20px; }
+.drawer-footer { padding: 20px; border-top: 1px solid #eee; background: #f9f9f9; }
+.d-item { display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0; }
 .d-item img { width: 70px; height: 90px; object-fit: cover; border-radius: 4px; }
-.d-info { flex: 1; }
-.d-title { font-weight: 600; font-size: 13px; margin-bottom: 5px; }
-.d-price { font-weight: 700; font-size: 14px; }
-.d-remove { color: #c00; font-size: 11px; text-decoration: underline; margin-top: 5px; display: inline-block; }
+.d-title { font-weight: 600; font-size: 13px; }
+.d-price { font-weight: 700; font-size: 14px; margin-top: 5px; }
+.d-remove { color: #c00; font-size: 11px; text-decoration: underline; margin-top: 5px; }
 
-/* =========================================
-   4. MAIN PAGES
-   ========================================= */
-.hero { min-height: 100vh; background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("hero.jpg") center/cover; display: flex; align-items: center; justify-content: center; text-align: center; }
-.hero-content { color: #fff; max-width: 800px; padding: 20px; animation: fadeUp 1s ease forwards; }
-.hero h1 { font-family: 'Cinzel', serif; font-size: 56px; margin-bottom: 20px; text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-.btn { padding: 16px 45px; background: #fff; color: #111; font-weight: 700; text-transform: uppercase; border: 1px solid #fff; letter-spacing: 1px; }
-.btn:hover { background: transparent; color: #fff; transform: translateY(-3px); }
-
-/* Product Grid */
-.grid { padding: 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; }
+/* 6. HERO & GRID */
+.hero { min-height: 100vh; background: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url("hero.jpg") center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; }
+.hero h1 { font-family: 'Cinzel'; font-size: 56px; margin-bottom: 20px; }
+.btn { padding: 15px 40px; background: #fff; color: #111; font-weight: 700; border: none; text-transform: uppercase; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; padding: 60px; }
 .card { position: relative; }
 .card-img-wrap { position: relative; aspect-ratio: 3/4; overflow: hidden; background: #f5f5f5; margin-bottom: 15px; }
-.card img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+.card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
 .card:hover img { transform: scale(1.05); }
-.card-badge { position: absolute; top: 12px; left: 12px; background: #000; color: #fff; padding: 5px 10px; font-size: 10px; font-weight: 700; z-index: 2; }
-
-/* Heart Button on Card */
-.heart-btn { position: absolute; top: 10px; right: 10px; width: 35px; height: 35px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 5; opacity: 0; transition: 0.3s; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.heart-btn { position: absolute; top: 10px; right: 10px; width: 35px; height: 35px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 5; opacity: 0; }
 .card:hover .heart-btn { opacity: 1; }
-.heart-btn svg { width: 18px; height: 18px; stroke: #111; fill: none; transition: 0.3s; }
-.heart-btn.active svg { fill: #e31b23; stroke: #e31b23; animation: heartPulse 0.4s; }
+.heart-btn.active svg { fill: #e31b23; stroke: #e31b23; animation: heartBeat 0.4s; }
 
-/* =========================================
-   5. PRODUCT DETAIL PAGE
-   ========================================= */
-.product-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 80px; display: flex; gap: 60px; }
-.product-image { flex: 1.2; } .product-image img { width: 100%; }
-.product-info { flex: 1; padding-top: 10px; }
-.sizes, .frames { display: flex; gap: 10px; margin: 20px 0; }
-.size, .frame-opt { padding: 12px 20px; border: 1px solid #ddd; font-size: 13px; text-transform: uppercase; transition: 0.2s; }
-.size:hover, .frame-opt:hover { border-color: #000; }
-.size.active, .frame-opt.active { background: #000; color: #fff; border-color: #000; }
-.add-btn { width: 100%; padding: 18px; background: #000; color: #fff; border: none; text-transform: uppercase; font-weight: 700; margin-top: 20px; }
+/* 7. PRODUCT PAGE */
+.product-wrap { max-width: 1100px; margin: 0 auto; padding: 40px; display: flex; gap: 60px; }
+.product-image { flex: 1; } .product-image img { width: 100%; }
+.product-info { flex: 1; }
+.sizes { display: flex; gap: 10px; margin: 20px 0; }
+.size { padding: 12px 20px; border: 1px solid #ddd; font-size: 13px; font-weight: 600; }
+.size.active { background: #000; color: #fff; border-color: #000; }
+.add-btn { width: 100%; padding: 18px; background: #000; color: #fff; font-weight: 700; border: none; text-transform: uppercase; margin-top: 20px; }
 
-/* =========================================
-   6. CHECKOUT PAGE (DEJAVU STYLE)
-   ========================================= */
-.checkout-container { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 0.8fr; min-height: 100vh; border-top: 1px solid var(--border); }
-.checkout-left { padding: 50px 80px; border-right: 1px solid var(--border); }
-.checkout-right { background: #fafafa; padding: 50px; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
-
+/* 8. CHECKOUT (DEJAVU STYLE) */
+.checkout-container { display: grid; grid-template-columns: 1.2fr 0.8fr; min-height: 100vh; border-top: 1px solid #eee; }
+.checkout-left { padding: 50px 80px; border-right: 1px solid #eee; }
+.checkout-right { padding: 50px; background: #fafafa; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
 .checkout-left h2 { font-family: 'Cinzel'; margin-bottom: 30px; font-size: 24px; }
-.form-section { margin-bottom: 30px; }
-.form-title { font-size: 16px; font-weight: 600; margin-bottom: 15px; display: block; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-.input-group label { display: block; font-size: 11px; font-weight: 700; color: #666; margin-bottom: 5px; text-transform: uppercase; }
-.input-group input { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 5px; font-size: 14px; transition: 0.3s; }
-.input-group input:focus { border-color: var(--p); outline: none; }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 5px; color: #666; text-transform: uppercase; }
+.form-group input { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 5px; }
+.payment-box { border: 1px solid #ddd; border-radius: 5px; margin-top: 20px; overflow: hidden; }
+.payment-option { padding: 18px; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 15px; }
+.payment-option.active { background: #fdfdfd; border-left: 4px solid #000; }
+.payment-option input { transform: scale(1.3); accent-color: #000; }
+.pay-btn-final { width: 100%; padding: 20px; background: #000; color: #fff; font-weight: 700; border: none; border-radius: 5px; margin-top: 25px; text-transform: uppercase; }
 
-.payment-methods { border: 1px solid var(--border); border-radius: 5px; overflow: hidden; margin-top: 15px; }
-.payment-option { display: flex; align-items: center; padding: 20px; border-bottom: 1px solid var(--border); background: #fff; transition: 0.2s; }
-.payment-option:last-child { border-bottom: none; }
-.payment-option.active { background: #fdfdfd; border-left: 4px solid var(--p); }
-.payment-option input { margin-right: 15px; transform: scale(1.3); accent-color: var(--p); }
-
-.summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: #555; }
-.summary-total { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 18px; font-weight: 700; color: #000; }
-
-.pay-btn-final { width: 100%; padding: 20px; background: #000; color: #fff; font-weight: 700; text-transform: uppercase; border: none; border-radius: 5px; margin-top: 25px; letter-spacing: 1px; }
-.pay-btn-final:hover { background: #333; }
-
-/* MODAL */
-.promo-modal { background: #fff; padding: 50px; text-align: center; max-width: 450px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3002; border-radius: 8px; display: none; animation: popIn 0.5s; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-.promo-modal.active { display: block; }
-
-@media(max-width:900px){ 
-  .checkout-container { grid-template-columns: 1fr; } 
-  .checkout-right { height: auto; order: -1; position: static; border-bottom: 1px solid var(--border); padding: 30px; }
-  .checkout-left { padding: 30px; }
-  nav { padding: 15px 20px; } .nav-links { display: none; } .drawer { width: 100%; } 
-  .product-wrap { flex-direction: column; }
-}
+@media(max-width:900px){ .checkout-container{grid-template-columns:1fr;} .checkout-right{order:-1; height:auto; position:static; border-bottom:1px solid #eee;} .product-wrap{flex-direction:column;} .drawer{width:100%;} nav{padding:15px 20px;} .nav-links{display:none;} }
 </style>
 </head>
 <body>
 
-<div class="announcement-bar"><div class="announcement-content">✨ FREE SHIPPING ON ORDERS OVER 1500 EGP • USE CODE: FRIST10</div></div>
+<div class="overlay-bg" id="overlay" onclick="closeAllDrawers()"></div>
 
-<div class="overlay-bg" id="modalOverlay"></div>
-<div class="promo-modal" id="welcomeModal">
-  <button style="position:absolute; top:15px; right:15px; border:none; background:none; font-size:20px;" onclick="closeModal()">✕</button>
-  <h2 style="font-family:'Cinzel'; margin-bottom:15px;">Welcome Gift</h2>
-  <p style="color:#666; margin-bottom:20px;">Join us and get 10% off your first purchase.</p>
-  <div style="background:#f5f5f5; padding:15px; border:1px dashed #000; font-weight:bold; margin-bottom:20px; font-size:18px;">Frist10</div>
-  <button class="btn" style="background:#000; color:#fff; width:100%;" onclick="closeModal()">Shop Now</button>
+<div class="drawer" id="cartDrawer">
+  <div class="drawer-header"><h3>Shopping Cart</h3><button class="close-icon" onclick="closeAllDrawers()">✕</button></div>
+  <div class="drawer-body" id="cartBody"><p style="text-align:center;color:#999;margin-top:50px;">Empty</p></div>
+  <div class="drawer-footer">
+    <div style="display:flex;justify-content:space-between;font-weight:bold;margin-bottom:15px;"><span>Total</span><span id="cartTotal">0 EGP</span></div>
+    <button class="btn" style="width:100%;background:#000;color:#fff;" onclick="goToCheckout()">CHECKOUT</button>
+  </div>
 </div>
 
+<div class="drawer" id="wishDrawer">
+  <div class="drawer-header"><h3>Your Wishlist</h3><button class="close-icon" onclick="closeAllDrawers()">✕</button></div>
+  <div class="drawer-body" id="wishBody"><p style="text-align:center;color:#999;margin-top:50px;">No items yet.</p></div>
+</div>
+
+<div class="announcement-bar"><div class="announcement-content">✨ FREE SHIPPING ON ORDERS OVER 1500 EGP</div></div>
 <nav>
-  <div class="logo" onclick="goHome()">Le Tableau</div>
+  <div class="logo" onclick="showPage('main-page')">Le Tableau</div>
   <div class="nav-links">
-    <a onclick="openCollection('Shop All')">Shop All</a>
-    <a onclick="openCollection('Modern')">Modern</a>
-    <a onclick="openCollection('Islamic')">Islamic</a>
+    <a onclick="loadCollection('Shop All')">Shop</a>
+    <a onclick="loadCollection('Modern')">Modern</a>
+    <a onclick="loadCollection('Islamic')">Islamic</a>
   </div>
   <div class="nav-icons">
-    <div class="icon-wrap wishlist-wrap" onclick="toggleWishlistDrawer()">
-       <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-       <span class="badge" id="wishlistBadge">0</span>
+    <div class="nav-icon-wrap" onclick="openDrawer('wishDrawer')">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      <span class="badge" id="wishBadge">0</span>
     </div>
-    <div class="icon-wrap cart-wrap" onclick="toggleCartDrawer()">
-       <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-       <span class="badge" id="cartBadge">0</span>
+    <div class="nav-icon-wrap" onclick="openDrawer('cartDrawer')">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <span class="badge" id="cartBadge">0</span>
     </div>
   </div>
 </nav>
 
-<div class="overlay-bg" id="drawerOverlay" onclick="closeDrawers()"></div>
-
-<div class="drawer" id="cartDrawer">
-  <div class="drawer-header"><h3>Shopping Cart</h3><button class="close-icon" onclick="closeDrawers()">✕</button></div>
-  <div class="drawer-items" id="cartItemsContainer"><p style="text-align:center; color:#999; margin-top:50px;">Empty</p></div>
-  <div class="drawer-footer">
-    <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:15px; font-size:18px;"><span>Total</span><span id="cartTotal">0 EGP</span></div>
-    <button class="btn" style="width:100%; background:#000; color:#fff;" onclick="openCheckout()">PROCEED TO CHECKOUT</button>
-  </div>
-</div>
-
-<div class="drawer" id="wishlistDrawer">
-  <div class="drawer-header"><h3>Your Wishlist</h3><button class="close-icon" onclick="closeDrawers()">✕</button></div>
-  <div class="drawer-items" id="wishlistItemsContainer"><p style="text-align:center; color:#999; margin-top:50px;">No items loved yet.</p></div>
-</div>
-
 <div id="main-page" class="page-section" style="display:block;">
-  <div class="hero"><div class="hero-content"><h1>Art That Speaks</h1><p style="margin-bottom:20px;">Curated premium wall art.</p><button class="btn" onclick="openCollection('Shop All')">Explore Now</button></div></div>
-  <div class="grid" id="homeGrid"></div>
+  <div class="hero"><div class="hero-content"><h1>Art That Speaks</h1><button class="btn" onclick="loadCollection('Shop All')">Shop Now</button></div></div>
+  <div class="grid" id="mainGrid"></div>
 </div>
 
 <div id="collection-page" class="page-section">
-  <div style="text-align:center; padding:40px;"><h1 id="collectionTitle">Shop All</h1></div>
-  <div class="grid" id="productGrid"></div>
+  <h1 id="collTitle" style="text-align:center; margin-bottom:40px; font-family:'Cinzel';">Collection</h1>
+  <div class="grid" id="collGrid"></div>
 </div>
 
 <div id="product-page" class="page-section">
   <div class="product-wrap">
-    <div class="product-image"><img id="pInfoImg" src=""></div>
+    <div class="product-image"><img id="pImg" src=""></div>
     <div class="product-info">
-      <button onclick="openCollection('Shop All')" style="background:none; border:none; text-decoration:underline; margin-bottom:20px;">← Back</button>
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-          <h2 id="pInfoTitle">Title</h2>
-          <div id="pInfoHeart" class="heart-btn" style="position:static; opacity:1; border:1px solid #eee; width:40px; height:40px;" onclick="toggleWishCurrent()">
-             <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-          </div>
-      </div>
-      <h3 id="pInfoPrice" style="margin:10px 0;">450 EGP</h3>
+      <h2 id="pTitle" style="font-family:'Cinzel'; margin-bottom:10px;">Title</h2>
+      <h3 id="pPrice" style="color:#555;">450 EGP</h3>
+      <p style="margin:20px 0; color:#666; line-height:1.6;">Premium quality museum-grade paper with archival inks.</p>
       
-      <p style="font-weight:bold; margin-top:20px; font-size:12px; text-transform:uppercase;">Select Size</p>
+      <p style="font-weight:bold; font-size:12px; margin-bottom:10px;">SIZE</p>
       <div class="sizes">
-        <div class="size active" onclick="selectSize(this)">30x40 CM</div>
-        <div class="size" onclick="selectSize(this)">40x60 CM</div>
+        <div class="size active" onclick="setSize(this)">30x40 CM</div>
+        <div class="size" onclick="setSize(this)">40x60 CM</div>
       </div>
 
-      <button class="add-btn" onclick="addToCartCurrent()">ADD TO CART</button>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="add-btn" onclick="addCurrentToCart()">ADD TO CART</button>
+        <div class="nav-icon-wrap" style="border:1px solid #ddd; padding:10px; margin-top:20px; border-radius:4px;" onclick="toggleWishCurrent()">
+            <svg id="pHeart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <div id="checkout-page" class="page-section" style="padding-top:0;">
-    <div class="checkout-container">
-        <div class="checkout-left">
-            <h2>Checkout</h2>
-            
-            <div class="form-section">
-                <span class="form-title">Contact</span>
-                <div class="input-group"><label>Email</label><input type="email" id="cEmail" placeholder="your@email.com"></div>
-            </div>
-
-            <div class="form-section">
-                <span class="form-title">Shipping Address</span>
-                <div class="form-row">
-                    <div class="input-group"><label>First Name</label><input type="text" id="cFname"></div>
-                    <div class="input-group"><label>Last Name</label><input type="text" id="cLname"></div>
-                </div>
-                <div class="input-group" style="margin-bottom:15px;"><label>Address</label><input type="text" id="cAddr" placeholder="Street, Building"></div>
-                <div class="form-row">
-                    <div class="input-group"><label>City</label><input type="text" id="cCity"></div>
-                    <div class="input-group"><label>Phone</label><input type="tel" id="cPhone"></div>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <span class="form-title">Payment Method</span>
-                <div class="payment-methods">
-                    <div class="payment-option active" onclick="setPay('CARD', this)">
-                        <input type="radio" name="pay" checked>
-                        <div style="margin-left:10px;">
-                            <div style="font-weight:700; font-size:14px;">Credit / Debit Card</div>
-                            <div style="font-size:12px; color:#666;">Secure payment via Paymob</div>
-                        </div>
-                    </div>
-                    <div class="payment-option" onclick="setPay('COD', this)">
-                        <input type="radio" name="pay">
-                        <div style="margin-left:10px;">
-                            <div style="font-weight:700; font-size:14px;">Cash on Delivery</div>
-                            <div style="font-size:12px; color:#666;">Pay when you receive</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="pay-btn-final" id="payBtn" onclick="submitOrder()">PAY NOW</button>
+  <div class="checkout-container">
+    <div class="checkout-left">
+      <h2>Checkout</h2>
+      <div class="form-group"><label>Email</label><input type="email" id="cEmail"></div>
+      <div class="form-group"><label>Full Name</label><input type="text" id="cName"></div>
+      <div class="form-group"><label>Address</label><input type="text" id="cAddr"></div>
+      <div class="form-group"><label>Phone</label><input type="tel" id="cPhone"></div>
+      
+      <div style="margin-top:30px; font-weight:bold;">Payment Method</div>
+      <div class="payment-box">
+        <div class="payment-option active" onclick="setPay('CARD', this)">
+          <input type="radio" name="pay" checked> <span>Credit / Debit Card (Paymob)</span>
         </div>
-
-        <div class="checkout-right">
-            <div id="checkoutItems"></div>
-            <div style="border-top:1px solid #ddd; margin-top:20px; padding-top:20px;">
-                <div class="summary-row"><span>Subtotal</span><span id="chkSubtotal">0 EGP</span></div>
-                <div class="summary-row"><span>Shipping</span><span>Free</span></div>
-                <div class="summary-total"><span>Total</span><span id="chkTotal">0 EGP</span></div>
-            </div>
+        <div class="payment-option" onclick="setPay('COD', this)">
+          <input type="radio" name="pay"> <span>Cash on Delivery</span>
         </div>
+      </div>
+      <button class="pay-btn-final" id="payBtn" onclick="processPayment()">PAY NOW</button>
     </div>
+    
+    <div class="checkout-right">
+      <div id="checkoutItems"></div>
+      <div style="border-top:1px solid #ddd; padding-top:20px; margin-top:20px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Subtotal</span><span id="chkSub">0 EGP</span></div>
+        <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:18px;"><span>Total</span><span id="chkTotal">0 EGP</span></div>
+      </div>
+    </div>
+  </div>
 </div>
 <script>
 // ============================================
@@ -552,12 +460,12 @@ function openCheckout() {
     showSection('checkout-page');
 }
 
-function setPay(type, el) {
-    payMode = type;
+function setPay(mode, el) {
+    payMode = mode;
     document.querySelectorAll('.payment-option').forEach(x => x.classList.remove('active'));
     el.classList.add('active');
     el.querySelector('input').checked = true;
-    document.getElementById('payBtn').innerText = (type === 'COD') ? "COMPLETE ORDER" : "PAY NOW";
+    document.getElementById('payBtn').innerText = (mode === 'COD') ? "COMPLETE ORDER" : "PAY NOW";
 }
 
 async function submitOrder() {
